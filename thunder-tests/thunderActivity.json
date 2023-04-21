@@ -37,17 +37,29 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3001/api/podcast/get-allpodcasts",
-    "url": "http://localhost:3001/api/podcast/update-podcast/6442d769ea726932df4ce68b",
+    "url": "http://localhost:3001/api/upload/upload-image",
     "method": "PUT",
     "sortNum": 0,
     "created": "2023-04-21T18:20:49.283Z",
-    "modified": "2023-04-21T18:43:48.059Z",
+    "modified": "2023-04-21T20:50:56.406Z",
     "headers": [],
     "params": [],
     "body": {
-      "type": "json",
-      "raw": "{\n  \"title\": \"Demo 2\"\n}",
-      "form": []
+      "type": "formdata",
+      "raw": "",
+      "form": [
+        {
+          "name": "image",
+          "value": "",
+          "isDisabled": true
+        }
+      ],
+      "files": [
+        {
+          "name": "file",
+          "value": "../../../../Pictures/Screenshots/Screenshot from 2023-04-22 01-36-52.png"
+        }
+      ]
     },
     "tests": []
   },
