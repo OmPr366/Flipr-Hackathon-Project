@@ -1,32 +1,45 @@
-const jwt = require ("jsonwebtoken");
-const User = require("../model/schema");
-const cookieParser = require("cookie-parser");
+const googleStrategy = require('passport-google-oauth20').Strategy
+const passport = require("passport");
+const mongoose = require("mongoose");
+require("../model/user");
+const User = mongoose.model('User');
 
-const Authenticate = async (req, res, next) =>{
-    try{
-      const token = req.cookies.jwtoken;
-    
-      const verifyToken = jwt.verify(token, process.env.SECRET_KEY);
+require("dotenv").config();
 
-      const rootUser = await User.findOne({
-        _id: verifyToken._id,
-        "tokens.token": token,
-      });
+passport.use(new googleStrategy(
+    {
+        clientID: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        callbackURL: "/auth/google/callback",
+    },
+    function (accessToken, refreshToken, profile, cb) {
+        console.log(profile);
+        User.findOne({name: profile.displayName}, function (err, doc) {
+            if (err) {
+                return console.log(err);
+            } else if (!doc) {
+                const newModel = new User({
+                    name: profile.displayName,
+                    email: profile.emails[0].value,
+                });
 
-      if (!rootUser) {
-        throw new Error("User not found");
-      }
-
-      req.token = token;
-      req.rootUser = rootUser;
-      req.userID = rootUser._id;
-
-      next();
+                newModel.save(function (err, doc) {
+                    if (err)
+                        return console.log(err);
+                    return cb(err, doc);
+                });
+            }
+            else {
+                return cb(err, doc);
+            }
+        });
     }
-    catch(err){
-        res.status(401).send('Unauthorized: No token provided');
-        console.log(err);
-    }
-}
+));
 
-module.exports = Authenticate;
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+    done(null, user);
+});

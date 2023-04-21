@@ -5,6 +5,9 @@ const express = require("express")
 const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const session = require('express-session');
+const passport = require('passport');
+const passportSetup = require('./middleware/authenticate');
 
 
 
@@ -12,19 +15,47 @@ dotenv.config({path: './config.env'})
 
 require('./db/conn');
 
+var corsOptions = {
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+    optionsSuccessStatus: 200,
+};
 
 // linking the router file
-app.use(cors());
-app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(require("./router/auth"));
-app.use(require("./router/games"));
+app.use(cors(corsOptions));
+app.use(express.json({ limit: "50mb" }));
+app.use(
+    express.urlencoded({
+        limit: "50mb",
+        extended: true,
+        parameterLimit: 1000000,
+    })
+);
 
 
 
 const PORT = process.env.PORT || 3001;
 
+// app.set('trust proxy', 1);
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    proxy: true,
+    // expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    // cookie: {
+    //     maxAge: 30 * 24 * 60 * 60 * 1000,
+    //     keys: 'process.env.SECRET',
+    //     secure: true,
+    //     httpOnly: false,
+    //     sameSite: "none",
+    // }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
+app.use(require("./routes/auth"));
+app.use(require("./routes/podcast"));
 
 // app.get('/about', (req, res) => {
 //     res.send("hello from the server about");

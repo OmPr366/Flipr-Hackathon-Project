@@ -1,6 +1,7 @@
-import Podcast from "../model/podcast";
+// import Podcast from "../model/podcast";
+const Podcast = require("../model/podcast");
 
-export const getAllPodcasts = async (req, res) => {
+exports.getAllPodcasts = async (req, res) => {
   try {
     const podcasts = await Podcast.find({});
     res.status(200).json({ podcasts });
@@ -9,7 +10,7 @@ export const getAllPodcasts = async (req, res) => {
   }
 };
 
-export const getPodcastById = async (req, res) => {
+exports.getPodcastById = async (req, res) => {
   try {
     const podcast = await Podcast.findById(req.params.id);
     res.status(200).json({ podcast });
@@ -18,7 +19,7 @@ export const getPodcastById = async (req, res) => {
   }
 };
 
-export const createPodcast = async (req, res) => {
+exports.createPodcast = async (req, res) => {
   const podcast = req.body;
   const newPodcast = new Podcast(podcast);
   try {
@@ -29,12 +30,10 @@ export const createPodcast = async (req, res) => {
   }
 };
 
-export const updatePodcast = async (req, res) => {
+exports.updatePodcast = async (req, res) => {
   const { id: _id } = req.params;
   const podcast = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("No podcast with that id");
 
   const updatedPodcast = await Podcast.findByIdAndUpdate(
     _id,
@@ -47,23 +46,26 @@ export const updatePodcast = async (req, res) => {
   res.json(updatedPodcast);
 };
 
-export const deletePodcast = async (req, res) => {
+exports.deletePodcast = async (req, res) => {
   const { id } = req.params;
   await Podcast.findByIdAndRemove(id);
   res.json({ message: "Podcast deleted successfully." });
 };
 
 
-export const searchPodcast = async (req, res) => {
+exports.searchPodcast = async (req, res) => {
   const { searchQuery } = req.query;
+  console.log(searchQuery ,"  Is search query ");
 
   try {;
-    // If product tile will contain searchQuery then it will be returned
-    const title = new RegExp(searchQuery, "i");
 
-    const res = await Podcast.find({ title });
-    
-    res.json({ data: res });
+    // if Podcast title.includes(searchQuery) then return that podcast
+
+    const podcasts = await Podcast.find({
+      title: { $regex: `${searchQuery}`, $options: "i" },
+    });
+
+    res.json({ podcasts });
     
 
   } catch (error) {
