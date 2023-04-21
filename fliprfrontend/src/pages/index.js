@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col p-0">
+    <main className="flex min-h-screen flex-col p-0 items-center">
       <ComplexNavbar/>
     </main>
   )
