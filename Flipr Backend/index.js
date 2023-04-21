@@ -2,11 +2,15 @@ const dotenv = require("dotenv")
 const cors = require("cors");
 const mongoose = require("mongoose")
 const express = require("express")
-const app = express();
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
+const app = express();
 
+// Import all Router 
+const authRoutes =  require('./routes/auth')
+const podcastRoutes =  require('./routes/podcast')
 
 dotenv.config({path: './config.env'})
 
@@ -17,8 +21,11 @@ require('./db/conn');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(require("./router/auth"));
-app.use(require("./router/games"));
+
+
+// Api Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/podcast', podcastRoutes);
 
 
 

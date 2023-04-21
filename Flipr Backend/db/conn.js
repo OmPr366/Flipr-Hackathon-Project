@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-const DB = process.env.DATABASE || 'mongodb+srv://omprarox:flipr@flipr.28tu6ws.mongodb.net/test';
+const DB = process.env.DATABASE || 'mongodb+srv://omprarox:flipr@cluster0.4ltzdwk.mongodb.net/?retryWrites=true&w=majority';
 mongoose.set("strictQuery", false);
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
   })
   .then(() => {
-    console.log("Connection Successful");
+    console.log("Database connected Successful");
   })
   .catch((err) => {
     console.log("Rrror  in conncting to database:- ",err);
