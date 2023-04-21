@@ -8,6 +8,9 @@ import {
 } from "@material-tailwind/react";
 
 export default function Document() {
+    const signIn = () => {
+        window.open('http://localhost:3001/auth/google/callback', "_self");
+    }
     return (
         <main className="flex min-h-screen flex-col p-0 items-center">
             <ComplexNavbar />
@@ -28,7 +31,7 @@ export default function Document() {
                         Register
                     </Button>
                     <div className='text-center'>OR</div>
-                    <Button className="my-3" variant="outlined" fullWidth>
+                    <Button className="my-3" variant="outlined" fullWidth onClick={signIn}>
                         Sign-up with Google
                     </Button>
                     <Typography color="gray" className="mt-4 text-center font-normal">
