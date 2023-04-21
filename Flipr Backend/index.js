@@ -12,6 +12,7 @@ dotenv.config({path: './config.env'})
 
 require('./db/conn');
 
+
 // linking the router file
 app.use(cors());
 app.use(bodyParser.json());

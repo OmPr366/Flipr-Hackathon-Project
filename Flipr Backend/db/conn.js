@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const DB = process.env.DATABASE || 'mongodb+srv://omprarox:prakash@cluster0.wiy9wfg.mongodb.net/?retryWrites=true&w=majority';
+const DB = process.env.DATABASE || 'mongodb+srv://omprarox:flipr@flipr.28tu6ws.mongodb.net/test';
 mongoose.set("strictQuery", false);
 mongoose
   .connect(DB, {
@@ -9,5 +9,5 @@ mongoose
     console.log("Connection Successful");
   })
   .catch((err) => {
-    console.log("error  in conncting:- ",err);
+    console.log("Rrror  in conncting to database:- ",err);
   });
