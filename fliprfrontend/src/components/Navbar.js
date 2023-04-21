@@ -59,9 +59,14 @@ function LoginOptions() {
 }
 
 function ProfileMenu(props) {
+    const dispatch = useDispatch()
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const closeMenu = () => setIsMenuOpen(false);
-
+    const logoutUser = () => {
+        window.open(`http://localhost:3001/auth/logout`, "_self");
+        dispatch(setUser(null));
+        window.open(`http://localhost:3000/`, "_self");
+    }
 
     return (
         <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -72,7 +77,7 @@ function ProfileMenu(props) {
                     className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
                 >
                     <div className="p-2">
-                        {props.user}
+                        {props.user.name}
                     </div>
                     <Avatar
                         variant="circular"
@@ -94,7 +99,7 @@ function ProfileMenu(props) {
                     return (
                         <MenuItem
                             key={label}
-                            onClick={closeMenu}
+                            onClick={() => { closeMenu(); logoutUser() }}
                             className={`flex items-center gap-2 rounded ${isLastItem
                                 ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
                                 : ""
@@ -125,7 +130,7 @@ export default function ComplexNavbar() {
     const dispatch = useDispatch()
     const [isNavOpen, setIsNavOpen] = React.useState(false);
     const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
-    const [user, setUserData] = useState(useSelector((state) => state.UserSlice))
+    const user = useSelector((state) => state.UserSlice)
 
     // const userDataHandler = () => {
     //     dispatch(setUser("Hello World"));
@@ -136,7 +141,6 @@ export default function ComplexNavbar() {
             "resize",
             () => window.innerWidth >= 960 && setIsNavOpen(false)
         );
-        // userDataHandler()
     }, []);
 
 

@@ -10,4 +10,17 @@ router.get('/auth/google/callback', passport.authenticate('google',
   }
 ));
 
+router.get('/auth/user', (req, res) => {
+  // console.log(req.user);
+  // console.log(req.session);
+  res.send(req.user)
+})
+
+router.get('/auth/logout', (req, res) => {
+  req.logout(function (err) {
+    if (err)
+      return console.log(err);
+  });
+})
+
 module.exports = router;
