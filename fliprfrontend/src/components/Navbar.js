@@ -25,6 +25,8 @@ import {
   RocketLaunchIcon,
   Bars2Icon,
 } from "@heroicons/react/24/outline";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "@/utils/Redux/UserSlice";
  
 // profile menu component
 const profileMenuItems = [
@@ -45,6 +47,7 @@ const profileMenuItems = [
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const closeMenu = () => setIsMenuOpen(false);
+
  
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -104,15 +107,24 @@ function ProfileMenu() {
  
  
 export default function ComplexNavbar() {
+  const dispatch = useDispatch();
   const [isNavOpen, setIsNavOpen] = React.useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
+  const userData = useSelector((state) => state.UserSlice);
+
  
   React.useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
+    userDataHandler();
   }, []);
+
+
+  const userDataHandler =()=>{
+    dispatch(setUser("Hello World"));
+  }
  
   return (
     <Navbar className="mx-auto p-2 m-0 lg:pl-6 rounded-none">
@@ -122,7 +134,7 @@ export default function ComplexNavbar() {
           href="#"
           className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
         >
-          Podcast
+          Podcast 2 {userData}
         </Typography>
         {/* <IconButton
           size="sm"
