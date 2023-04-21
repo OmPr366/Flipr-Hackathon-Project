@@ -10,6 +10,13 @@ router.get('/auth/google/callback', passport.authenticate('google',
   }
 ));
 
+router.get('/auth/username/callback', passport.authenticate('local',
+  {
+    successRedirect: process.env.CLIENT_URL + "/",
+    failureRedirect: process.env.CLIENT_URL + "/",
+  }
+));
+
 router.get('/auth/user', (req, res) => {
   // console.log(req.user);
   // console.log(req.session);

@@ -13,8 +13,8 @@ passport.use(new googleStrategy(
         callbackURL: "/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, cb) {
-        console.log(profile);
-        User.findOne({name: profile.displayName}, function (err, doc) {
+        // console.log(profile);
+        User.findOne({ name: profile.displayName }, function (err, doc) {
             if (err) {
                 return console.log(err);
             } else if (!doc) {
@@ -35,6 +35,23 @@ passport.use(new googleStrategy(
         });
     }
 ));
+
+passport.use(new LocalStrategy(
+    (username, password, done) => {
+        User.findOne({ name: username }, (err, user) => {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                return done(null, false, { message: 'Incorrect username.' });
+            }
+            if (user.password != password) {
+                return done(null, false, { message: 'Incorrect password.' });
+            }
+            return done(null, user);
+        });
+    })
+);
 
 passport.serializeUser((user, done) => {
     done(null, user);
