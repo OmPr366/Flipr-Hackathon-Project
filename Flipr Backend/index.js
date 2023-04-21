@@ -2,14 +2,18 @@ const dotenv = require("dotenv")
 const cors = require("cors");
 const mongoose = require("mongoose")
 const express = require("express")
-const app = express();
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require('express-session');
 const passport = require('passport');
 const passportSetup = require('./middleware/authenticate');
 
+const app = express();
 
+// Import all Router 
+const authRoutes =  require('./routes/auth')
+const podcastRoutes =  require('./routes/podcast')
 
 dotenv.config({path: './config.env'})
 
