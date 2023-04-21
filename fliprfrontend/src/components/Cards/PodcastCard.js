@@ -1,14 +1,14 @@
-import { MusicalNoteIcon } from "@heroicons/react/24/outline";
+import { MusicalNoteIcon, PlayIcon, VideoCameraIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import React from "react";
 
+
 const PodcastCard = () => {
   return (
-    <div className="bg-black shadow-lg rounded-lg overflow-hidden p-4 w-40 ">
-        <div className="bg-white w-5 h-5 rounded-full absolute ml-24 mt-1  " style={{
-            zIndex:999
-        }} >
-        <MusicalNoteIcon color="red" width={22} />
+    <div className="bg-black shadow-lg rounded-lg overflow-hidden p-4 w-40 cursor-pointer podcastCard ">
+        <div className="bg-white w-6 h-6 rounded-full absolute justify-center items-center flex  mt-1 shadow-lg playIcon" >
+        {/* <MusicalNoteIcon color="black" width={20} /> */}
+        <VideoCameraIcon color="black" width={20} />
       </div>
       <div className="relative pb-32  rounded-md overflow-hidden  ">
       
@@ -20,6 +20,13 @@ const PodcastCard = () => {
           height={600}
         />
       </div>
+      {/* Play button icon */}
+      <button className=" bg-green-600 w-10 h-10 rounded-full flex justify-center items-center absolute postCastPlayBtn ">
+        <PlayIcon color="white" width={30} />
+        </button>
+        
+
+
       {/* Icon */}
       
       <div>

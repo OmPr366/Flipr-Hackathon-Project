@@ -14,6 +14,7 @@ const app = express();
 // Import all Router 
 const authRoutes =  require('./routes/auth')
 const podcastRoutes =  require('./routes/podcast')
+const fileuploadRoutes =  require('./routes/fileupload')
 
 dotenv.config({path: './config.env'})
 
@@ -35,6 +36,13 @@ app.use(
         parameterLimit: 1000000,
     })
 );
+app.use(cookieParser());
+
+
+// Api Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/podcast', podcastRoutes);
+app.use('/api/upload', fileuploadRoutes);
 
 
 

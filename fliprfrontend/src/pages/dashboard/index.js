@@ -1,35 +1,20 @@
 import PodcastCard from "@/components/Cards/PodcastCard";
-import React, { useState } from "react";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const UserDashboard = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [podcasts, setPodcasts] = useState([
-    { id: 1, name: "Podcast 1", description: "This is the first podcast" },
+const index = () => {
+  const podcasts = 
+    [{ id: 1, name: "Podcast 1", description: "This is the first podcast" },
     { id: 2, name: "Podcast 2", description: "This is the second podcast" },
     { id: 3, name: "Podcast 3", description: "This is the third podcast" },
     { id: 31, name: "Podcast 3", description: "This is the third podcast" },
     { id: 32, name: "Podcast 3", description: "This is the third podcast" },
     { id: 33, name: "Podcast 3", description: "This is the third podcast" },
-    { id: 34, name: "Podcast 3", description: "This is the third podcast" },
-  ]);
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-  });
+    { id: 34, name: "Podcast 3", description: "This is the third podcast" },]
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
+ 
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setPodcasts([...podcasts, { id: podcasts.length + 1, ...formData }]);
-    setShowModal(false);
-    setFormData({ name: "", description: "" });
-  };
+  
 
   return (
     <div
@@ -81,4 +66,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default index;
