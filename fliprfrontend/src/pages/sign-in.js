@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import axios from "axios";
+import Link from "next/link";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -100,13 +101,14 @@ export default function Document() {
             Sign-in with Google
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
-            Don't have an Account?{" "}
-            <a
-              href="/sign-up"
+            Don&lsquo;t have an Account?{" "}
+            <Link href="/sign-up">
+            <button
               className="font-medium text-blue-500 transition-colors hover:text-blue-700"
             >
               Create a new one
-            </a>
+            </button>
+            </Link>
           </Typography>
         </form>
       </Card>

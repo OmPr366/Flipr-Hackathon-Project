@@ -10,6 +10,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/utils/Redux/UserSlice";
+import Link from "next/link";
 
 export default function Document() {
   const [name, setName] = useState("");
@@ -111,12 +112,13 @@ export default function Document() {
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Already have an account?{" "}
-            <a
+            <Link href="/sign-in">
+            <button
               href="/sign-in"
               className="font-medium text-blue-500 transition-colors hover:text-blue-700"
             >
               Sign In
-            </a>
+            </button> </Link>
           </Typography>
         </form>
       </Card>

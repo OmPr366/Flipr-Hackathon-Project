@@ -8,13 +8,17 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import AllPodcastSection from "./Homepage/AllPodcastSection";
+import { useRouter } from "next/router";
 
-const Search = (props) => {
+const Search = () => {
+  const router = useRouter()
+  const { query: { title } } = router
+
   const [AllPodcasts, setAllPodcasts] = useState([]);
 
   const getPodcasts = async () => {
     const data = await axios.get(
-      `https://fipr-backend.onrender.com/search-podcast/${props.title}`
+      `https://fipr-backend.onrender.com/search-podcast/${title}`
     );
     console.log(data);
     if (data) {
@@ -25,11 +29,11 @@ const Search = (props) => {
 
   useEffect(() => {
     getPodcasts();
-  }, [props.title]);
+  }, [title]);
 
   return (
     <div>
-      <div className="text-2xl my-10">Showing Results for {props.title}</div>
+      <div className="text-2xl my-10">Showing Results for {title}</div>
       <AllPodcastSection AllPodcasts={AllPodcasts} />
     </div>
   );
