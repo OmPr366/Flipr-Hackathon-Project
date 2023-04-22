@@ -10,13 +10,13 @@ const Homepage = () => {
     const podcasts =
         [
             { id: 1, type: 'audio', name: "Podcast 1", description: "This is the first podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1aE1v-3Fsl6gx6t-7BhsPHOl5jOEq7p83' },
-            { id: 2, type: 'video', name: "Podcast 2", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1aE1v-3Fsl6gx6t-7BhsPHOl5jOEq7p83' },
-            { id: 2, type: 'video', name: "Podcast 2", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1aE1v-3Fsl6gx6t-7BhsPHOl5jOEq7p83' },
-            { id: 2, type: 'video', name: "Podcast 2", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1aE1v-3Fsl6gx6t-7BhsPHOl5jOEq7p83' },
-            { id: 2, type: 'video', name: "Podcast 2", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1aE1v-3Fsl6gx6t-7BhsPHOl5jOEq7p83' },
-            { id: 2, type: 'video', name: "Podcast 2", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1aE1v-3Fsl6gx6t-7BhsPHOl5jOEq7p83' },
-            { id: 2, type: 'video', name: "Podcast 2", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1aE1v-3Fsl6gx6t-7BhsPHOl5jOEq7p83' },
-            { id: 2, type: 'video', name: "Podcast 2", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1aE1v-3Fsl6gx6t-7BhsPHOl5jOEq7p83' },
+            { id: 2, type: 'video', name: "Podcast 2", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1xHqI8IdsIgEmQ23no6DLz1CVyAWsOe5e' },
+            { id: 2, type: 'audio', name: "Podcast 1", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1aE1v-3Fsl6gx6t-7BhsPHOl5jOEq7p83' },
+            { id: 2, type: 'video', name: "Podcast 2", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1xHqI8IdsIgEmQ23no6DLz1CVyAWsOe5e' },
+            { id: 2, type: 'audio', name: "Podcast 1", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1aE1v-3Fsl6gx6t-7BhsPHOl5jOEq7p83' },
+            { id: 2, type: 'video', name: "Podcast 2", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1xHqI8IdsIgEmQ23no6DLz1CVyAWsOe5e' },
+            { id: 2, type: 'audio', name: "Podcast 1", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1aE1v-3Fsl6gx6t-7BhsPHOl5jOEq7p83' },
+            { id: 2, type: 'video', name: "Podcast 2", description: "This is the second podcast", img: 'https://picsum.photos/id/1040/600/600', url: 'https://docs.google.com/uc?export=download&id=1xHqI8IdsIgEmQ23no6DLz1CVyAWsOe5e' },
         ]
 
     const podcast = useSelector((state) => state.PodcastSlice)
