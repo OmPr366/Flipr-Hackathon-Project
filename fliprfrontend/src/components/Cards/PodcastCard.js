@@ -14,7 +14,16 @@ const PodcastCard = ({ podcast ,isAdmin }) => {
   // console.log(props.podcast);
 
   const openPodcast = () => {
-    dispatch(setPodcast(podcast))
+    dispatch(setPodcast({
+      ...podcast,
+      currentTime: 0,
+      isplaying : true
+    }))
+    localStorage.setItem("currentpodcast", JSON.stringify({
+      ...podcast,
+      currentTime: 0,
+      isplaying : true
+    }));
   }
 
   return (

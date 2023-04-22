@@ -11,7 +11,6 @@ const Homepage = ({ AllPodcasts }) => {
   const podcast = useSelector((state) => state.PodcastSlice);
   const AllFavPodcasts = useSelector((state) => state.FavPodcastSlice);
 
-  console.log(AllFavPodcasts, "AllFavPodcasts");
 
   return (
     <div className="">

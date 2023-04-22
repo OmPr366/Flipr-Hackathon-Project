@@ -26,18 +26,16 @@ export default function PlayerBottom() {
   const FavPodcasts = useSelector((state) => state.FavPodcastSlice);
   const audio = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   useEffect(() => {
     audio.current.addEventListener("timeupdate", handleTimeUpdate);
     audio.current.addEventListener("loadedmetadata", handleLoadedMetadata);
+    console.log("useEffect ", podcast);
   }, [audio.current]);
   useEffect(() => {
     if (audio.current) {
-      audio.current.play();
-      setIsPlaying(true);
-      audio.current.currentTime = 0;
-      setCurrentTime(0);
+      if (podcast?.isplaying) audio.current.play();
+      audio.current.currentTime = podcast?.currentTime;
     }
   }, [podcast]);
   useEffect(() => {
@@ -45,10 +43,20 @@ export default function PlayerBottom() {
       if (event.code === "Space") {
         event.preventDefault();
         if (audio.current.paused) {
-          setIsPlaying(true);
+            dispatch(
+                setPodcast({
+                    ...podcast,
+                    isplaying: true,
+                })
+            );
           audio.current.play();
         } else {
-          setIsPlaying(false);
+            dispatch(
+                setPodcast({
+                    ...podcast,
+                    isplaying: false,
+                })
+            );
           audio.current.pause();
         }
       }
@@ -61,30 +69,71 @@ export default function PlayerBottom() {
     };
   }, []);
   function handleTimeUpdate() {
-    if (audio.current) setCurrentTime(audio.current.currentTime);
+    if (audio.current) {
+      dispatch(
+        setPodcast({ ...podcast, currentTime: audio.current.currentTime })
+      );
+      localStorage.setItem(
+        "currentpodcast",
+        JSON.stringify({ ...podcast, currentTime: audio.current.currentTime })
+      );
+    }
   }
   function handleLoadedMetadata() {
     if (audio.current) setDuration(audio.current.duration);
   }
   function handlePlayPause() {
-    if (isPlaying) {
+    if (podcast?.isplaying) {
       audio.current.pause();
+      dispatch(
+        setPodcast({
+          ...podcast,
+          isplaying: false,
+          currentTime: audio.current.currentTime,
+        })
+      );
+      localStorage.setItem(
+        "currentpodcast",
+        JSON.stringify({
+          ...podcast,
+          isplaying: false,
+          currentTime: audio.current.currentTime,
+        })
+      );
     } else {
       audio.current.play();
+      dispatch(
+        setPodcast({
+          ...podcast,
+          isplaying: true,
+          currentTime: audio.current.currentTime,
+        })
+      );
+      localStorage.setItem(
+        "currentpodcast",
+        JSON.stringify({
+          ...podcast,
+          isplaying: true,
+          currentTime: audio.current.currentTime,
+        })
+      );
     }
-    setIsPlaying(!isPlaying);
   }
   function handleSeek(e) {
     const { value } = e.target;
     audio.current.currentTime = value;
-    setCurrentTime(value);
+    dispatch(setPodcast({ ...podcast, currentTime: value }));
+    localStorage.setItem(
+      "currentpodcast",
+      JSON.stringify({ ...podcast, currentTime: value })
+    );
   }
   function formatTime(time) {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   }
-  const progress = duration ? (currentTime / duration) * 100 : 0;
+  const progress = duration ? (podcast?.currentTime / duration) * 100 : 0;
 
   const dispatch = useDispatch();
 
@@ -99,27 +148,25 @@ export default function PlayerBottom() {
   const LikeCickHandler = async () => {
     const User = JSON.parse(localStorage.getItem("user"));
     if (!isFav) {
-        addToFavoritePodcast ({
+      addToFavoritePodcast({
         podcastId: podcast._id,
         userId: User._id,
-        }).then((res) => {
+      }).then((res) => {
         if (res.status == 200) {
-            console.log(res.data, "All podcasts");
-            dispatch(setFavPodcasts([...FavPodcasts, podcast]));
+          console.log(res.data, "All podcasts");
+          dispatch(setFavPodcasts([...FavPodcasts, podcast]));
         }
-        });
+      });
     } else {
-        dispatch(setFavPodcasts(FavPodcasts.filter((fav) => fav._id !== podcast._id)));
-        RemoveFavoritePodcast ({
-            podcastId: podcast._id,
-            userId: User._id,
-            })
+      dispatch(
+        setFavPodcasts(FavPodcasts.filter((fav) => fav._id !== podcast._id))
+      );
+      RemoveFavoritePodcast({
+        podcastId: podcast._id,
+        userId: User._id,
+      });
     }
-    };
-
-
-
-
+  };
 
   return podcast.type == "audio" ? (
     <div className="fixed bottom-0 right-0 px-10 py-4 bg-gray-900 z-40 w-full  flex justify-between text-white">
@@ -137,19 +184,19 @@ export default function PlayerBottom() {
         </div>
       </div>
       <div className="my-2 w-1/2 flex justify-center items-center">
-        <span>{formatTime(currentTime)}</span>
+        <span>{formatTime(podcast?.currentTime)}</span>
         <input
           className="w-full mx-2 bg-gray-300 rounded-full overflow-hidden"
           type="range"
           min={0}
           max={duration}
-          value={currentTime}
+          value={podcast?.currentTime}
           onChange={handleSeek}
         />
         <span>{formatTime(duration)}</span>
         <div className="flex justify-center my-2">
           <div className="cursor-pointer mx-5" onClick={handlePlayPause}>
-            {isPlaying
+            {podcast?.isplaying
               ? React.createElement(PauseCircleIcon, {
                   className: `h-8 w-8`,
                   strokeWidth: 1,
@@ -187,13 +234,13 @@ export default function PlayerBottom() {
           <video ref={audio} src={podcast.fileUrl} className="w-full" />
         </div>
         <div className="my-2 flex justify-center items-center w-full">
-          <span>{formatTime(currentTime)}</span>
+          <span>{formatTime(podcast?.currentTime)}</span>
           <input
             className="w-1/2 mx-2 bg-gray-300 rounded-full overflow-hidden"
             type="range"
             min={0}
             max={duration}
-            value={currentTime}
+            value={podcast?.currentTime}
             onChange={handleSeek}
           />
           <span>{formatTime(duration)}</span>

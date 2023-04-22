@@ -3,9 +3,17 @@ import ComplexNavbar from "./Navbar";
 import { useEffect } from "react";
 import { getUserFavoritePodcasts } from "@/actions/podcast";
 import { setFavPodcasts } from "@/utils/Redux/FavPodcastSlice";
+import { setPodcast } from "@/utils/Redux/PodcastSlice";
 
 export default function Layout({ children }) {
   const dispatch = useDispatch();
+
+
+
+  const updateCurrentPlaying = () => {
+    const currentPlaying = JSON.parse(localStorage.getItem("currentpodcast"));
+    dispatch(setPodcast(currentPlaying));
+  };
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -21,6 +29,7 @@ export default function Layout({ children }) {
     } else {
       dispatch(setFavPodcasts([]));
     }
+    updateCurrentPlaying();
   }, []);
 
   return (
