@@ -9,6 +9,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { setPodcast } from "@/utils/Redux/PodcastSlice";
 import { useRouter } from "next/navigation";
+import { incrementPodcastViews } from "@/actions/podcast";
 
 const PodcastCard = ({ podcast, isAdmin }) => {
   const dispatch = useDispatch();
@@ -31,9 +32,23 @@ const PodcastCard = ({ podcast, isAdmin }) => {
         isplaying: true,
       })
     );
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+    incrementPodcastViews({
+      podcastId: podcast?._id,
+      userId : user?._id
+    })
+    }
   };
 
   const redirectPodcast = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+    incrementPodcastViews({
+      podcastId: podcast?._id,
+      userId : user?._id
+    })
+    }
     push(`/podcast/${podcast?._id}`);
   };
 

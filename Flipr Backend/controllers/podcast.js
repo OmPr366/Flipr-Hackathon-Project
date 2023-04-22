@@ -191,3 +191,80 @@ exports.removeFavPodcast = async (req, res) => {
   }
 
 }
+
+
+// Convert first letter of string to uppercase
+exports.capitalize = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+
+// Get Podcasts by Category
+exports.getPodcastsByCategory = async (req, res) => {
+  try {
+    const { category } = req.params;
+    const capitalizedCategory = this.capitalize(category.toLowerCase());
+    const podcasts = await Podcast.find({ category: capitalizedCategory });
+    res.status(200).json({ podcasts });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+
+
+// Podcasts View Count Increment
+
+exports.incrementViewCount = async (req, res) => {
+  try {
+    // User Id and Podcast Id
+    const { userId, podcastId } = req.body;
+    // Check whether User Id is valid or not
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(404).send(`No User with id: ${userId}`);
+    }
+    // Check whether Podcast Id is valid or not
+    if (!mongoose.Types.ObjectId.isValid(podcastId)) {
+      return res.status(404).send(`No Podcast with id: ${podcastId}`);
+    }
+    // Check whether User has already viewed the podcast or not
+
+    // If userId is added in userViews array then return true else false
+    const isUserViewed = await Podcast.findOne({
+      _id: podcastId,
+      userViews: userId,
+    });
+
+    if (isUserViewed) {
+      return res.status(400).json({ message: "User already viewed the podcast" });
+    }
+
+    // If user has not viewed then add Product Id in userViews array
+    const updatedPodcast = await Podcast.findByIdAndUpdate(
+      podcastId,
+      { $push: { userViews: userId } },
+      { new: true }
+    );
+
+    res.status(200).json({ updatedPodcast });
+
+
+
+
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+// Get Podcasts by Total Views
+
+exports.getPodcastsByPopularity = async (req, res) => {
+  try {
+
+    // Return top 10  Podcasts by Total Views 
+    const podcasts = await Podcast.find().sort({ userViews: -1 }).limit(7);
+    res.status(200).json({ podcasts });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}

@@ -172,3 +172,55 @@ export const getUserFavoritePodcasts = async (id) => {
     };
   }
 }
+
+
+// Get Podcasts By Category
+export const getPodcastsByCategory = async (name) => {
+  
+    try {
+      const res = await axios.get(`${API2}/get-podcast-bycategory/name`);
+      if (res) {
+        return {
+          data: res.data,
+          status: res.status,
+          error: false,
+          message: res.status==200? "Podcast updated Successfully":"Something went wrong",
+        };
+      }
+    } catch (error) {
+      console.log(error, " error hai");
+      return {
+        data: null,
+        status: 500,
+        error: true,
+        message: error?.response?.data?.error || "Something went wrong",
+      };
+    }
+  }
+
+
+
+  // Increment Podcast Views
+export const incrementPodcastViews = async (data) => {
+    
+      try {
+        const res = await axios.put(`${API2}/podcast/add-view`,data);
+        if (res) {
+          return {
+            data: res.data,
+            status: res.status,
+            error: false,
+            message: res.status==200? "Podcast updated Successfully":"Something went wrong",
+          };
+        }
+      } catch (error) {
+        console.log(error, " error hai");
+        return {
+          data: null,
+          status: 500,
+          error: true,
+          message: error?.response?.data?.error || "Something went wrong",
+        };
+      }
+    }
+
