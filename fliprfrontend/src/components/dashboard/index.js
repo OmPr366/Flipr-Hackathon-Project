@@ -1,6 +1,9 @@
+import { getPodcastByUser } from "@/actions/podcast";
 import PodcastCard from "@/components/Cards/PodcastCard";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -14,9 +17,25 @@ const Dashboard = () => {
     { id: 33, name: "Podcast 3", description: "This is the third podcast" },
     { id: 34, name: "Podcast 3", description: "This is the third podcast" },
   ];
+  const [AllPodcasts, setAllPodcasts] = useState([]);
 
+  useEffect(() => {
+    const userLocalStorage = localStorage.getItem("user");
+    if (userLocalStorage) {
+      const user = JSON.parse(userLocalStorage);
+      getPodcastByUser(user._id).then((res) => {
+        // setAllPodcasts(res.data);
+        if (res.status === 200) {
+          setAllPodcasts(res.data.podcasts);
+        }else 
+        {
+          toast.error(res.data.message);
 
-  const AllPodcasts =  useSelector((state) => state.PodcastSlice );
+        }
+        console.log(res.data?.podcasts);
+      });
+    }
+  }, []);
 
   return (
     <div className=" bg-blue-gray-600 justify-center content-center flex pb-10 ">
