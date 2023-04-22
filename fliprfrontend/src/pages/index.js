@@ -10,7 +10,7 @@ import Layout from "@/components/Layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({ AllPodcasts }) {
+export default function Home({ AllPodcasts ,popularityPodcasts }) {
   const dispatch = useDispatch();
 
   console.log(AllPodcasts, " podcasts");
@@ -35,7 +35,7 @@ export default function Home({ AllPodcasts }) {
   return (
     <Layout>
       <div className="pb-48">
-        <Homepage AllPodcasts={AllPodcasts} />
+        <Homepage AllPodcasts={AllPodcasts} popularityPodcasts={popularityPodcasts} />
       </div>
     </Layout>
   );
@@ -46,6 +46,9 @@ export async function getServerSideProps() {
   const res = await fetch(`http://localhost:3001/api/podcast/get-allpodcasts`);
   const data = await res.json();
 
+  const res2 = await fetch(`http://localhost:3001/api/podcast/get-podcast-bypopularity`);
+  const data2 = await res2.json();
+
   // Pass data to the page via props
-  return { props: { AllPodcasts: data?.podcasts } };
+  return { props: { AllPodcasts: data?.podcasts , popularityPodcasts : data2?.podcasts } };
 }

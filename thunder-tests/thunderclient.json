@@ -4,11 +4,11 @@
     "colId": "ccf6a3a3-6b6b-4a8f-9224-21bd977f7845",
     "containerId": "",
     "name": "Get Podcast",
-    "url": "http://localhost:3001/api/podcast/get-allpodcasts",
+    "url": "http://localhost:3001/api/podcast/get-podcast-bypopularity",
     "method": "GET",
     "sortNum": 10000,
     "created": "2023-04-21T18:32:49.872Z",
-    "modified": "2023-04-21T18:32:49.872Z",
+    "modified": "2023-04-22T19:06:01.150Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -114,6 +114,44 @@
     "modified": "2023-04-22T15:06:07.292Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "d9528725-e5e0-4615-8297-445a2a415f3c",
+    "colId": "ccf6a3a3-6b6b-4a8f-9224-21bd977f7845",
+    "containerId": "",
+    "name": "Get Podcast By Category",
+    "url": "http://localhost:3001/api/podcast/get-podcast-bycategory/COMEDY",
+    "method": "GET",
+    "sortNum": 60000,
+    "created": "2023-04-22T19:02:51.252Z",
+    "modified": "2023-04-22T19:02:51.252Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"userId\": \"644301bcd95c6375f8274f73\",\n  \"podcastId\": \"6443b4330b8c4b1a427c6e88\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "163853de-30a3-45b3-b1a6-f6ca619b37f1",
+    "colId": "ccf6a3a3-6b6b-4a8f-9224-21bd977f7845",
+    "containerId": "",
+    "name": "Increment Popularity",
+    "url": "http://localhost:3001/api/podcast/add-view",
+    "method": "PUT",
+    "sortNum": 70000,
+    "created": "2023-04-22T19:05:47.785Z",
+    "modified": "2023-04-22T19:05:47.785Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"userId\": \"644301bcd95c6375f8274f73\",\n  \"podcastId\": \"6443b4330b8c4b1a427c6e88\"\n}",
+      "form": []
+    },
     "tests": []
   }
 ]

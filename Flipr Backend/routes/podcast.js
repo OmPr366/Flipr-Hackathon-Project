@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllPodcasts, createPodcast, getPodcastById, updatePodcast, deletePodcast, searchPodcast, getPodcastsByUserId, getFavPocastsbyUserID, addFavPodcast, removeFavPodcast, getPodcastsByCategory } = require("../controllers/podcast");
+const { getAllPodcasts, createPodcast, getPodcastById, updatePodcast, deletePodcast, searchPodcast, getPodcastsByUserId, getFavPocastsbyUserID, addFavPodcast, removeFavPodcast, getPodcastsByCategory, incrementViewCount, getPodcastsByPopularity } = require("../controllers/podcast");
 const router = express();
 
 router.get('/get-allpodcasts',getAllPodcasts);
@@ -22,6 +22,12 @@ router.put('/add-to-favorite-podcast', addFavPodcast);
 router.put('/remove-favorite-podcast', removeFavPodcast);
 
 router.get('/get-podcast-bycategory/:category', getPodcastsByCategory);
+
+// Podcast Views
+router.put('/add-view', incrementViewCount);
+
+// Get Podcasts by total views
+router.get('/get-podcast-bypopularity', getPodcastsByPopularity);
 
 
 
