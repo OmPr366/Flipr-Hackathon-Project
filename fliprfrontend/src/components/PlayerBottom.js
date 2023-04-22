@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import ComplexNavbar from '@/components/Navbar'
 import {
     Card,
@@ -21,35 +21,32 @@ import Image from "next/image";
 
 export default function PlayerBottom() {
     const podcast = useSelector((state) => state.PodcastSlice)
-
-    const [audio, setAudio] = useState(new Audio(podcast.fileUrl));
+    const audio = useRef(null);
     const [isPlaying, setIsPlaying] = useState(true);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
     useEffect(() => {
-        audio.addEventListener('timeupdate', handleTimeUpdate);
-        audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-        return () => {
-            audio.removeEventListener('timeupdate', handleTimeUpdate);
-            audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
-        };
-    }, [audio]);
+        audio.current.addEventListener('timeupdate', handleTimeUpdate);
+        audio.current.addEventListener('loadedmetadata', handleLoadedMetadata);
+    }, [audio.current]);
     useEffect(() => {
-        audio.play();
-        setIsPlaying(true)
-        audio.currentTime = 0;
-        setCurrentTime(0);
+        if (audio.current) {
+            audio.current.play();
+            setIsPlaying(true)
+            audio.current.currentTime = 0;
+            setCurrentTime(0);
+        }
     }, [podcast]);
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.code === 'Space') {
                 event.preventDefault();
-                if (audio.paused) {
+                if (audio.current.paused) {
                     setIsPlaying(true)
-                    audio.play();
+                    audio.current.play();
                 } else {
                     setIsPlaying(false)
-                    audio.pause();
+                    audio.current.pause();
                 }
             }
         };
@@ -61,22 +58,24 @@ export default function PlayerBottom() {
         };
     }, []);
     function handleTimeUpdate() {
-        setCurrentTime(audio.currentTime);
+        if (audio.current)
+            setCurrentTime(audio.current.currentTime);
     }
     function handleLoadedMetadata() {
-        setDuration(audio.duration);
+        if (audio.current)
+            setDuration(audio.current.duration);
     }
     function handlePlayPause() {
         if (isPlaying) {
-            audio.pause();
+            audio.current.pause();
         } else {
-            audio.play();
+            audio.current.play();
         }
         setIsPlaying(!isPlaying);
     }
     function handleSeek(e) {
         const { value } = e.target;
-        audio.currentTime = value;
+        audio.current.currentTime = value;
         setCurrentTime(value);
     }
     function formatTime(time) {
@@ -89,39 +88,75 @@ export default function PlayerBottom() {
     const dispatch = useDispatch()
 
     const closePodcast = () => {
+        audio.current.pause()
         dispatch(setPodcast(null))
     }
+
     return (
-        <div className='fixed bottom-0 px-10 py-4 bg-gray-900 z-40 w-full flex justify-between text-white'>
-            <audio ref={audio} src={podcast.fileUrl} />
-            <div className='flex justify-start mr-10 max-w-1/2'>
-                <Image src={podcast.image} width={80} height={80} alt={podcast?.title} />
-                <div className="flex flex-col justify-center ml-2">
-                    <h2 className='text-xl'>{podcast.title}</h2>
-                    <p>{podcast.description}.</p>
-                </div>
-            </div>
-            <div className="my-2 w-1/2 flex justify-center items-center">
-                <span>{formatTime(currentTime)}</span>
-                <input className="w-full mx-2 bg-gray-300 rounded-full overflow-hidden" type="range" min={0} max={duration} value={currentTime} onChange={handleSeek} />
-                <span>{formatTime(duration)}</span>
-                <div className="flex justify-center my-2">
-                    <div className="cursor-pointer mx-5" onClick={handlePlayPause}>
-                        {
-                            isPlaying ?
-                                React.createElement(PauseCircleIcon, {
-                                    className: `h-8 w-8`,
-                                    strokeWidth: 1,
-                                }) :
-                                React.createElement(PlayCircleIcon, {
-                                    className: `h-8 w-8`,
-                                    strokeWidth: 1,
-                                })
-                        }
+        podcast.type == 'audio' ?
+            <div className='fixed bottom-0 px-10 py-4 bg-gray-900 z-40 w-full flex justify-between text-white'>
+                <audio ref={audio} src={podcast.fileUrl} />
+                <div className='flex justify-start mr-10 max-w-1/2'>
+                    <Image src={podcast.image} width={80} height={80} alt={podcast?.title} />
+                    <div className="flex flex-col justify-center ml-2">
+                        <h2 className='text-xl'>{podcast.title}</h2>
+                        <p>{podcast.description}.</p>
                     </div>
-                    <HeartIcon className='h-8 w-8 cursor-pointer' strokeWidth='1' />
+                </div>
+                <div className="my-2 w-1/2 flex justify-center items-center">
+                    <span>{formatTime(currentTime)}</span>
+                    <input className="w-full mx-2 bg-gray-300 rounded-full overflow-hidden" type="range" min={0} max={duration} value={currentTime} onChange={handleSeek} />
+                    <span>{formatTime(duration)}</span>
+                    <div className="flex justify-center my-2">
+                        <div className="cursor-pointer mx-5" onClick={handlePlayPause}>
+                            {
+                                isPlaying ?
+                                    React.createElement(PauseCircleIcon, {
+                                        className: `h-8 w-8`,
+                                        strokeWidth: 1,
+                                    }) :
+                                    React.createElement(PlayCircleIcon, {
+                                        className: `h-8 w-8`,
+                                        strokeWidth: 1,
+                                    })
+                            }
+                        </div>
+                        <HeartIcon className='h-8 w-8 cursor-pointer' strokeWidth='1' />
+                    </div>
+                </div>
+            </div> :
+            <div className='fixed p-2 bg-gray-900 z-40 inset-x-0 top-12 mx-auto rounded flex flex-col justify-between' style={{ width: '800px' }}>
+                <XMarkIcon className='h-10 w-10 cursor-pointer absolute right-2 top-2 z-10' strokeWidth='1' onClick={closePodcast} />
+                <div>
+                    <div className="absolute top-3 left-5">
+                        <h2 className='text-xl'>{podcast.title}</h2>
+                        <p>{podcast.description}.</p>
+                    </div>
+                    <div className='flex justify-center'>
+                        <video ref={audio} src={podcast.fileUrl} className="w-full" />
+                    </div>
+                    <div className="my-2 flex justify-center items-center w-full">
+                        <span>{formatTime(currentTime)}</span>
+                        <input className="w-1/2 mx-2 bg-gray-300 rounded-full overflow-hidden" type="range" min={0} max={duration} value={currentTime} onChange={handleSeek} />
+                        <span>{formatTime(duration)}</span>
+                    </div>
+                    <div className="flex justify-center my-2">
+                        <div className="cursor-pointer mx-2" onClick={handlePlayPause}>
+                            {
+                                isPlaying ?
+                                    React.createElement(PauseCircleIcon, {
+                                        className: `h-10 w-10`,
+                                        strokeWidth: 1,
+                                    }) :
+                                    React.createElement(PlayCircleIcon, {
+                                        className: `h-10 w-10`,
+                                        strokeWidth: 1,
+                                    })
+                            }
+                        </div>
+                        <HeartIcon className="h-10 w-10" strokeWidth="1" />
+                    </div>
                 </div>
             </div>
-        </div>
     )
 }
