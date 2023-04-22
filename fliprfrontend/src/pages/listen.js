@@ -91,15 +91,15 @@ const listen = () => {
         podcast &&
         <Layout>
             <div>
-                <div className='flex justify-center my-2 opacity-20'>
-                    <video ref={audio} src={podcast.fileUrl} className="w-4/5" />
+                <div className={`flex justify-center my-2 ${isPlaying ? ' ' : 'opacity-20'}`}>
+                    <video ref={audio} src={podcast.fileUrl} className="w-3/4" />
                 </div>
-                <div className="my-2 flex justify-center items-center w-full absolute bottom-10">
-                    <span>{formatTime(currentTime)}</span>
-                    <input className="w-3/5 mx-2 bg-gray-300 rounded-full overflow-hidden" type="range" min={0} max={duration} value={currentTime} onChange={handleSeek} />
-                    <span>{formatTime(duration)}</span>
-                </div>
-                <div className="flex justify-center w-full absolute bottom-0">
+                <div className="relative">
+                    <div className="my-2 flex justify-center items-center bottom-10">
+                        <span>{formatTime(currentTime)}</span>
+                        <input className="w-full mx-2 bg-gray-300 rounded-full overflow-hidden" type="range" min={0} max={duration} value={currentTime} onChange={handleSeek} />
+                        <span>{formatTime(duration)}</span>
+                    </div>
                     <div className="flex justify-center my-2">
                         <div className="cursor-pointer mx-2" onClick={handlePlayPause}>
                             {
@@ -117,12 +117,13 @@ const listen = () => {
                         <HeartIcon className="h-10 w-10" strokeWidth="1" />
                     </div>
                 </div>
-                <div className="flex justify-center w-full absolute top-20">
+                <div className="flex justify-center absolute top-20">
                     {
                         !isPlaying &&
-                        <div className="flex justify-between w-4/5 p-2 px-4">
+                        <div className="flex justify-between p-2 px-4">
                             <div>
                                 <h2 className='text-2xl'>{podcast.title}</h2>
+                                <p className="mt-2 text-gray-600">{podcast.authorName}</p>
                                 <p className="mt-4">{podcast.description}.</p>
                             </div>
                         </div>
