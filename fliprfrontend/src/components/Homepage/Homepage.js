@@ -9,11 +9,13 @@ import AllPodcastSection from "./AllPodcastSection";
 
 const Homepage = ({ AllPodcasts }) => {
   const podcast = useSelector((state) => state.PodcastSlice);
-  const podcasts = useSelector((state) => state.PodcastListSlice);
+  const AllFavPodcasts = useSelector((state) => state.FavPodcastSlice);
+
 
   return (
     <div className="">
       <AllPodcastSection AllPodcasts={AllPodcasts} />
+      <AllPodcastSection AllPodcasts={AllFavPodcasts} title="Favourites" />
       
       {podcast && <PlayerBottom />}
     </div>

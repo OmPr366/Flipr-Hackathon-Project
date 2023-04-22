@@ -37,31 +37,13 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3001/api/podcast/get-allpodcasts",
-    "url": "http://localhost:3001/api/upload/upload-image",
-    "method": "PUT",
+    "url": "http://localhost:3001/api/podcast/get-fav-podcast/644301bcd95c6375f8274f73",
+    "method": "GET",
     "sortNum": 0,
     "created": "2023-04-21T18:20:49.283Z",
-    "modified": "2023-04-21T21:30:25.716Z",
+    "modified": "2023-04-22T14:09:09.138Z",
     "headers": [],
     "params": [],
-    "body": {
-      "type": "formdata",
-      "raw": "",
-      "form": [
-        {
-          "name": "image",
-          "value": "",
-          "isDisabled": true
-        }
-      ],
-      "files": [
-        {
-          "name": "file",
-          "value": "../../../../Pictures/Screenshots/Screenshot from 2023-04-22 01-36-52.png",
-          "isDisabled": true
-        }
-      ]
-    },
     "tests": []
   },
   {
@@ -69,13 +51,18 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3001/api/podcast//search-podcast/:searchQuery",
-    "url": "http://localhost:3001/api/podcast//search-podcast/:searchQuery",
-    "method": "GET",
+    "url": "http://localhost:3001/api/podcast/add-to-favorite-podcast",
+    "method": "PUT",
     "sortNum": 0,
     "created": "2023-04-21T18:37:26.229Z",
-    "modified": "2023-04-21T18:37:26.229Z",
+    "modified": "2023-04-22T15:23:39.772Z",
     "headers": [],
     "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"userId\": \"644301bcd95c6375f8274f73\",\n  \"podcastId\": \"6443b4330b8c4b1a427c6e88\"\n}",
+      "form": []
+    },
     "tests": []
   }
 ]

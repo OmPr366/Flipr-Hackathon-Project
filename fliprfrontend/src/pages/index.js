@@ -6,10 +6,11 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/utils/Redux/UserSlice";
+import Layout from "@/components/Layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({AllPodcasts}) {
+export default function Home({ AllPodcasts }) {
   const dispatch = useDispatch();
 
   console.log(AllPodcasts, " podcasts");
@@ -32,10 +33,11 @@ export default function Home({AllPodcasts}) {
   }, []);
 
   return (
-    <div className="">
-      <ComplexNavbar />
-      <Homepage AllPodcasts={AllPodcasts} />
-    </div>
+    <Layout>
+      <div>
+        <Homepage AllPodcasts={AllPodcasts} />
+      </div>
+    </Layout>
   );
 }
 
@@ -45,5 +47,5 @@ export async function getServerSideProps() {
   const data = await res.json();
 
   // Pass data to the page via props
-  return { props: { AllPodcasts: data?.podcasts  } };
+  return { props: { AllPodcasts: data?.podcasts } };
 }

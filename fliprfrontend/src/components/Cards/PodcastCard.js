@@ -16,7 +16,16 @@ const PodcastCard = ({ podcast, isAdmin }) => {
   // console.log(props.podcast);
 
   const openPodcast = () => {
-    dispatch(setPodcast(podcast))
+    dispatch(setPodcast({
+      ...podcast,
+      currentTime: 0,
+      isplaying : true
+    }))
+    localStorage.setItem("currentpodcast", JSON.stringify({
+      ...podcast,
+      currentTime: 0,
+      isplaying : true
+    }));
   }
 
   const redirectPodcast = ()=>{
@@ -61,7 +70,7 @@ const PodcastCard = ({ podcast, isAdmin }) => {
             {podcast?.title}
           </div>
           <div className=" mb-2 text-white text-xs  ">
-            {podcast?.description.length > 42
+            {podcast?.description?.length > 42
               ? podcast?.description.slice(0, 42) + "..."
               : podcast?.description}
           </div>
