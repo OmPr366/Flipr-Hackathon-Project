@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const PodcastListSlice = createSlice({
-    name: "Podcast",
+    name: "PodcastList",
     initialState: [],
     reducers: {
         setPodcastList: (state, action) => {

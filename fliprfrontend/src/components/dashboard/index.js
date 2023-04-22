@@ -1,6 +1,9 @@
+import { getPodcastByUser } from "@/actions/podcast";
 import PodcastCard from "@/components/Cards/PodcastCard";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -14,18 +17,29 @@ const Dashboard = () => {
     { id: 33, name: "Podcast 3", description: "This is the third podcast" },
     { id: 34, name: "Podcast 3", description: "This is the third podcast" },
   ];
+  const [AllPodcasts, setAllPodcasts] = useState([]);
 
+  useEffect(() => {
+    const userLocalStorage = localStorage.getItem("user");
+    if (userLocalStorage) {
+      const user = JSON.parse(userLocalStorage);
+      getPodcastByUser(user._id).then((res) => {
+        // setAllPodcasts(res.data);
+        if (res.status === 200) {
+          setAllPodcasts(res.data.podcasts);
+        }else 
+        {
+          toast.error(res.data.message);
 
-  const AllPodcasts =  useSelector((state) => state.PodcastSlice );
+        }
+        console.log(res.data?.podcasts);
+      });
+    }
+  }, []);
 
   return (
-    <div className=" bg-blue-gray-600 justify-center content-center flex pb-10 ">
-      <div
-        style={{
-          maxWidth: "1000px",
-          width: "100%",
-        }}
-      >
+    
+        <>
         {/* Title */}
         <div className="text-3xl font-bold text-white  text-center pt-5 ">
           User Dashboard
@@ -65,7 +79,7 @@ const Dashboard = () => {
           <div className="flex flex-row flex-wrap justify- mt-5  ">
             {AllPodcasts.map((podcast) => (
               <div key={podcast._id} className="mb-5 mr-5">
-                <PodcastCard podcast={podcast} />
+                <PodcastCard podcast={podcast} isAdmin={1} />
               </div>
             ))}
           </div>
@@ -79,8 +93,7 @@ const Dashboard = () => {
             </Link>
           </div>
         </div>
-      </div>
-    </div>
+        </>
   );
 };
 
