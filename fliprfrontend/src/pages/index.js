@@ -34,7 +34,7 @@ export default function Home({ AllPodcasts }) {
 
   return (
     <Layout>
-      <div>
+      <div className="pb-48">
         <Homepage AllPodcasts={AllPodcasts} />
       </div>
     </Layout>

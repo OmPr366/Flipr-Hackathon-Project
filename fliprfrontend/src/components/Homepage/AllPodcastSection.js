@@ -52,23 +52,11 @@ const AllPodcastSection = ({ AllPodcasts, title }) => {
   return (
     <>
       <div className="pb-10   " style={{ width: "100%" }}>
-        {/* <div className="flex flex-col ">
-          <div className="flex flex-row flex-wrap justify- mt-5  ">
-            {AllPodcasts.map((podcast) => (
-              <div key={podcast._id} className="mb-5 mr-5">
-                <PodcastCard podcast={podcast} />
-              </div>
-            ))}
-          </div>
-        </div> */}
         <div className="mt-5">
-          <div className="text-2xl font-bold text-white mt-5 mb-8">
-          {title}
-          </div>
+          <div className="text-2xl font-bold text-white mt-5 mb-8">{title}</div>
 
-          <Slider {...settings}    >
+          <Slider {...settings}>
             {AllPodcasts?.map((podcast) => (
-              
               <div key={podcast._id}>
                 <div className="mb-5 mr-5 flex justify-center items-center ">
                   <PodcastCard podcast={podcast} />

@@ -29,6 +29,7 @@ const podcastSchema = new mongoose.Schema({
     type: String,
   },
 
+
 },{timestamps: true });
 
 const Podcast = mongoose.model("Podcasts", podcastSchema);

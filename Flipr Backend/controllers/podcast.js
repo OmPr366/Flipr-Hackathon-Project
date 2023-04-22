@@ -191,3 +191,22 @@ exports.removeFavPodcast = async (req, res) => {
   }
 
 }
+
+
+// Convert first letter of string to uppercase
+exports.capitalize = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+
+// Get Podcasts by Category
+exports.getPodcastsByCategory = async (req, res) => {
+  try {
+    const { category } = req.params;
+    const capitalizedCategory = this.capitalize(category.toLowerCase());
+    const podcasts = await Podcast.find({ category: capitalizedCategory });
+    res.status(200).json({ podcasts });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
