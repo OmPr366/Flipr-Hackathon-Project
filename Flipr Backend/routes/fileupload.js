@@ -37,21 +37,21 @@ const upload = multer({ storage: storage });
 
 router.put('/upload-image',upload.single('file'), async (req,res)=>{
     try {
-        console.log(req);
+        // console.log(req);
         // Console form data
-        console.log(req.file);
+        console.log(req.file.path ," PAth ");
         const result = await cloudinary.uploader.upload(req.file.path);
         res.json({
           public_id: result.public_id,
           url: result.secure_url,
         });
       } catch (error) {
-        console.log(error);
+        console.log("Error is:- ", error);
         res.status(500).json({
           error: "Server Error",
         });
       }
-});
+})
 
 
 

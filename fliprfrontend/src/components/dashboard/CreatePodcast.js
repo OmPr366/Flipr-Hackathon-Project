@@ -1,5 +1,6 @@
 import { createPodcastInDatabase } from "@/actions/podcast";
 import React, { useState } from "react";
+import axios from "axios";
 
 const CreatePodcastPage = () => {
 
@@ -35,26 +36,30 @@ const CreatePodcastPage = () => {
   };
 
   const uploadImageHandler = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     console.log(e.target.files[0]);
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("file", file);
-    fetch("http://localhost:3001/api/upload/upload-image", {
-      method: "PUT",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setPodcastInputData({
-          ...podcastInputData,
-          image: data.url,
-        });
-      }).catch((err)=>{
-        console.log(err);
-      }
-      );
+    const response = axios.put("http://localhost:3001/api/upload/upload-image", formData);
+    console.log(response);
+
+
+    // fetch("http://localhost:3001/api/upload/upload-image", {
+    //   method: "PUT",
+    //   body: formData,
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     setPodcastInputData({
+    //       ...podcastInputData,
+    //       image: data.url,
+    //     });
+    //   }).catch((err)=>{
+    //     console.log(err);
+    //   }
+    //   );
 
   };
 

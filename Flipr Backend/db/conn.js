@@ -9,5 +9,5 @@ mongoose
     console.log("Database connected Successful");
   })
   .catch((err) => {
-    console.log("Rrror  in conncting to database:- ",err);
+    console.log("Error  in conncting to database:- ",err);
   });
