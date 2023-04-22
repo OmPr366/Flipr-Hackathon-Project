@@ -15,10 +15,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
-    podcasts: {
-        type: [String],
-        default: []
-    },
     favourites: {
         type: [String],
         default: []

@@ -1,49 +1,133 @@
 import { createPodcastInDatabase } from "@/actions/podcast";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 const CreatePodcastPage = () => {
+  const Router = useRouter();
+  const [podcastInputData, setPodcastInputData] = useState({
+    title: "",
+    description: "",
+    image: "",
+    category: "",
+    type: "image",
+    fileUrl: "",
+    authorName: "",
+    userId: "",
+  });
+  const [Loading, setLoading] = useState({
+    imageUploading: false,
+    fileUploading: false,
+    podcastCreating: false,
+  });
 
-    const [podcastInputData, setPodcastInputData] = useState({
-        title: "",
-        description: "",
-        image: "",
-        category: "",
-        type: "image",
-        fileUrl: "",
-        authorName: "",
-
-    });
-
-
-    const inputChangeHandler =  (e) => {
-        
-        setPodcastInputData({
-            ...podcastInputData,
-            [e.target.name]: e.target.value,
-        });
-
-    };
-
-
-
-  const createPodcastHandler = (e) => {
-    e.preventDefault();
-    console.log(podcastInputData);
-    createPodcastInDatabase(podcastInputData).then((res) => {
-      console.log(res);
+  const inputChangeHandler = (e) => {
+    setPodcastInputData({
+      ...podcastInputData,
+      [e.target.name]: e.target.value,
     });
   };
 
-  const uploadImageHandler = (e) => {
-    // e.preventDefault();
-    console.log(e.target.files[0]);
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-    const response = axios.put("http://localhost:3001/api/upload/upload-image", formData);
-    console.log(response);
+  const createPodcastHandler = (e) => {
+    e.preventDefault();
 
+    if (podcastInputData.title == "") {
+      toast.error("Please enter title");
+      return;
+    }
+    if (podcastInputData.description == "") {
+      toast.error("Please enter description");
+      return;
+    }
+    if (podcastInputData.image == "") {
+      toast.error("Please upload image");
+      return;
+    }
+    if (podcastInputData.category == "") {
+      toast.error("Please select category");
+      return;
+    }
+    if (podcastInputData.type == "file" && podcastInputData.fileUrl == "") {
+      toast.error("Please upload file");
+      return;
+    }
+    setLoading({  
+      ...Loading,
+      podcastCreating: true,
+    });
+
+
+    console.log(podcastInputData);
+    createPodcastInDatabase(podcastInputData).then((res) => {
+      if (res.error) {
+        toast.error(res.message);
+        setLoading({
+          ...Loading,
+          podcastCreating: false,
+        });
+        return;
+      }
+      if (res.status == 200) {
+        toast.success(res.message);
+        setLoading({
+          ...Loading,
+          podcastCreating: false,
+        });
+
+        setPodcastInputData({
+          ...podcastInputData,
+          title: "",
+          description: "",
+          image: "",
+          category: "",
+          type: "image",
+          fileUrl: "null",
+        });
+      }
+    });
+  };
+
+  const uploadImageHandler = async (e) => {
+    // e.preventDefault();
+    
+    setLoading({
+      ...Loading,
+      imageUploading: true,
+    });
+    try {
+      console.log(e.target.files[0]);
+      const file = e.target.files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+      const response = await axios.post(
+        "http://localhost:3001/api/upload/upload-image",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response.data);
+      if (response) {
+        setLoading({
+          ...Loading,
+          imageUploading: false,
+        });
+      }
+      setPodcastInputData({
+        ...podcastInputData,
+        image: response.data.url,
+      });
+    } catch (error) {
+      console.log("error while uploading media :- ", error);
+      toast.error("Unable to upload image");
+      setLoading({
+        ...Loading,
+        imageUploading: false,
+      });
+    }
 
     // fetch("http://localhost:3001/api/upload/upload-image", {
     //   method: "PUT",
@@ -60,9 +144,55 @@ const CreatePodcastPage = () => {
     //     console.log(err);
     //   }
     //   );
-
   };
 
+  const uploadFileHandler = async (e) => {
+    setLoading({
+      ...Loading,
+      fileUploading: true,
+    });
+    console.log(e.target.files[0]);
+    try {
+      console.log(e.target.files[0]);
+      const file = e.target.files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+      const response = await axios.post(
+        "http://localhost:3001/api/upload/upload-image",
+        formData
+      );
+      console.log(response.data);
+      setPodcastInputData({
+        ...podcastInputData,
+        fileUrl: response.data.url,
+      });
+      if (response) {
+        setLoading({
+          ...Loading,
+          fileUploading: false,
+        });
+      }
+    } catch (error) {
+      console.log("error while uploading media :- ", error);
+      setLoading({
+        ...Loading,
+        fileUploading: false,
+      });
+    }
+  };
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData) {
+      setPodcastInputData({
+        ...podcastInputData,
+        authorName: userData.name,
+        userId: userData._id,
+      });
+    } else {
+      Router.push("/login");
+    }
+  }, []);
 
   return (
     <div className="container mx-auto my-4">
@@ -113,10 +243,15 @@ const CreatePodcastPage = () => {
           >
             Image Upload
           </label>
+          {Loading?.imageUploading ? (
+            <div className=" w-10 h-10  loader mt-2 mb-2 "></div>
+          ) : null}
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="image"
-            name="image"
+            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+              Loading?.imageUploading ? "hidden" : ""
+            } `}
+            id="file"
+            name="file"
             type="file"
             placeholder="Upload podcast image"
             required
@@ -137,7 +272,6 @@ const CreatePodcastPage = () => {
             required
             value={podcastInputData.category}
             onChange={inputChangeHandler}
-
           >
             <option value="">Select category</option>
             <option value="Comedy">Comedy</option>
@@ -157,21 +291,21 @@ const CreatePodcastPage = () => {
               className="mr-2 leading-tight"
               type="radio"
               name="type"
-              value="image"
-              checked={podcastInputData.type === "image"}
-                onChange={inputChangeHandler}
-
+              value="audio"
+              checked={podcastInputData.type === "audio"}
+              onChange={inputChangeHandler}
             />
-            <span className="text-sm">Image</span>
+            <span className="text-sm">Audio</span>
           </div>
+
           <div className="flex items-center">
             <input
               className="mr-2 leading-tight"
               type="radio"
               name="type"
               value="video"
-                checked={podcastInputData.type === "video"}
-                onChange={inputChangeHandler}
+              checked={podcastInputData.type === "video"}
+              onChange={inputChangeHandler}
             />
             <span className="text-sm">Video</span>
           </div>
@@ -183,11 +317,19 @@ const CreatePodcastPage = () => {
           >
             File Upload
           </label>
+          {Loading?.fileUploading ? (
+            <div className=" w-10 h-10  loader mt-2 mb-2 "></div>
+          ) : null}
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading            -tight focus:outline-none focus:shadow-outline"
+            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+              Loading?.fileUploading ? "hidden" : ""
+            }`}
             id="file"
             name="file"
             type="file"
+            placeholder="Upload podcast file"
+            required
+            onChange={uploadFileHandler}
           />
         </div>
         <div className="flex items-center justify-between">
@@ -196,8 +338,13 @@ const CreatePodcastPage = () => {
             type="button"
             onClick={createPodcastHandler}
           >
-            Create Podcast
+            { Loading?.uploading?<div className="loader ml-5 mr-5" style={{
+              width: "30px",
+              height: "30px",
+              margin: "0 50px",
+            }}></div> :"Create Podcast"}
           </button>
+          
         </div>
       </form>
     </div>

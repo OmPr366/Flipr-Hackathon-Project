@@ -3,8 +3,8 @@ const Podcast = require("../model/podcast");
 
 exports.getAllPodcasts = async (req, res) => {
   try {
-    const podcasts = await Podcast.find({});
-    res.status(200).json({ podcasts });
+    const podcasts = await Podcast.find({}).sort({ createdAt: -1 });
+    res.status(200).json({ podcasts })
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -24,7 +24,7 @@ exports.createPodcast = async (req, res) => {
   const newPodcast = new Podcast(podcast);
   try {
     await newPodcast.save();
-    res.status(201).json(newPodcast);
+    res.status(200).json(newPodcast);
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
@@ -68,6 +68,29 @@ exports.searchPodcast = async (req, res) => {
     res.json({ podcasts });
     
 
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+
+// Get Podcasts by userID 
+
+exports.getPodcastsByUserId = async (req, res) => {
+  try {
+    const podcasts = await Podcast.find({ userId: req.params.id });
+    res.status(200).json({ podcasts });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+// Get Podcasts by Category
+
+exports.getPodcastsByCategory = async (req, res) => {
+  try {
+    const podcasts = await Podcast.find({ category: req.params.category });
+    res.status(200).json({ podcasts });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
