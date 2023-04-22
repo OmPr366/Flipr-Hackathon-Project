@@ -63,6 +63,7 @@ function ProfileMenu(props) {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const closeMenu = () => setIsMenuOpen(false);
     const logoutUser = () => {
+        localStorage.removeItem("user");
         window.open(`http://localhost:3001/auth/logout`, "_self");
         dispatch(setUser(null));
     }
