@@ -51,7 +51,7 @@ const PodcastCard = ({ podcast ,isAdmin }) => {
             {podcast?.title}
           </div>
           <div className=" mb-2 text-white text-xs  ">
-            {podcast?.description.length > 42
+            {podcast?.description?.length > 42
               ? podcast?.description.slice(0, 42) + "..."
               : podcast?.description}
           </div>

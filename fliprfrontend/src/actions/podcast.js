@@ -97,3 +97,78 @@ export const getPodcastByUser = async (id) => {
     };
   }
 }
+
+
+
+// Add to Favorite pocasts 
+export const addToFavoritePodcast = async (data) => {
+  try {
+    const res = await axios.put(`${API2}/podcast/add-to-favorite-podcast`, data);
+    if (res) {
+      return {
+        data: res.data,
+        status: res.status,
+        error: false,
+        message: res.status==200? "Podcast updated Successfully":"Something went wrong",
+      };
+    }
+  } catch (error) {
+    console.log(error, " error hai");
+    return {
+      data: null,
+      status: 500,
+      error: true,
+      message: error?.response?.data?.error || "Something went wrong",
+    };
+  }
+}
+
+
+// Remove to Favorite pocasts 
+export const RemoveFavoritePodcast = async (data) => {
+  try {
+    const res = await axios.put(`${API2}/podcast//remove-favorite-podcast`, data);
+    if (res) {
+      return {
+        data: res.data,
+        status: res.status,
+        error: false,
+        message: res.status==200? "Podcast updated Successfully":"Something went wrong",
+      };
+    }
+  } catch (error) {
+    console.log(error, " error hai");
+    return {
+      data: null,
+      status: 500,
+      error: true,
+      message: error?.response?.data?.error || "Something went wrong",
+    };
+  }
+}
+
+
+// Get USer Favorite Podcasts
+
+export const getUserFavoritePodcasts = async (id) => {
+
+  try {
+    const res = await axios.get(`${API2}/podcast/get-fav-podcasts/${id}`);
+    if (res) {
+      return {
+        data: res.data,
+        status: res.status,
+        error: false,
+        message: res.status==200? "Podcast updated Successfully":"Something went wrong",
+      };
+    }
+  } catch (error) {
+    console.log(error, " error hai");
+    return {
+      data: null,
+      status: 500,
+      error: true,
+      message: error?.response?.data?.error || "Something went wrong",
+    };
+  }
+}

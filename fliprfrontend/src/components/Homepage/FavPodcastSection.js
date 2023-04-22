@@ -2,7 +2,7 @@ import React from "react";
 import PodcastCard from "../Cards/PodcastCard";
 import Slider from "react-slick";
 
-const AllPodcastSection = ({ AllPodcasts, title }) => {
+const AllPodcastSection = ({ AllPodcasts }) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -63,12 +63,11 @@ const AllPodcastSection = ({ AllPodcasts, title }) => {
         </div> */}
         <div className="mt-5">
           <div className="text-2xl font-bold text-white mt-5 mb-8">
-          {title}
+            All Podcasts
           </div>
 
-          <Slider {...settings}    >
-            {AllPodcasts?.map((podcast) => (
-              
+          <Slider {...settings}>
+            {AllPodcasts.map((podcast) => (
               <div key={podcast._id}>
                 <div className="mb-5 mr-5 flex justify-center items-center ">
                   <PodcastCard podcast={podcast} />

@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/utils/Redux/UserSlice";
+import Layout from "@/components/Layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,12 +33,11 @@ export default function Home({ AllPodcasts }) {
   }, []);
 
   return (
-    <div className="pageContainer">
+    <Layout>
       <div>
-        <ComplexNavbar />
         <Homepage AllPodcasts={AllPodcasts} />
       </div>
-    </div>
+    </Layout>
   );
 }
 

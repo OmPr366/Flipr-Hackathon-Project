@@ -101,5 +101,19 @@
       ]
     },
     "tests": []
+  },
+  {
+    "_id": "34d5bc19-a713-47d1-b13e-c91cd92a4f85",
+    "colId": "ccf6a3a3-6b6b-4a8f-9224-21bd977f7845",
+    "containerId": "",
+    "name": "Get all Fav Podcast ",
+    "url": "http://localhost:3001/api/podcast/get-fav-podcasts/644301bcd95c6375f8274f73",
+    "method": "GET",
+    "sortNum": 50000,
+    "created": "2023-04-22T14:12:15.975Z",
+    "modified": "2023-04-22T15:06:07.292Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]
