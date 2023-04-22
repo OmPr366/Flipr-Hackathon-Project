@@ -1,10 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  HeartIcon,
-  PlayCircleIcon,
-  PauseCircleIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import AllPodcastSection from "./Homepage/AllPodcastSection";

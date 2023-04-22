@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 const CategoryCard = ({ item }) => {
   return (
     <Link href={`/podcast/category/${item?.name.toLowerCase()}`}>
-    <div className="bg-black shadow-lg rounded-lg overflow-hidden p-4 w-40   cursor-pointer border    ">
+    <div className=" shadow-lg rounded-lg overflow-hidden p-3 w-40   cursor-pointer border podcastCard    ">
       <div className="relative pb-32  rounded-md overflow-hidden  ">
         
         <Image

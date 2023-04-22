@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  HeartIcon,
   PlayCircleIcon,
   PauseCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
 
 const VideoPodcastPlayer = ({podcast}) => {

@@ -13,8 +13,10 @@
 
 }
 .podcastCard{
+    background-color: #0B2447;
+    border-color: #293f5c;
     &:hover{
-        background-color: rgb(42, 42, 42);
+        background-color: "#00193a";
         .postCastPlayBtn{
             display: flex;
         }

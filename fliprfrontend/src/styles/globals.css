@@ -15,10 +15,19 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+::-moz-selection { /* Code for Firefox */
+  color: red;
+  background: yellow;
+}
+
+::selection {
+  color: #654E92;
+  background: #EBD8B2;
+}
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: rgb(0, 4, 15);
+  background: #011a3c;
   
 }
 #__next{

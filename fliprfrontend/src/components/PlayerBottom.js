@@ -8,11 +8,14 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import {
-  HeartIcon,
   PlayCircleIcon,
   PauseCircleIcon,
   XMarkIcon,
+
 } from "@heroicons/react/24/outline";
+import {
+  HeartIcon
+} from "@heroicons/react/24/solid";
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -174,7 +177,7 @@ export default function PlayerBottom() {
   };
 
   return (
-    <div className="fixed bottom-0 right-0 px-10 py-4 bg-gray-900 z-40 w-full  flex justify-between text-white">
+    <div className="fixed bottom-0 right-0 px-10 py-4 bg-primary-800 border-primary-200 border-t-2 z-40 w-full  flex justify-between text-white">
       <audio ref={audio} src={podcast.fileUrl} />
       <div className="flex justify-start mr-10 max-w-1/2">
         <Image
@@ -216,7 +219,10 @@ export default function PlayerBottom() {
             color={isFav ? "red" : "white"}
             strokeWidth="1"
             onClick={LikeCickHandler}
+            solid
           />
+          
+          
         </div>
       </div>
     </div>

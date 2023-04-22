@@ -24,10 +24,10 @@ import {
   PowerIcon,
   RocketLaunchIcon,
   Bars2Icon,
-  HeartIcon,
   ArrowLeftOnRectangleIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/utils/Redux/UserSlice";
 import Link from "next/link";
@@ -39,12 +39,12 @@ function LoginOptions() {
   return (
     <div className="relative flex items-center">
       <Link href="/sign-up">
-        <Button className="mx-4" variant="outlined">
+        <Button className="mx-4 border-primary-100 text-primary-100 " variant="outlined">
           Sign-up
         </Button>
       </Link>
       <Link href="/sign-in">
-        <Button className="mx-0" variant="filled">
+        <Button className="mx-0 bg-primary-100 " variant="filled">
           Sign-in
         </Button>
       </Link>
@@ -180,15 +180,12 @@ export default function ComplexNavbar() {
   }, []);
 
   return (
-    <Navbar className="mx-auto p-2 m-0 lg:pl-6 rounded-none navbar">
+    <div className=" p-2  lg:pl-6 rounded-none  bg-primary-900 border-b-2 border-primary-200 pb-5 ">
       <div className="relative mx-auto flex justify-between items-end text-blue-gray-900">
-        <Typography
-          as="a"
-          href="/"
-          className="mr-4 ml-2 cursor-pointer py-1.5 font-medium text-blue-500"
-        >
-          Podcast
-        </Typography>
+        <Link href="/">
+          <p className="text-white text-xl" >Podcaster</p>
+          </Link>
+        
         {/* <IconButton
           size="sm"
           color="blue-gray"
@@ -209,12 +206,12 @@ export default function ComplexNavbar() {
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
-            className="pr-20 bg-white focus:!border-t-blue-500"
+            className="pr-20 bg-primary-500 border-2 outline-none border-primary-100 focus:!border-primary-200 text-white "
             containerProps={{
               className: "min-w-0 ",
             }}
           />
-          <Button size="sm" className="!absolute right-1 top-1 rounded">
+          <Button size="sm" className="!absolute right-1 top-1 rounded bg-primary-100 ">
             <Link href={`/search/${searchText}`}>
               <MagnifyingGlassIcon className="h-4 w-5" strokeWeight="1" />
             </Link>
@@ -227,6 +224,6 @@ export default function ComplexNavbar() {
       {/* <MobileNav open={isNavOpen} className="overflow-scroll">
         <NavList />
       </MobileNav> */}
-    </Navbar>
+    </div>
   );
 }
