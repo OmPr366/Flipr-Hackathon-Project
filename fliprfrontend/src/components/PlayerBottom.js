@@ -25,7 +25,7 @@ export default function PlayerBottom() {
   const podcast = useSelector((state) => state.PodcastSlice);
   const FavPodcasts = useSelector((state) => state.FavPodcastSlice);
   const audio = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [audioisPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState(0);
   useEffect(() => {
     audio.current.addEventListener("timeupdate", handleTimeUpdate);
@@ -34,29 +34,32 @@ export default function PlayerBottom() {
   }, [audio.current]);
   useEffect(() => {
     if (audio.current) {
-      if (podcast?.isplaying) audio.current.play();
+      audio.current.play();
       audio.current.currentTime = podcast?.currentTime;
     }
-  }, [podcast]);
+    setIsPlaying(podcast.isplaying)
+  }, []);
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.code === "Space") {
         event.preventDefault();
         if (audio.current.paused) {
-            dispatch(
-                setPodcast({
-                    ...podcast,
-                    isplaying: true,
-                })
-            );
+          setIsPlaying(true)
+          dispatch(
+            setPodcast({
+              ...podcast,
+              isplaying: true,
+            })
+          );
           audio.current.play();
         } else {
-            dispatch(
-                setPodcast({
-                    ...podcast,
-                    isplaying: false,
-                })
-            );
+          setIsPlaying(false)
+          dispatch(
+            setPodcast({
+              ...podcast,
+              isplaying: false,
+            })
+          );
           audio.current.pause();
         }
       }
@@ -83,7 +86,8 @@ export default function PlayerBottom() {
     if (audio.current) setDuration(audio.current.duration);
   }
   function handlePlayPause() {
-    if (podcast?.isplaying) {
+    if (podcast?.isplaying || audioisPlaying) {
+      setIsPlaying(false)
       audio.current.pause();
       dispatch(
         setPodcast({
@@ -101,6 +105,7 @@ export default function PlayerBottom() {
         })
       );
     } else {
+      setIsPlaying(true)
       audio.current.play();
       dispatch(
         setPodcast({
@@ -168,7 +173,7 @@ export default function PlayerBottom() {
     }
   };
 
-  return podcast.type == "audio" ? (
+  return (
     <div className="fixed bottom-0 right-0 px-10 py-4 bg-gray-900 z-40 w-full  flex justify-between text-white">
       <audio ref={audio} src={podcast.fileUrl} />
       <div className="flex justify-start mr-10 max-w-1/2">
@@ -196,15 +201,15 @@ export default function PlayerBottom() {
         <span>{formatTime(duration)}</span>
         <div className="flex justify-center my-2">
           <div className="cursor-pointer mx-5" onClick={handlePlayPause}>
-            {podcast?.isplaying
+            {podcast?.isplaying || audioisPlaying
               ? React.createElement(PauseCircleIcon, {
-                  className: `h-8 w-8`,
-                  strokeWidth: 1,
-                })
+                className: `h-8 w-8`,
+                strokeWidth: 1,
+              })
               : React.createElement(PlayCircleIcon, {
-                  className: `h-8 w-8`,
-                  strokeWidth: 1,
-                })}
+                className: `h-8 w-8`,
+                strokeWidth: 1,
+              })}
           </div>
           <HeartIcon
             className="h-8 w-8 cursor-pointer "
@@ -215,51 +220,5 @@ export default function PlayerBottom() {
         </div>
       </div>
     </div>
-  ) : (
-    <div
-      className="fixed p-2 bg-gray-900 z-40 inset-x-0 top-12 mx-auto rounded flex flex-col justify-between"
-      style={{ width: "800px" }}
-    >
-      <XMarkIcon
-        className="h-10 w-10 cursor-pointer absolute right-2 top-2 z-10"
-        strokeWidth="1"
-        onClick={closePodcast}
-      />
-      <div>
-        <div className="absolute top-3 left-5">
-          <h2 className="text-xl">{podcast.title}</h2>
-          <p>{podcast.description}.</p>
-        </div>
-        <div className="flex justify-center">
-          <video ref={audio} src={podcast.fileUrl} className="w-full" />
-        </div>
-        <div className="my-2 flex justify-center items-center w-full">
-          <span>{formatTime(podcast?.currentTime)}</span>
-          <input
-            className="w-1/2 mx-2 bg-gray-300 rounded-full overflow-hidden"
-            type="range"
-            min={0}
-            max={duration}
-            value={podcast?.currentTime}
-            onChange={handleSeek}
-          />
-          <span>{formatTime(duration)}</span>
-        </div>
-        <div className="flex justify-center my-2">
-          <div className="cursor-pointer mx-2" onClick={handlePlayPause}>
-            {isPlaying
-              ? React.createElement(PauseCircleIcon, {
-                  className: `h-10 w-10`,
-                  strokeWidth: 1,
-                })
-              : React.createElement(PlayCircleIcon, {
-                  className: `h-10 w-10`,
-                  strokeWidth: 1,
-                })}
-          </div>
-          <HeartIcon className="h-10 w-10" strokeWidth="1" />
-        </div>
-      </div>
-    </div>
-  );
+  )
 }
