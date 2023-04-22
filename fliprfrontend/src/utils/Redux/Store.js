@@ -1,11 +1,12 @@
-import {configureStore, combineReducers} from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import UserSlice from './UserSlice';
 import PodcastSlice from './PodcastSlice';
-
+import PodcastListSlice from './PodcastListSlice';
 
 const rootReducer = combineReducers({
-UserSlice,
-  PodcastSlice
+  UserSlice,
+  PodcastSlice,
+  PodcastListSlice
 });
 
 const Store = configureStore({
