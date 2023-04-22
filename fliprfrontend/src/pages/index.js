@@ -14,6 +14,7 @@ export default function Home() {
 
   const getUser = async () => {
     const { data } = await axios.get(`http://localhost:3001/auth/user`, { withCredentials: true })
+    console.log(data);
     if (data) {
       dispatch(setUser(data));
     }

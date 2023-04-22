@@ -65,7 +65,6 @@ function ProfileMenu(props) {
     const logoutUser = () => {
         window.open(`http://localhost:3001/auth/logout`, "_self");
         dispatch(setUser(null));
-        window.open(`http://localhost:3000/`, "_self");
     }
 
     return (

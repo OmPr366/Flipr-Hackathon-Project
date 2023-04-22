@@ -1,4 +1,5 @@
 const googleStrategy = require('passport-google-oauth20').Strategy
+const LocalStrategy = require('passport-local').Strategy;
 const passport = require("passport");
 const mongoose = require("mongoose");
 require("../model/user");
@@ -36,27 +37,35 @@ passport.use(new googleStrategy(
     }
 ));
 
-passport.use(new LocalStrategy(
-    (username, password, done) => {
-        User.findOne({ name: username }, (err, user) => {
+passport.use(new LocalStrategy({
+    usernameField: 'name',
+    passwordField: 'password'
+},
+    (name, password, cb) => {
+        User.findOne({ name: name }, (err, user) => {
             if (err) {
-                return done(err);
+                console.log(err);
+                return cb(err);
             }
             if (!user) {
-                return done(null, false, { message: 'Incorrect username.' });
+                console.log('incorrect username');
+                return cb(null, false, { message: 'Incorrect username.' });
             }
             if (user.password != password) {
-                return done(null, false, { message: 'Incorrect password.' });
+                console.log('incorrect pass');
+                return cb(null, false, { message: 'Incorrect password.' });
             }
-            return done(null, user);
+            return cb(null, user);
         });
     })
 );
 
 passport.serializeUser((user, done) => {
+    console.log('serializeUser', user);
     done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
+    console.log('deserializeUser', user);
     done(null, user);
 });
