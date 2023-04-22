@@ -1,4 +1,7 @@
-import { createPodcastInDatabase, updatePodcastInDatabase } from "@/actions/podcast";
+import {
+  createPodcastInDatabase,
+  updatePodcastInDatabase,
+} from "@/actions/podcast";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -21,10 +24,10 @@ const UpdatePodcast = ({ podcastData }) => {
     });
   };
 
-//   Discadr change handler
-const discardChangesHandler = () => {
+  //   Discadr change handler
+  const discardChangesHandler = () => {
     setPodcastInputData(podcastData);
-}
+  };
   const UpdatePodcastHandler = (e) => {
     e.preventDefault();
 
@@ -69,8 +72,6 @@ const discardChangesHandler = () => {
           ...Loading,
           podcastCreating: false,
         });
-
-        
       }
     });
   };
@@ -88,7 +89,7 @@ const discardChangesHandler = () => {
       const formData = new FormData();
       formData.append("file", file);
       const response = await axios.post(
-        "http://localhost:3001/api/upload/upload-image",
+        "https://fipr-backend.onrender.com/api/upload/upload-image",
         formData,
         {
           headers: {
@@ -116,7 +117,7 @@ const discardChangesHandler = () => {
       });
     }
 
-    // fetch("http://localhost:3001/api/upload/upload-image", {
+    // fetch("https://fipr-backend.onrender.com/api/upload/upload-image", {
     //   method: "PUT",
     //   body: formData,
     // })
@@ -145,7 +146,7 @@ const discardChangesHandler = () => {
       const formData = new FormData();
       formData.append("file", file);
       const response = await axios.post(
-        "http://localhost:3001/api/upload/upload-image",
+        "https://fipr-backend.onrender.com/api/upload/upload-image",
         formData
       );
       console.log(response.data);
@@ -205,8 +206,6 @@ const discardChangesHandler = () => {
             value={podcastInputData.title}
             onChange={inputChangeHandler}
           />
-
-          
         </div>
         <div className="mb-4">
           <label
@@ -250,9 +249,9 @@ const discardChangesHandler = () => {
             src={podcastInputData.image}
             width={200}
             height={200}
-            alt="Podcast Image" 
+            alt="Podcast Image"
             className="ImageBox"
-            />
+          />
         </div>
         <div className="mb-4">
           <label
@@ -346,20 +345,16 @@ const discardChangesHandler = () => {
             ) : (
               "Update Podcast"
             )}
-
-
           </button>
 
           {/* Discard Chnages button */}
-            <button
+          <button
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="button"
             onClick={discardChangesHandler}
-            >
+          >
             Discard Changes
-            </button>
-
-
+          </button>
         </div>
       </form>
     </div>

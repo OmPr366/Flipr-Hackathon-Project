@@ -26,7 +26,7 @@ import {
   Bars2Icon,
   HeartIcon,
   ArrowLeftOnRectangleIcon,
-  MagnifyingGlassIcon
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/utils/Redux/UserSlice";
@@ -34,7 +34,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Input } from "@material-tailwind/react";
 // profile menu component
-
 
 function LoginOptions() {
   return (
@@ -54,20 +53,20 @@ function LoginOptions() {
 }
 
 function ProfileMenu(props) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const closeMenu = () => setIsMenuOpen(false);
   const logoutUser = () => {
     localStorage.removeItem("user");
-    window.open(`http://localhost:3001/auth/logout`, "_self");
+    window.open(`https://fipr-backend.onrender.com/auth/logout`, "_self");
     dispatch(setUser(null));
-  }
+  };
   const gotodashboard = () => {
-    window.open('/dashboard', '_self')
-  }
+    window.open("/dashboard", "_self");
+  };
   const gototfav = () => {
-    alert('go to favourites')
-  }
+    alert("go to favourites");
+  };
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -77,9 +76,7 @@ function ProfileMenu(props) {
           color="blue-gray"
           className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
         >
-          <div className="p-2">
-            {props.user.name}
-          </div>
+          <div className="p-2">{props.user.name}</div>
           <Avatar
             variant="circular"
             size="sm"
@@ -89,15 +86,19 @@ function ProfileMenu(props) {
           />
           <ChevronDownIcon
             strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
-              }`}
+            className={`h-3 w-3 transition-transform ${
+              isMenuOpen ? "rotate-180" : ""
+            }`}
           />
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
         <MenuItem
-          key='Dashboard'
-          onClick={() => { closeMenu(); gotodashboard() }}
+          key="Dashboard"
+          onClick={() => {
+            closeMenu();
+            gotodashboard();
+          }}
           className={`flex items-center gap-2 rounded`}
         >
           {React.createElement(UserCircleIcon, {
@@ -114,8 +115,11 @@ function ProfileMenu(props) {
           </Typography>
         </MenuItem>
         <MenuItem
-          key='Favourites'
-          onClick={() => { closeMenu(); gototfav() }}
+          key="Favourites"
+          onClick={() => {
+            closeMenu();
+            gototfav();
+          }}
           className={`flex items-center gap-2 rounded`}
         >
           {React.createElement(HeartIcon, {
@@ -132,8 +136,11 @@ function ProfileMenu(props) {
           </Typography>
         </MenuItem>
         <MenuItem
-          key='Sign-Out'
-          onClick={() => { closeMenu(); logoutUser() }}
+          key="Sign-Out"
+          onClick={() => {
+            closeMenu();
+            logoutUser();
+          }}
           className={`flex items-center gap-2 rounded hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10`}
         >
           {React.createElement(ArrowLeftOnRectangleIcon, {
@@ -159,7 +166,7 @@ export default function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
   const user = useSelector((state) => state.UserSlice);
-  const [searchText, setSearchText] = useState('')
+  const [searchText, setSearchText] = useState("");
 
   // const userDataHandler = () => {
   //     dispatch(setUser("Hello World"));

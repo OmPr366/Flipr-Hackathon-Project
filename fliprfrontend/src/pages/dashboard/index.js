@@ -4,7 +4,7 @@ import React from "react";
 
 const index = () => {
   return (
-    <div className="  justify-center content-center flex pb-10 ">
+    <div className=" w-full  justify-center content-center flex pb-10 ">
       <div
         style={{
           maxWidth: "1000px",

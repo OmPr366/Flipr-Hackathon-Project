@@ -1,19 +1,21 @@
+import Layout from "@/components/Layout";
 import UpdatePodcast from "@/components/dashboard/UpdatePodcast";
 import React from "react";
 
-
 const id = ({ data }) => {
-console.log(data ," Data is ");
+  console.log(data, " Data is ");
   return (
-    <div>
-      <UpdatePodcast podcastData={data} />
-    </div>
+    <Layout>
+      <div className="w-full">
+        <UpdatePodcast podcastData={data} />
+      </div>
+    </Layout>
   );
 };
 
 export async function getStaticProps({ params }) {
   const fetchData = await fetch(
-    `http://localhost:3001/api/podcast/get-allpodcasts`
+    `https://fipr-backend.onrender.com/api/podcast/get-allpodcasts`
   );
   const parsedData = await fetchData.json();
 
@@ -36,7 +38,7 @@ export async function getStaticPaths() {
     fallback: false,
   };
   const data = await fetch(
-    `http://localhost:3001/api/podcast/get-allpodcasts`
+    `https://fipr-backend.onrender.com/api/podcast/get-allpodcasts`
   );
   const parsedData = await data.json();
 

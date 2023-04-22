@@ -52,11 +52,10 @@ const CreatePodcastPage = () => {
       toast.error("Please upload file");
       return;
     }
-    setLoading({  
+    setLoading({
       ...Loading,
       podcastCreating: true,
     });
-
 
     console.log(podcastInputData);
     createPodcastInDatabase(podcastInputData).then((res) => {
@@ -90,7 +89,7 @@ const CreatePodcastPage = () => {
 
   const uploadImageHandler = async (e) => {
     // e.preventDefault();
-    
+
     setLoading({
       ...Loading,
       imageUploading: true,
@@ -101,7 +100,7 @@ const CreatePodcastPage = () => {
       const formData = new FormData();
       formData.append("file", file);
       const response = await axios.post(
-        "http://localhost:3001/api/upload/upload-image",
+        "https://fipr-backend.onrender.com/api/upload/upload-image",
         formData,
         {
           headers: {
@@ -129,7 +128,7 @@ const CreatePodcastPage = () => {
       });
     }
 
-    // fetch("http://localhost:3001/api/upload/upload-image", {
+    // fetch("https://fipr-backend.onrender.com/api/upload/upload-image", {
     //   method: "PUT",
     //   body: formData,
     // })
@@ -158,7 +157,7 @@ const CreatePodcastPage = () => {
       const formData = new FormData();
       formData.append("file", file);
       const response = await axios.post(
-        "http://localhost:3001/api/upload/upload-image",
+        "https://fipr-backend.onrender.com/api/upload/upload-image",
         formData
       );
       console.log(response.data);
@@ -338,13 +337,19 @@ const CreatePodcastPage = () => {
             type="button"
             onClick={createPodcastHandler}
           >
-            { Loading?.uploading?<div className="loader ml-5 mr-5" style={{
-              width: "30px",
-              height: "30px",
-              margin: "0 50px",
-            }}></div> :"Create Podcast"}
+            {Loading?.uploading ? (
+              <div
+                className="loader ml-5 mr-5"
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  margin: "0 50px",
+                }}
+              ></div>
+            ) : (
+              "Create Podcast"
+            )}
           </button>
-          
         </div>
       </form>
     </div>
