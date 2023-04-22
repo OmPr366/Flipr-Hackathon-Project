@@ -54,7 +54,7 @@ exports.deletePodcast = async (req, res) => {
 };
 
 exports.searchPodcast = async (req, res) => {
-  const { searchQuery } = req.query;
+  const searchQuery  = req.params.query;
   console.log(searchQuery, "  Is search query ");
 
   try {

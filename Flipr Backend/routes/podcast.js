@@ -12,7 +12,7 @@ router.put('/update-podcast/:id', updatePodcast);
 
 router.delete('/delete-podcast/:id', deletePodcast);
 
-router.get('/search-podcast/', searchPodcast);
+router.get('/search-podcast/:query', searchPodcast);
 
 router.get('/get-podcast-byuser/:id', getPodcastsByUserId);
 

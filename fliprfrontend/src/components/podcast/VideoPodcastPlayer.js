@@ -41,26 +41,26 @@ const VideoPodcastPlayer = ({podcast}) => {
       setCurrentTime(0);
     }
   }, []);
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.code === "Space") {
-        event.preventDefault();
-        if (audio.current.paused) {
-          setIsPlaying(true);
-          audio.current.play();
-        } else {
-          setIsPlaying(false);
-          audio.current.pause();
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const handleKeyDown = (event) => {
+  //     if (event.code === "Space") {
+  //       event.preventDefault();
+  //       if (audio.current.paused) {
+  //         setIsPlaying(true);
+  //         audio.current.play();
+  //       } else {
+  //         setIsPlaying(false);
+  //         audio.current.pause();
+  //       }
+  //     }
+  //   };
 
-    window.addEventListener("keydown", handleKeyDown);
+  //   window.addEventListener("keydown", handleKeyDown);
 
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // }, []);
   function handleTimeUpdate() {
     if (audio.current) setCurrentTime(audio.current.currentTime);
   }
