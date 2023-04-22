@@ -38,13 +38,8 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className=" bg-blue-gray-600 justify-center content-center flex pb-10 ">
-      <div
-        style={{
-          maxWidth: "1000px",
-          width: "100%",
-        }}
-      >
+    
+        <>
         {/* Title */}
         <div className="text-3xl font-bold text-white  text-center pt-5 ">
           User Dashboard
@@ -84,7 +79,7 @@ const Dashboard = () => {
           <div className="flex flex-row flex-wrap justify- mt-5  ">
             {AllPodcasts.map((podcast) => (
               <div key={podcast._id} className="mb-5 mr-5">
-                <PodcastCard podcast={podcast} />
+                <PodcastCard podcast={podcast} isAdmin={1} />
               </div>
             ))}
           </div>
@@ -98,8 +93,7 @@ const Dashboard = () => {
             </Link>
           </div>
         </div>
-      </div>
-    </div>
+        </>
   );
 };
 

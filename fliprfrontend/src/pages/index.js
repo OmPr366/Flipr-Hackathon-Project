@@ -1,35 +1,49 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import ComplexNavbar from '@/components/Navbar'
-import Homepage from '@/components/Homepage/Homepage'
-import { useEffect } from 'react'
-import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import ComplexNavbar from "@/components/Navbar";
+import Homepage from "@/components/Homepage/Homepage";
+import { useEffect } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 import { setUser } from "@/utils/Redux/UserSlice";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({AllPodcasts}) {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-
+  console.log(AllPodcasts, " podcasts");
   const getUser = async () => {
-    const { data } = await axios.get(`http://localhost:3001/auth/user`, { withCredentials: true })
+    const { data } = await axios.get(`http://localhost:3001/auth/user`, {
+      withCredentials: true,
+    });
     console.log(data);
     if (data) {
-      localStorage.setItem('user', JSON.stringify(data));
+      localStorage.setItem("user", JSON.stringify(data));
       dispatch(setUser(data));
+    } else {
+      localStorage.removeItem("user");
+      dispatch(setUser(null));
     }
-  }
+  };
 
   useEffect(() => {
-    getUser()
-  }, [])
+    getUser();
+  }, []);
 
   return (
-    <main className="flex min-h-screen flex-col p-0 items-center">
+    <div className="">
       <ComplexNavbar />
-      <Homepage/>
-    </main>
-  )
+      <Homepage AllPodcasts={AllPodcasts} />
+    </div>
+  );
+}
+
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch(`http://localhost:3001/api/podcast/get-allpodcasts`);
+  const data = await res.json();
+
+  // Pass data to the page via props
+  return { props: { AllPodcasts: data?.podcasts  } };
 }

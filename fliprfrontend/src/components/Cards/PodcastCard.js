@@ -7,11 +7,19 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { setPodcast } from "@/utils/Redux/PodcastSlice";
 
-const PodcastCard = ({ podcast }) => {
+const PodcastCard = ({ podcast ,isAdmin }) => {
+  const dispatch = useDispatch()
+  // console.log(props.podcast);
+
+  const openPodcast = () => {
+    dispatch(setPodcast(podcast))
+  }
+
   return (
-    <Link href={`/dashboard/podcast/${podcast?._id}`}>
-      <div className="bg-black shadow-lg rounded-lg overflow-hidden p-4 w-40 h-60  cursor-pointer podcastCard ">
+   
+      <div className="bg-black shadow-lg rounded-lg overflow-hidden p-4 w-40 h-60  cursor-pointer border  podcastCard  ">
         <div className="bg-white w-6 h-6 rounded-full absolute justify-center items-center flex  mt-1 shadow-lg playIcon">
           {podcast?.type === "audio" ? (
             <MusicalNoteIcon color="black" width={20} />
@@ -32,10 +40,23 @@ const PodcastCard = ({ podcast }) => {
         </div>
         {/* Play button icon */}
         <button className=" bg-green-600 w-10 h-10 rounded-full flex justify-center items-center absolute postCastPlayBtn ">
-          <PlayIcon color="white" width={30} />
+          <PlayIcon color="white" width={30} onClick={openPodcast} />
         </button>
 
         {/* Icon */}
+
+        {isAdmin ? <Link href={`/dashboard/podcast/${podcast?._id}`}>
+          <div>
+          <div className="text-md font-bold mb-1 mt-2 text-white">
+            {podcast?.title}
+          </div>
+          <div className=" mb-2 text-white text-xs  ">
+            {podcast?.description.length > 42
+              ? podcast?.description.slice(0, 42) + "..."
+              : podcast?.description}
+          </div>
+          </div>
+          </Link>:
 
         <div>
           <div className="text-md font-bold mb-1 mt-2 text-white">
@@ -46,9 +67,8 @@ const PodcastCard = ({ podcast }) => {
               ? podcast?.description.slice(0, 42) + "..."
               : podcast?.description}
           </div>
-        </div>
+        </div> }
       </div>
-    </Link>
   );
 };
 

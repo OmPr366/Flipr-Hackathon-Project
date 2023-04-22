@@ -17,11 +17,12 @@ import axios from 'axios'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPodcast } from "@/utils/Redux/PodcastSlice";
+import Image from "next/image";
 
 export default function PlayerBottom() {
     const podcast = useSelector((state) => state.PodcastSlice)
 
-    const [audio, setAudio] = useState(new Audio(podcast.url));
+    const [audio, setAudio] = useState(new Audio(podcast.fileUrl));
     const [isPlaying, setIsPlaying] = useState(true);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
@@ -91,12 +92,12 @@ export default function PlayerBottom() {
         dispatch(setPodcast(null))
     }
     return (
-        <div className='fixed bottom-0 px-10 py-4 bg-gray-900 z-40 w-full flex justify-between'>
-            <audio ref={audio} src={podcast.url} />
+        <div className='fixed bottom-0 px-10 py-4 bg-gray-900 z-40 w-full flex justify-between text-white'>
+            <audio ref={audio} src={podcast.fileUrl} />
             <div className='flex justify-start mr-10 max-w-1/2'>
-                <img style={{ width: '80px', height: '80px' }} className='rounded mr-10' src={podcast.img} />
-                <div className="flex flex-col justify-center">
-                    <h2 className='text-xl'>{podcast.name}</h2>
+                <Image src={podcast.image} width={80} height={80} alt={podcast?.title} />
+                <div className="flex flex-col justify-center ml-2">
+                    <h2 className='text-xl'>{podcast.title}</h2>
                     <p>{podcast.description}.</p>
                 </div>
             </div>
