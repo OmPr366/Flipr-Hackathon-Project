@@ -9,7 +9,7 @@ import { setUser } from "@/utils/Redux/UserSlice";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({AllPodcasts}) {
+export default function Home({ AllPodcasts }) {
   const dispatch = useDispatch();
 
   console.log(AllPodcasts, " podcasts");
@@ -32,9 +32,11 @@ export default function Home({AllPodcasts}) {
   }, []);
 
   return (
-    <div className="">
-      <ComplexNavbar />
-      <Homepage AllPodcasts={AllPodcasts} />
+    <div className="pageContainer">
+      <div>
+        <ComplexNavbar />
+        <Homepage AllPodcasts={AllPodcasts} />
+      </div>
     </div>
   );
 }
@@ -45,5 +47,5 @@ export async function getServerSideProps() {
   const data = await res.json();
 
   // Pass data to the page via props
-  return { props: { AllPodcasts: data?.podcasts  } };
+  return { props: { AllPodcasts: data?.podcasts } };
 }

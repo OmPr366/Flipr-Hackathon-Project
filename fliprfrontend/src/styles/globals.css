@@ -18,7 +18,18 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: rgb(0, 4, 15)
+  background: rgb(0, 4, 15);
+  
+}
+#__next{
+  display: flex;
+  justify-content: center;
+}
+
+
+.pageContainer{
+  max-width: 1800px;
+  width: 100%;
 }
 
 
