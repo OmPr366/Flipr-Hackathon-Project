@@ -8,32 +8,36 @@ import Link from "next/link";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { setPodcast } from "@/utils/Redux/PodcastSlice";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 const PodcastCard = ({ podcast, isAdmin }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { push } = useRouter();
   // console.log(props.podcast);
 
   const openPodcast = () => {
-    dispatch(setPodcast({
-      ...podcast,
-      currentTime: 0,
-      isplaying : true
-    }))
-    localStorage.setItem("currentpodcast", JSON.stringify({
-      ...podcast,
-      currentTime: 0,
-      isplaying : true
-    }));
-  }
+    dispatch(
+      setPodcast({
+        ...podcast,
+        currentTime: 0,
+        isplaying: true,
+      })
+    );
+    localStorage.setItem(
+      "currentpodcast",
+      JSON.stringify({
+        ...podcast,
+        currentTime: 0,
+        isplaying: true,
+      })
+    );
+  };
 
-  const redirectPodcast = ()=>{
-    push('/listen');
-  }
+  const redirectPodcast = () => {
+    push(`/podcast/${podcast?._id}`);
+  };
 
   return (
-
     <div className="bg-black shadow-lg rounded-lg overflow-hidden p-4 w-40 h-60  cursor-pointer border  podcastCard  ">
       <div className="bg-white w-6 h-6 rounded-full absolute justify-center items-center flex  mt-1 shadow-lg playIcon">
         {podcast?.type === "audio" ? (
@@ -55,28 +59,29 @@ const PodcastCard = ({ podcast, isAdmin }) => {
       </div>
       {/* Play button icon */}
       <button className=" bg-green-600 w-10 h-10 rounded-full flex justify-center items-center absolute postCastPlayBtn ">
-        {podcast?.type === "audio" ? (
-          <PlayIcon color="white" width={30} onClick={openPodcast} />
-        ) : (
-          <PlayIcon color="white" width={30} onClick={redirectPodcast} />
-        )}
+        <PlayIcon
+          color="white"
+          width={30}
+          onClick={podcast?.type === "audio" ? openPodcast : redirectPodcast}
+        />
       </button>
 
       {/* Icon */}
 
-      {isAdmin ? <Link href={`/dashboard/podcast/${podcast?._id}`}>
-        <div>
-          <div className="text-md font-bold mb-1 mt-2 text-white">
-            {podcast?.title}
+      {isAdmin ? (
+        <Link href={`/dashboard/podcast/${podcast?._id}`}>
+          <div>
+            <div className="text-md font-bold mb-1 mt-2 text-white">
+              {podcast?.title}
+            </div>
+            <div className=" mb-2 text-white text-xs  ">
+              {podcast?.description?.length > 42
+                ? podcast?.description.slice(0, 42) + "..."
+                : podcast?.description}
+            </div>
           </div>
-          <div className=" mb-2 text-white text-xs  ">
-            {podcast?.description?.length > 42
-              ? podcast?.description.slice(0, 42) + "..."
-              : podcast?.description}
-          </div>
-        </div>
-      </Link> :
-
+        </Link>
+      ) : (
         <div>
           <div className="text-md font-bold mb-1 mt-2 text-white">
             {podcast?.title}
@@ -86,7 +91,8 @@ const PodcastCard = ({ podcast, isAdmin }) => {
               ? podcast?.description.slice(0, 42) + "..."
               : podcast?.description}
           </div>
-        </div>}
+        </div>
+      )}
     </div>
   );
 };

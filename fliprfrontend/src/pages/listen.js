@@ -105,11 +105,11 @@ const listen = () => {
                             {
                                 isPlaying ?
                                     React.createElement(PauseCircleIcon, {
-                                        className: `h-10 w-10`,
+                                        className: `h-10 w-10 text-white  rounded-full p-2 `,
                                         strokeWidth: 1,
                                     }) :
                                     React.createElement(PlayCircleIcon, {
-                                        className: `h-10 w-10`,
+                                        className: `h-10 w-10 text-white `,
                                         strokeWidth: 1,
                                     })
                             }
