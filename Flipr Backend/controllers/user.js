@@ -18,7 +18,7 @@ exports.createUser = async (req, res) => {
                 if (err) {
                     console.log(err);
                 }
-                console.log(req.session);
+                // console.log(req.session);
                 req.session.save()
                 return res.status(200).json({ user: createdUser, message: 'user created' });
             });
@@ -37,7 +37,7 @@ exports.loginuser = async (req, res) => {
                     if (err) {
                         console.log(err);
                     }
-                    console.log(req.session);
+                    // console.log(req.session);
                     req.session.save()
                     return res.status(200).json({ user: user, message: 'login succesfull' });
                 });

@@ -24,26 +24,15 @@ import {
     PowerIcon,
     RocketLaunchIcon,
     Bars2Icon,
+    HeartIcon,
+    ArrowLeftOnRectangleIcon
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/utils/Redux/UserSlice";
 import Link from 'next/link'
 
 // profile menu component
-const profileMenuItems = [
-    {
-        label: "Dashboard",
-        icon: UserCircleIcon,
-    },
-    {
-        label: "Favourites",
-        icon: Cog6ToothIcon,
-    },
-    {
-        label: "Sign Out",
-        icon: PowerIcon,
-    },
-];
+
 
 function LoginOptions() {
     return (
@@ -66,6 +55,12 @@ function ProfileMenu(props) {
         localStorage.removeItem("user");
         window.open(`http://localhost:3001/auth/logout`, "_self");
         dispatch(setUser(null));
+    }
+    const gotodashboard = () => {
+        window.open('/dashboard', '_self')
+    }
+    const gototfav = () => {
+        alert('go to favourites')
     }
 
     return (
@@ -94,32 +89,60 @@ function ProfileMenu(props) {
                 </Button>
             </MenuHandler>
             <MenuList className="p-1">
-                {profileMenuItems.map(({ label, icon }, key) => {
-                    const isLastItem = key === profileMenuItems.length - 1;
-                    return (
-                        <MenuItem
-                            key={label}
-                            onClick={() => { closeMenu(); logoutUser() }}
-                            className={`flex items-center gap-2 rounded ${isLastItem
-                                ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                                : ""
-                                }`}
-                        >
-                            {React.createElement(icon, {
-                                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                                strokeWidth: 2,
-                            })}
-                            <Typography
-                                as="span"
-                                variant="small"
-                                className="font-normal"
-                                color={isLastItem ? "red" : "inherit"}
-                            >
-                                {label}
-                            </Typography>
-                        </MenuItem>
-                    );
-                })}
+                <MenuItem
+                    key='Dashboard'
+                    onClick={() => { closeMenu(); gotodashboard() }}
+                    className={`flex items-center gap-2 rounded`}
+                >
+                    {React.createElement(UserCircleIcon, {
+                        className: `h-4 w-4`,
+                        strokeWidth: 2,
+                    })}
+                    <Typography
+                        as="span"
+                        variant="small"
+                        className="font-normal"
+                        color="inherit"
+                    >
+                        Dashboard
+                    </Typography>
+                </MenuItem>
+                <MenuItem
+                    key='Favourites'
+                    onClick={() => { closeMenu(); gototfav() }}
+                    className={`flex items-center gap-2 rounded`}
+                >
+                    {React.createElement(HeartIcon, {
+                        className: `h-4 w-4`,
+                        strokeWidth: 2,
+                    })}
+                    <Typography
+                        as="span"
+                        variant="small"
+                        className="font-normal"
+                        color="inherit"
+                    >
+                        Favourites
+                    </Typography>
+                </MenuItem>
+                <MenuItem
+                    key='Sign-Out'
+                    onClick={() => { closeMenu(); logoutUser() }}
+                    className={`flex items-center gap-2 rounded hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10`}
+                >
+                    {React.createElement(ArrowLeftOnRectangleIcon, {
+                        className: `h-4 w-4 text-red-500`,
+                        strokeWidth: 2,
+                    })}
+                    <Typography
+                        as="span"
+                        variant="small"
+                        className="font-normal"
+                        color="red"
+                    >
+                        Sign-Out
+                    </Typography>
+                </MenuItem>
             </MenuList>
         </Menu>
     );

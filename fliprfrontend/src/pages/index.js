@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import ComplexNavbar from '@/components/Navbar'
+import Homepage from '@/components/Homepage/Homepage'
 import { useEffect } from 'react'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -28,6 +29,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col p-0 items-center">
       <ComplexNavbar />
+      <Homepage/>
     </main>
   )
 }
