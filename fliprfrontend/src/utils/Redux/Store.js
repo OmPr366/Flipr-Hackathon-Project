@@ -4,8 +4,8 @@ import PodcastSlice from './PodcastSlice';
 
 
 const rootReducer = combineReducers({
-  UserSlice,
-  PodcastSlice,
+UserSlice,
+  PodcastSlice
 });
 
 const Store = configureStore({

@@ -70,5 +70,36 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "e5c6b4ea-1487-49dd-967c-be17709dfe41",
+    "colId": "eec315bf-b94d-487d-8a71-7eb57d0fddcb",
+    "containerId": "",
+    "name": "Upload Image",
+    "url": "http://localhost:3001/api/upload/upload-image",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2023-04-22T08:59:12.810Z",
+    "modified": "2023-04-22T09:03:09.102Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "formdata",
+      "raw": "",
+      "form": [
+        {
+          "name": "image",
+          "value": "",
+          "isDisabled": true
+        }
+      ],
+      "files": [
+        {
+          "name": "file",
+          "value": "../../../../Pictures/Screenshots/Screenshot from 2023-04-22 00-31-59.png"
+        }
+      ]
+    },
+    "tests": []
   }
 ]

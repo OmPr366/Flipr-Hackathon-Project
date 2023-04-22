@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import {
-    Navbar,
-    MobileNav,
-    Typography,
-    Button,
-    Menu,
-    MenuHandler,
-    MenuList,
-    MenuItem,
-    Avatar,
-    Card,
-    IconButton,
+  Navbar,
+  MobileNav,
+  Typography,
+  Button,
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Avatar,
+  Card,
+  IconButton,
 } from "@material-tailwind/react";
 import {
     CubeTransparentIcon,
@@ -29,22 +29,27 @@ import {
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/utils/Redux/UserSlice";
-import Link from 'next/link'
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 // profile menu component
 
 
 function LoginOptions() {
-    return (
-        <div className="relative flex items-center">
-            <Link href="/sign-up">
-                <Button className="mx-4" variant="outlined">Sign-up</Button>
-            </Link>
-            <Link href="/sign-in">
-                <Button className="mx-0" variant="filled">Sign-in</Button>
-            </Link>
-        </div>
-    )
+  return (
+    <div className="relative flex items-center">
+      <Link href="/sign-up">
+        <Button className="mx-4" variant="outlined">
+          Sign-up
+        </Button>
+      </Link>
+      <Link href="/sign-in">
+        <Button className="mx-0" variant="filled">
+          Sign-in
+        </Button>
+      </Link>
+    </div>
+  );
 }
 
 function ProfileMenu(props) {
@@ -148,36 +153,34 @@ function ProfileMenu(props) {
     );
 }
 
-
 export default function ComplexNavbar() {
-    const dispatch = useDispatch()
-    const [isNavOpen, setIsNavOpen] = React.useState(false);
-    const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
-    const user = useSelector((state) => state.UserSlice)
+  const dispatch = useDispatch();
+  const [isNavOpen, setIsNavOpen] = React.useState(false);
+  const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
+  const user = useSelector((state) => state.UserSlice);
 
-    // const userDataHandler = () => {
-    //     dispatch(setUser("Hello World"));
-    // }
+  // const userDataHandler = () => {
+  //     dispatch(setUser("Hello World"));
+  // }
 
-    React.useEffect(() => {
-        window.addEventListener(
-            "resize",
-            () => window.innerWidth >= 960 && setIsNavOpen(false)
-        );
-    }, []);
+  React.useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setIsNavOpen(false)
+    );
+  }, []);
 
-
-    return (
-        <Navbar className="mx-auto p-2 m-0 lg:pl-6 rounded-none navbar">
-            <div className="relative mx-auto flex justify-between items-end text-blue-gray-900">
-                <Typography
-                    as="a"
-                    href="/"
-                    className="mr-4 ml-2 cursor-pointer py-1.5 font-medium text-blue-500"
-                >
-                    Podcast
-                </Typography>
-                {/* <IconButton
+  return (
+    <Navbar className="mx-auto p-2 m-0 lg:pl-6 rounded-none navbar">
+      <div className="relative mx-auto flex justify-between items-end text-blue-gray-900">
+        <Typography
+          as="a"
+          href="/"
+          className="mr-4 ml-2 cursor-pointer py-1.5 font-medium text-blue-500"
+        >
+          Podcast
+        </Typography>
+        {/* <IconButton
           size="sm"
           color="blue-gray"
           variant="text"
@@ -186,16 +189,13 @@ export default function ComplexNavbar() {
         >
           <Bars2Icon className="h-6 w-6" />
         </IconButton> */}
-                <div className="relative flex items-center">
-                    {user ?
-                        <ProfileMenu user={user} /> :
-                        <LoginOptions />
-                    }
-                </div>
-            </div>
-            {/* <MobileNav open={isNavOpen} className="overflow-scroll">
+        <div className="relative flex items-center">
+          {user ? <ProfileMenu user={user} /> : <LoginOptions />}
+        </div>
+      </div>
+      {/* <MobileNav open={isNavOpen} className="overflow-scroll">
         <NavList />
       </MobileNav> */}
-        </Navbar>
-    );
+    </Navbar>
+  );
 }
