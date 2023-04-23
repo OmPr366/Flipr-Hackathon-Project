@@ -59,7 +59,7 @@ export const createPlaylistInDatabase = async (data) => {
 // Add Podcast to Playlist
 export const addPodcastToPlaylist = async (data) => {
   try {
-    const res = await axios.put(`${API1}/playlist/add-to-playlist`, data);
+    const res = await axios.put(`${API2}/playlist/add-to-playlist`, data);
     if (res) {
       return {
         data: res.data,
