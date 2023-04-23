@@ -28,8 +28,8 @@ export default function PlayerBottom() {
   const [audioisPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  
-  
+
+
   useEffect(() => {
     audio.current.addEventListener("timeupdate", handleTimeUpdate);
     audio.current.addEventListener("loadedmetadata", handleLoadedMetadata);
@@ -104,7 +104,7 @@ export default function PlayerBottom() {
   //   };
   // }, []);
   function handleTimeUpdate() {
-    const locslStoragePodcast = JSON.parse( localStorage.getItem("currentpodcast"))
+    const locslStoragePodcast = JSON.parse(localStorage.getItem("currentpodcast"))
     if (audio.current) {
       setCurrentTime(audio.current.currentTime);
       localStorage.setItem(
@@ -218,55 +218,82 @@ export default function PlayerBottom() {
   };
 
   return (
-    <div className="fixed bottom-0 right-0 px-10  bg-primary-800 border-primary-200 border-t-2 z-40 w-full  flex justify-between text-white  h-16">
+    <div className="fixed bottom-0 right-0 px-10 py-3  bg-primary-800 border-primary-200 border-t-2 z-40 w-full  flex justify-between text-white h-24 md:h-20">
       <audio
         ref={audio}
         src={
           podcast?.fileUrl
         }
       />
-      <div className="flex justify-start mr-10 max-w-1/2">
+      <div className="flex justify-start mr-10 md:w-1/2">
         <Image
           src={podcast.image}
-          width={80}
-          height={80}
+          width={100}
+          height={100}
           alt={podcast?.title}
+          className="object-cover mr-2 rounded"
         />
-        <div className="flex flex-col justify-center ml-2">
+        <div className="hidden md:flex flex-col justify-center ml-2">
           <h2 className="text-xl">{podcast.title}</h2>
           <p className="text-sm text-gray-300">By :- {podcast?.authorName}.</p>
         </div>
       </div>
-      <div className="my-2 w-1/2 flex justify-center items-center">
-        <span>{formatTime(currentTime)}</span>
-        <input
-          className="w-full mx-2 bg-gray-300 rounded-full overflow-hidden"
-          type="range"
-          min={0}
-          max={duration}
-          value={currentTime}
-          onChange={handleSeek}
-        />
-        <span>{formatTime(duration)}</span>
-        <div className="flex justify-center my-2">
-          <div className="cursor-pointer mx-5" onClick={handlePlayPause}>
-            {audioisPlaying
-              ? React.createElement(PauseCircleIcon, {
+      <div className="w-full flex md:justify-end md:flex-row flex-col justify-between">
+        <div className="md:hidden flex items-center justify-between">
+          <h2 className="text-xl">{podcast.title}</h2>
+          <div className="md:hidden flex justify-center my-2">
+            <div className="cursor-pointer mx-5" onClick={handlePlayPause}>
+              {audioisPlaying
+                ? React.createElement(PauseCircleIcon, {
                   className: `h-8 w-8`,
                   strokeWidth: 1,
                 })
-              : React.createElement(PlayCircleIcon, {
+                : React.createElement(PlayCircleIcon, {
                   className: `h-8 w-8`,
                   strokeWidth: 1,
                 })}
+            </div>
+            <HeartIcon
+              className="h-8 w-8 cursor-pointer "
+              color={isFav ? "red" : "white"}
+              strokeWidth="1"
+              onClick={LikeCickHandler}
+              solid
+            />
           </div>
-          <HeartIcon
-            className="h-8 w-8 cursor-pointer "
-            color={isFav ? "red" : "white"}
-            strokeWidth="1"
-            onClick={LikeCickHandler}
-            solid
+          <p className="text-sm text-gray-300">{podcast?.authorName}</p>
+        </div>
+        <div className="md:my-2 md:w-full flex justify-center items-center">
+          <span>{formatTime(currentTime)}</span>
+          <input
+            className="w-full mx-2 bg-gray-300 rounded-full overflow-hidden"
+            type="range"
+            min={0}
+            max={duration}
+            value={currentTime}
+            onChange={handleSeek}
           />
+          <span>{formatTime(duration)}</span>
+          <div className="hidden md:flex justify-center my-2">
+            <div className="cursor-pointer mx-5" onClick={handlePlayPause}>
+              {audioisPlaying
+                ? React.createElement(PauseCircleIcon, {
+                  className: `h-8 w-8`,
+                  strokeWidth: 1,
+                })
+                : React.createElement(PlayCircleIcon, {
+                  className: `h-8 w-8`,
+                  strokeWidth: 1,
+                })}
+            </div>
+            <HeartIcon
+              className="h-8 w-8 cursor-pointer "
+              color={isFav ? "red" : "white"}
+              strokeWidth="1"
+              onClick={LikeCickHandler}
+              solid
+            />
+          </div>
         </div>
       </div>
     </div>

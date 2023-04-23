@@ -23,7 +23,7 @@ import {
   LifebuoyIcon,
   PowerIcon,
   RocketLaunchIcon,
-  Bars2Icon,
+  Bars3Icon,
   ArrowLeftOnRectangleIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
@@ -37,14 +37,14 @@ import { Input } from "@material-tailwind/react";
 
 function LoginOptions() {
   return (
-    <div className="relative flex items-center">
+    <div className="relative md:flex items-center">
       <Link href="/sign-up">
-        <Button className="mx-4 border-primary-100 text-primary-100 " variant="outlined">
+        <Button className="md:mx-4 w-full md:w-auto border-primary-100 text-primary-100 " variant="outlined">
           Sign-up
         </Button>
       </Link>
       <Link href="/sign-in">
-        <Button className="mx-0 bg-primary-100 " variant="filled">
+        <Button className="mx-0 my-4 md:my-0 w-full bg-primary-100 " variant="filled">
           Sign-in
         </Button>
       </Link>
@@ -186,16 +186,16 @@ export default function ComplexNavbar() {
           <p className="text-white text-xl" >Podcaster</p>
           </Link>
         
-        {/* <IconButton
+        <IconButton
           size="sm"
           color="blue-gray"
           variant="text"
           onClick={toggleIsNavOpen}
-          className="ml-auto mr-2 lg:hidden"
+          className="ml-auto mr-2 md:hidden"
         >
-          <Bars2Icon className="h-6 w-6" />
-        </IconButton> */}
-        <div className="relative flex w-1/2">
+          <Bars3Icon className="h-6 w-6" />
+        </IconButton>
+        <div className="hidden relative md:flex w-1/2">
           <Input
             type="text"
             placeholder="Search Podcasts"
@@ -217,13 +217,37 @@ export default function ComplexNavbar() {
             </Link>
           </Button>
         </div>
-        <div className="relative flex items-center">
+        <div className="hidden relative md:flex items-center">
           {user ? <ProfileMenu user={user} /> : <LoginOptions />}
         </div>
       </div>
-      {/* <MobileNav open={isNavOpen} className="overflow-scroll">
-        <NavList />
-      </MobileNav> */}
+      <MobileNav open={isNavOpen} className="">
+      <div className="relative flex w-full my-5">
+          <Input
+            type="text"
+            placeholder="Search Podcasts"
+            labelProps={{
+              className: "before:content-none after:content-none",
+            }}
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+            className="pr-20 bg-primary-500 border-2 outline-none border-primary-100 focus:!border-primary-200 text-white "
+            containerProps={{
+              className: "min-w-0 ",
+            }}
+          />
+          <Button size="sm" className="!absolute right-1 top-1 rounded bg-primary-100 ">
+            <Link href={`/search/${searchText}`}>
+              <MagnifyingGlassIcon className="h-4 w-5" strokeWeight="1" />
+            </Link>
+          </Button>
+        </div>
+        <div className="relative md:flex md:flex-col items-center">
+          {user ? <ProfileMenu user={user} /> : <LoginOptions />}
+        </div>
+      </MobileNav>
     </div>
   );
 }
