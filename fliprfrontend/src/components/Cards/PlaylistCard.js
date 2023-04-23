@@ -11,56 +11,21 @@ import { setplaylist } from "@/utils/Redux/PlaylistSlice";
 import { useRouter } from "next/navigation";
 // import { incrementplaylistViews } from "@/actions/playlist";
 
-const PlaylistCard = ({ playlist, isAdmin }) => {
+const PlaylistCard = ({ playlist }) => {
   const dispatch = useDispatch();
   const { push } = useRouter();
-  // console.log(props.playlist);
 
-  // const openplaylist = () => {
-  //   dispatch(
-  //     setplaylist({
-  //       ...playlist,
-  //       currentTime: 0,
-  //       isplaying: true,
-  //     })
-  //   );
-  //   localStorage.setItem(
-  //     "currentplaylist",
-  //     JSON.stringify({
-  //       ...playlist,
-  //       currentTime: 0,
-  //       isplaying: true,
-  //     })
-  //   );
-  //   const user = JSON.parse(localStorage.getItem("user"));
-  //   if (user) {
-  //   incrementplaylistViews({
-  //     playlistId: playlist?._id,
-  //     userId : user?._id
-  //   })
-  //   }
-  // };
-
-  // const redirectplaylist = () => {
-  //   const user = JSON.parse(localStorage.getItem("user"));
-  //   if (user) {
-  //   incrementplaylistViews({
-  //     playlistId: playlist?._id,
-  //     userId : user?._id
-  //   })
-  //   }
-  //   push(`/playlist/${playlist?._id}`);
-  // };
 
   return (
-    <div className="shadow-lg rounded-lg overflow-hidden p-4 w-40 h-60  cursor-pointer border  playlistCard bg-primary-800  ">
+    <div className="shadow-lg rounded-lg overflow-hidden p-4 w-40 h-52  cursor-pointer border  playlistCard bg-primary-800 border-primary-100  ">
       <div className="relative pb-32  rounded-md overflow-hidden  ">
         <Image
-          className="absolute inset-0 h-full w-full object-cover ImageBox rounded-full"
-          src={playlist?.image}
+          className="absolute inset-0 h-full w-full object-cover flex ImageBox rounded-full"
+          src={playlist?.podcasts.length?playlist?.podcasts[0].image:"https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"}
           alt={playlist?.title}
           width={600}
           height={600}
+          
         />
       </div>
       {/* Play button icon */}
@@ -74,15 +39,13 @@ const PlaylistCard = ({ playlist, isAdmin }) => {
 
       {/* Icon */}
 
-      <Link href={`/playlist/123`}>
+      <Link href={`/playlist/${playlist._id}`}>
         <div>
           <div className="text-md font-bold mb-1 mt-2 text-white">
             {playlist?.title}
           </div>
-          <div className=" mb-2 text-white text-xs  ">
-            {playlist?.description?.length > 42
-              ? playlist?.description.slice(0, 42) + "..."
-              : playlist?.description}
+          <div className=" mb-2 text-gray-400 text-xs ml-1   ">
+            {playlist?.authorName || "Unknown"}
           </div>
         </div>
       </Link>

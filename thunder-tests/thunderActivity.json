@@ -1,19 +1,18 @@
-[
-  {
+[{
     "_id": "4efc918d-c5b5-47e8-a36b-ee4e05a20dc0",
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/api/podcast/",
-    "url": "http://localhost:3001/api/playlist/add-to-playlist",
-    "method": "PUT",
+    "url": "https://fipr-backend.onrender.com/api/playlist/get-single-playlist/644546c4d8f3d01bf1d1cdf7",
+    "method": "GET",
     "sortNum": 0,
     "created": "2023-04-21T18:16:58.064Z",
-    "modified": "2023-04-23T14:27:49.551Z",
+    "modified": "2023-04-23T15:23:45.244Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"title\": \"Test Playlist\",\n  \"userId\": \"644301bcd95c6375f8274f73\",\n  \"podcastId\": \"6443b4f80b8c4b1a427c6e8a\",\n  \"playlistId\": \"6445400109f2c0ad25c82c6e\"\n}",
+      "raw": "{\n  \"title\": \"Test Playlist\",\n  \"userId\": \"644301bcd95c6375f8274f73\",\n  \"podcastId\": \"6443b4f80b8c4b1a427c6e8a\",\n  \"playlistId\": \"644546c4d8f3d01bf1d1cdf7\"\n}",
       "form": []
     },
     "tests": []
@@ -42,11 +41,11 @@
     "colId": "history",
     "containerId": "",
     "name": "https://fipr-backend.onrender.com/api/podcast/get-allpodcasts",
-    "url": "https://fipr-backend.onrender.com/api/podcast/get-fav-podcast/644301bcd95c6375f8274f73",
+    "url": "https://fipr-backend.onrender.com/api/playlist/get-all-playlist",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-04-21T18:20:49.283Z",
-    "modified": "2023-04-22T14:09:09.138Z",
+    "modified": "2023-04-23T15:10:43.049Z",
     "headers": [],
     "params": [],
     "tests": []

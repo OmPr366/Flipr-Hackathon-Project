@@ -12,7 +12,7 @@ import PlaylistSection from "./PlaylistSection";
 const Homepage = ({ AllPodcasts ,popularityPodcasts }) => {
   const podcast = useSelector((state) => state.PodcastSlice);
   const AllFavPodcasts = useSelector((state) => state.FavPodcastSlice);
-  // const Playlist = useSelector((state) => state.PlaylistSlice);
+  const Playlist = useSelector((state) => state.PlaylistSlice);
 
 
 
@@ -20,7 +20,7 @@ const Homepage = ({ AllPodcasts ,popularityPodcasts }) => {
     <div className="">
       <AllPodcastSection AllPodcasts={AllPodcasts} title={"All Podcasts"} />
       {AllFavPodcasts.length > 0 ? <AllPodcastSection AllPodcasts={AllFavPodcasts} title="Favourites" />:null}
-      <PlaylistSection AllPlaylist={AllPodcasts} title={"Playlists"} />   
+      {Playlist.length > 0 ? <PlaylistSection AllPlaylist={Playlist} title={"My Playlists"} />:null}
       <CategorySection />
       {popularityPodcasts.length > 0 ? <AllPodcastSection AllPodcasts={popularityPodcasts} title="Popular" />:null}
       {podcast && <PlayerBottom />}
