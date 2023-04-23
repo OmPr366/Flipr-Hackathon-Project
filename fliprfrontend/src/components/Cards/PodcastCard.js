@@ -53,7 +53,7 @@ const PodcastCard = ({ podcast, isAdmin }) => {
   };
 
   return (
-    <div className="bg-black shadow-lg rounded-lg overflow-hidden p-4 w-40 h-60  cursor-pointer border  podcastCard bg-primary-800  ">
+    <div className="shadow-lg rounded-lg overflow-hidden p-4 w-40 h-60  cursor-pointer border  podcastCard bg-primary-800  ">
       <div className="bg-white w-6 h-6 rounded-full absolute justify-center items-center flex  mt-1 shadow-lg playIcon">
         {podcast?.type === "audio" ? (
           <MusicalNoteIcon color="black" width={20} />
