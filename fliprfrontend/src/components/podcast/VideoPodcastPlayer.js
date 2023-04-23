@@ -20,6 +20,7 @@ const VideoPodcastPlayer = ({ podcast }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const FavPodcasts = useSelector((state) => state.FavPodcastSlice);
+  const [openDialog, setOpenDialog] = useState(true);
 
   useEffect(() => {
     audio.current.addEventListener("timeupdate", handleTimeUpdate);
