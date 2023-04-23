@@ -7,7 +7,7 @@ const API1 = "http://localhost:3001/api";
 // Get Playlist by UserId
 export const getPlaylist = async (userId) => {
   try {
-    const res = await axios.get(`${API1}/playlist/get-playlists/${userId}`);
+    const res = await axios.get(`${API2}/playlist/get-playlists/${userId}`);
     if (res) {
       return {
         data: res.data,
@@ -30,7 +30,7 @@ export const getPlaylist = async (userId) => {
 // Create Playlist
 export const createPlaylistInDatabase = async (data) => {
   try {
-    const res = await axios.post(`${API1}/playlist/create-playlist`, data);
+    const res = await axios.post(`${API2}/playlist/create-playlist`, data);
     if (res) {
       return {
         data: res.data,
@@ -59,7 +59,7 @@ export const createPlaylistInDatabase = async (data) => {
 // Add Podcast to Playlist
 export const addPodcastToPlaylist = async (data) => {
   try {
-    const res = await axios.put(`${API1}/playlist/add-to-playlist`, data);
+    const res = await axios.put(`${API2}/playlist/add-to-playlist`, data);
     if (res) {
       return {
         data: res.data,
@@ -120,7 +120,7 @@ export const removePodcastFromPlaylist = async (data) => {
 
 export const getAllPlaylists = async () => {
   try {
-    const res = await axios.get(`http://localhost:3001/api/playlist/get-all-playlist`);
+    const res = await axios.get(`https://fipr-backend.onrender.com/api/playlist/get-all-playlist`);
     if (res) {
       return {
         data: res.data,

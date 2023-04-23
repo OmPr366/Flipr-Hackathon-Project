@@ -114,7 +114,7 @@ export const updatePodcastInDatabase = async (data, id) => {
 
 export const getPodcastByUser = async (id) => {
   try {
-    const res = await axios.get(`${API1}/podcast/get-podcast-byuser/${id}`);
+    const res = await axios.get(`${API2}/podcast/get-podcast-byuser/${id}`);
     if (res) {
       return {
         data: res.data,
