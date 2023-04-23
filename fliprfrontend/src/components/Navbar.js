@@ -66,7 +66,7 @@ function ProfileMenu(props) {
   const closeMenu = () => setIsMenuOpen(false);
   const logoutUser = () => {
     localStorage.removeItem("user");
-    window.open(`https://elitmusbackend-6bsu.onrender.com/auth/logout`, "_self");
+    window.open(`https://fipr-backend.onrender.com/auth/logout`, "_self");
     dispatch(setUser(null));
   };
   const gotodashboard = () => {

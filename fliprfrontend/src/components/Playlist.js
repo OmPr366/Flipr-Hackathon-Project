@@ -10,10 +10,9 @@ const Playlist = ({ data }) => {
   const router = useRouter();
   const podcast = useSelector((state) => state.PodcastSlice);
 
-
   //   const getPodcasts = async () => {
   //     const data = await axios.get(
-  //       `https://elitmusbackend-6bsu.onrender.com/search-podcast/${title}`
+  //       `https://fipr-backend.onrender.com/search-podcast/${title}`
   //     );
   //     console.log(data);
   //     if (data) {

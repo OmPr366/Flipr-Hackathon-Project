@@ -10,6 +10,7 @@ import { HeartIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { setFavPodcasts } from "@/utils/Redux/FavPodcastSlice";
 import { addToFavoritePodcast } from "@/actions/podcast";
+import PlaylistDialogBox from "../dashboard/PlaylistDialogBox";
 
 const VideoPodcastPlayer = ({ podcast }) => {
   const dispatch = useDispatch()

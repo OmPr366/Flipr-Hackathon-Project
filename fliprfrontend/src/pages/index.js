@@ -15,9 +15,12 @@ export default function Home({ AllPodcasts, popularityPodcasts }) {
 
   console.log(AllPodcasts, " podcasts");
   const getUser = async () => {
-    const { data } = await axios.get(`https://elitmusbackend-6bsu.onrender.com/auth/user`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      `https://fipr-backend.onrender.com/auth/user`,
+      {
+        withCredentials: true,
+      }
+    );
     console.log(data);
     if (data) {
       localStorage.setItem("user", JSON.stringify(data));
@@ -47,12 +50,12 @@ export default function Home({ AllPodcasts, popularityPodcasts }) {
 export async function getServerSideProps() {
   // Fetch data from external API
   const res = await fetch(
-    `https://elitmusbackend-6bsu.onrender.com/api/podcast/get-allpodcasts`
+    `https://fipr-backend.onrender.com/api/podcast/get-allpodcasts`
   );
   const data = await res.json();
 
   const res2 = await fetch(
-    `https://elitmusbackend-6bsu.onrender.com/api/podcast/get-podcast-bypopularity`
+    `https://fipr-backend.onrender.com/api/podcast/get-podcast-bypopularity`
   );
   const data2 = await res2.json();
 

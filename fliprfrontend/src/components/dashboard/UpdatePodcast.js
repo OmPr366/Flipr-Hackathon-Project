@@ -102,7 +102,7 @@ const UpdatePodcast = ({ podcastData }) => {
       const formData = new FormData();
       formData.append("file", file);
       const response = await axios.post(
-        "https://elitmusbackend-6bsu.onrender.com/api/upload/upload-image",
+        "https://fipr-backend.onrender.com/api/upload/upload-image",
         formData,
         {
           headers: {
@@ -130,7 +130,7 @@ const UpdatePodcast = ({ podcastData }) => {
       });
     }
 
-    // fetch("https://elitmusbackend-6bsu.onrender.com/api/upload/upload-image", {
+    // fetch("https://fipr-backend.onrender.com/api/upload/upload-image", {
     //   method: "PUT",
     //   body: formData,
     // })
@@ -159,7 +159,7 @@ const UpdatePodcast = ({ podcastData }) => {
       const formData = new FormData();
       formData.append("file", file);
       const response = await axios.post(
-        "https://elitmusbackend-6bsu.onrender.com/api/upload/upload-image",
+        "https://fipr-backend.onrender.com/api/upload/upload-image",
         formData
       );
       console.log(response.data);

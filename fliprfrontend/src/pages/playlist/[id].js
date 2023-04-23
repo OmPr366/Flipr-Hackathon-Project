@@ -14,7 +14,7 @@ const playlist = ({ data }) => {
 
 export async function getStaticProps({ params }) {
   const fetchData = await fetch(
-    `https://elitmusbackend-6bsu.onrender.com/api/playlist/get-single-playlist/${params.id}`
+    `https://fipr-backend.onrender.com/api/playlist/get-single-playlist/${params.id}`
   );
   const parsedData = await fetchData.json();
 
@@ -31,7 +31,7 @@ export async function getStaticPaths() {
     fallback: true,
   };
   const data = await fetch(
-    `https://elitmusbackend-6bsu.onrender.com/api/playlist/get-all-playlist`
+    `https://fipr-backend.onrender.com/api/playlist/get-all-playlist`
   );
   const parsedData = await data.json();
 

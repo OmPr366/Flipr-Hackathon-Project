@@ -42,7 +42,7 @@ const index = ({ data, category }) => {
 export async function getStaticProps({ params }) {
   console.log(params, " Params is ");
   const fetchData = await fetch(
-    `https://elitmusbackend-6bsu.onrender.com/api/podcast/get-podcast-bycategory/${params.name}`
+    `https://fipr-backend.onrender.com/api/podcast/get-podcast-bycategory/${params.name}`
   );
   const parsedData = await fetchData.json();
 

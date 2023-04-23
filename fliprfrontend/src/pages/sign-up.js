@@ -23,7 +23,10 @@ export default function Document() {
   const dispatch = useDispatch();
 
   const signIn = () => {
-    window.open("https://elitmusbackend-6bsu.onrender.com/auth/google/callback", "_self");
+    window.open(
+      "https://fipr-backend.onrender.com/auth/google/callback",
+      "_self"
+    );
   };
   const validateEmail = (email) => {
     return /\S+@\S+\.\S+/.test(email);
@@ -40,7 +43,7 @@ export default function Document() {
         email: email,
       };
       const { data } = await axios.post(
-        `https://elitmusbackend-6bsu.onrender.com/create-user`,
+        `https://fipr-backend.onrender.com/create-user`,
         user,
         { withCredentials: true }
       );
