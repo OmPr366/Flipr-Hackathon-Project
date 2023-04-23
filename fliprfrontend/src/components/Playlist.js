@@ -29,7 +29,7 @@ const Playlist = ({ data }) => {
     <div>
       <div className="text-2xl mt-5 mb-2 text-white">{data?.title}</div>
       <div className="text-gray-500">{data?.authorName}</div>
-      <Playlistrow AllPodcasts={data?.podcasts} />
+      <Playlistrow AllPodcasts={data?.podcasts} playlistId={data?._id} />
       {podcast && <PlayerBottom />}
     </div>
   );

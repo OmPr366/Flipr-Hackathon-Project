@@ -10,8 +10,11 @@ import { useDispatch } from "react-redux";
 import { setPodcast } from "@/utils/Redux/PodcastSlice";
 import { useRouter } from "next/navigation";
 import { incrementPodcastViews } from "@/actions/podcast";
+import { TrashIcon } from "@heroicons/react/24/solid";
+import { removePodcastFromPlaylist } from "@/actions/playlist";
+import { toast } from "react-toastify";
 
-const Playlistitem = ({ podcast, isAdmin, index }) => {
+const Playlistitem = ({ podcast, index ,playlistId }) => {
     const dispatch = useDispatch();
     const { push } = useRouter();
     // console.log(props.podcast);
@@ -47,6 +50,26 @@ const Playlistitem = ({ podcast, isAdmin, index }) => {
         push(`/podcast/${podcast?._id}`);
     };
 
+    const deletePodcastFromPlaylistHandler = () => {
+        console.log('delete');
+        removePodcastFromPlaylist({
+            playlistId: playlistId,
+            podcastId: podcast?._id
+        }).then((res) => {
+            if (res.status === 200 || res.status === 201) {
+                // Reload the page
+                window.location.reload();
+
+            }else{
+                toast.error('Something went wrong');
+            }
+        }
+        )
+
+    }
+
+
+
     return (
         <div className="flex items-center overflow-hidden px-0 w-full h-16  cursor-pointer border-b-2 border-primary-100  ">
             <div className="mr-4 text-white">{index + 1}.</div>
@@ -68,6 +91,7 @@ const Playlistitem = ({ podcast, isAdmin, index }) => {
                     : podcast?.description}
             </div>
             <div className="flex ml-auto items-center">
+                <TrashIcon className="h-6 w-6 text-white mr-4" onClick={deletePodcastFromPlaylistHandler} />
                 <div className="bg-white w-6 h-6 rounded-full justify-center items-center flex">
                     {podcast?.type === "audio" ? (
                         <MusicalNoteIcon color="black" width={18} />

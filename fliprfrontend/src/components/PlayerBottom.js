@@ -311,7 +311,7 @@ export default function PlayerBottom() {
                   className="bg-primary-200 border-0 text-white z-50 "
                 >
                   <Link href={"/sign-in"}>
-                    <p>Login to add this to Liked </p>
+                    <p>Login to add this to Playlist </p>
                   </Link>
                 </PopoverContent>
               </Popover>
