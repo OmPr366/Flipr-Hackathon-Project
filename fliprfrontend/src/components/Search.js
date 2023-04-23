@@ -14,7 +14,7 @@ const Search = () => {
 
   const getPodcasts = async () => {
     const data = await axios.get(
-      `http://localhost:3001/search-podcast/${title}`
+      `https://elitmusbackend-6bsu.onrender.com/search-podcast/${title}`
     );
     console.log(data);
     if (data) {

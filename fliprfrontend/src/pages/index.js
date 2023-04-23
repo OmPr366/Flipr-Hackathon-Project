@@ -15,7 +15,7 @@ export default function Home({ AllPodcasts, popularityPodcasts }) {
 
   console.log(AllPodcasts, " podcasts");
   const getUser = async () => {
-    const { data } = await axios.get(`http://localhost:3001/auth/user`, {
+    const { data } = await axios.get(`https://elitmusbackend-6bsu.onrender.com/auth/user`, {
       withCredentials: true,
     });
     console.log(data);

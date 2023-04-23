@@ -23,7 +23,7 @@ export default function Document() {
   const dispatch = useDispatch();
 
   const signIn = () => {
-    window.open("http://localhost:3001/auth/google/callback", "_self");
+    window.open("https://elitmusbackend-6bsu.onrender.com/auth/google/callback", "_self");
   };
   const validateEmail = (email) => {
     return /\S+@\S+\.\S+/.test(email);
@@ -40,7 +40,7 @@ export default function Document() {
         email: email,
       };
       const { data } = await axios.post(
-        `http://localhost:3001/create-user`,
+        `https://elitmusbackend-6bsu.onrender.com/create-user`,
         user,
         { withCredentials: true }
       );

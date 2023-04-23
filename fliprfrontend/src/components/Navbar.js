@@ -66,7 +66,7 @@ function ProfileMenu(props) {
   const closeMenu = () => setIsMenuOpen(false);
   const logoutUser = () => {
     localStorage.removeItem("user");
-    window.open(`http://localhost:3001/auth/logout`, "_self");
+    window.open(`https://elitmusbackend-6bsu.onrender.com/auth/logout`, "_self");
     dispatch(setUser(null));
   };
   const gotodashboard = () => {

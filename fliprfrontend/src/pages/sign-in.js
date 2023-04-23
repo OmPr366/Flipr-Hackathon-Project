@@ -21,7 +21,7 @@ export default function Document() {
   const [usernamealert, setusernamealert] = useState(false);
 
   const signIn = () => {
-    window.open("http://localhost:3001/auth/google/callback", "_self");
+    window.open("https://elitmusbackend-6bsu.onrender.com/auth/google/callback", "_self");
   };
 
   const login = async () => {
@@ -30,7 +30,7 @@ export default function Document() {
       password: password,
     };
     const { data } = await axios.post(
-      `http://localhost:3001/login-user`,
+      `https://elitmusbackend-6bsu.onrender.com/login-user`,
       user,
       { withCredentials: true }
     );
