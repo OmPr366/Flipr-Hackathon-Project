@@ -181,7 +181,7 @@ export default function ComplexNavbar() {
   }, []);
 
   return (
-    <div className=" p-2  lg:pl-6 rounded-none  bg-primary-900 border-b-2 border-primary-200 pb-5 ">
+    <div className=" p-2   rounded-none  bg-primary-900 border-b-2 border-primary-200 pb-5 ">
       <div className="relative mx-auto flex justify-between items-end text-blue-gray-900">
         <Link href="/" className="flex items-center">
           <Image alt='logo' src={logo} width={40} height={40} className="mr-2"/>

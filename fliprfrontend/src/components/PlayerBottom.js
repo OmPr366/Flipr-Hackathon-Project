@@ -25,7 +25,7 @@ export default function PlayerBottom() {
   const podcast = useSelector((state) => state.PodcastSlice);
   const FavPodcasts = useSelector((state) => state.FavPodcastSlice);
   const audio = useRef(null);
-  const [audioisPlaying, setIsPlaying] = useState(true);
+  const [audioisPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
@@ -43,23 +43,16 @@ export default function PlayerBottom() {
       console.log("currentPodcast ", currentPodcast);
       dispatch(setPodcast(currentPodcast));
       if (audio.current) {
-        if (currentPodcast?.isplaying) {
-          console.log("played ");
-          audio.current.play();
-        }
+      
         audio.current.currentTime = currentPodcast?.currentTime;
       }
       setCurrentTime(currentPodcast?.currentTime);
-      setIsPlaying(currentPodcast.isplaying);
     } else {
       if (audio.current) {
-        if (podcast?.isplaying) {
-          audio.current.play();
-        }
+        
         audio.current.currentTime = podcast?.currentTime;
       }
       setCurrentTime(podcast?.currentTime);
-      setIsPlaying(podcast.isplaying);
     }
   }, []);
 

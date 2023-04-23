@@ -14,6 +14,7 @@ const app = express();
 // Import all Router 
 const authRoutes =  require('./routes/auth')
 const podcastRoutes =  require('./routes/podcast')
+const playlistRoutes =  require('./routes/playlist')
 const fileuploadRoutes =  require('./routes/fileupload')
 
 dotenv.config({path: './config.env'})
@@ -40,9 +41,15 @@ app.use(cookieParser());
 
 
 // Api Routes
+app.get('/', (req, res) => {
+    res.send("hello from the server");
+})
 app.use('/api/auth', authRoutes);
 app.use('/api/podcast', podcastRoutes);
+app.use('/api/playlist', playlistRoutes);
 app.use('/api/upload', fileuploadRoutes);
+
+
 
 
 

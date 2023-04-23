@@ -61,3 +61,9 @@ body {
 .ImageBox{
   background-color: #eee;
 }
+
+/* Slicker  */
+.slick-dots li button:before {
+  color: #fff !important;
+  font-size: 10px !important;
+}
