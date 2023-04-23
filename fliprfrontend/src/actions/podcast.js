@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API2 = "https://fipr-backend.onrender.com/api";
+const API1 = "http://localhost:3001/api";
 // https://fipr-backend.onrender.com/api
 // const API2 = "https://elitmusbackend-6bsu.onrender.com";
 
@@ -113,7 +114,7 @@ export const updatePodcastInDatabase = async (data, id) => {
 
 export const getPodcastByUser = async (id) => {
   try {
-    const res = await axios.get(`${API2}/podcast/get-podcast-byuser/${id}`);
+    const res = await axios.get(`${API1}/podcast/get-podcast-byuser/${id}`);
     if (res) {
       return {
         data: res.data,

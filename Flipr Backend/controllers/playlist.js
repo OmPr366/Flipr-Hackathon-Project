@@ -92,7 +92,7 @@ exports.removePodcastFromPlaylist = async (req, res) => {
 
 // Create Playlist
 exports.createPlaylist = async (req, res) => {
-    const { title, userId , authorName } = req.body;
+    const { title, userId , authorName , podcastId } = req.body;
     
     if (!title) {
         return res.status(400).json({ message: "Title is required" });
@@ -113,7 +113,8 @@ exports.createPlaylist = async (req, res) => {
     const NewPlaylist = new Playlist({
         title,
         userId,
-        authorName
+        authorName,
+        podcasts: [podcastId]
     });
     
     try {

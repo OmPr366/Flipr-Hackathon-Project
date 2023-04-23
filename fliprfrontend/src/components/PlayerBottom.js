@@ -37,14 +37,11 @@ export default function PlayerBottom() {
   useEffect(() => {
     audio.current.addEventListener("timeupdate", handleTimeUpdate);
     audio.current.addEventListener("loadedmetadata", handleLoadedMetadata);
-    console.log("useEffect ", podcast);
   }, [audio.current]);
   useEffect(() => {
     const currentPodcast = JSON.parse(localStorage.getItem("currentpodcast"));
-    console.log("currentPodcast23 ", currentPodcast);
 
     if (currentPodcast) {
-      console.log("currentPodcast ", currentPodcast);
       dispatch(setPodcast(currentPodcast));
       if (audio.current) {
       
@@ -68,38 +65,6 @@ export default function PlayerBottom() {
       setCurrentTime(podcast?.currentTime);
     }
   }, [podcast]);
-  // useEffect(() => {
-  //   const handleKeyDown = (event) => {
-  //     if (event.code === "Space") {
-  //       event.preventDefault();
-  //       if (audio.current.paused) {
-  //         setIsPlaying(true)
-  //         dispatch(
-  //           setPodcast({
-  //             ...podcast,
-  //             isplaying: true,
-  //           })
-  //         );
-  //         audio.current.play();
-  //       } else {
-  //         setIsPlaying(false)
-  //         dispatch(
-  //           setPodcast({
-  //             ...podcast,
-  //             isplaying: false,
-  //           })
-  //         );
-  //         audio.current.pause();
-  //       }
-  //     }
-  //   };
-
-  //   window.addEventListener("keydown", handleKeyDown);
-
-  //   return () => {
-  //     window.removeEventListener("keydown", handleKeyDown);
-  //   };
-  // }, []);
   function handleTimeUpdate() {
     const locslStoragePodcast = JSON.parse(localStorage.getItem("currentpodcast"))
     if (audio.current) {
@@ -181,23 +146,16 @@ export default function PlayerBottom() {
 
   const dispatch = useDispatch();
 
-  const closePodcast = () => {
-    audio.current.pause();
-    dispatch(setPodcast(null));
-  };
+  
 
-  const addPlaylist = () => {
-    // audio.current.pause();
-    // dispatch(setPodcast(null));
-  };
 
   // Check Whether Podcast is in FavPodcasts
-  let isFav = FavPodcasts?.find((fav) => fav._id === podcast?._id);
+  const [isFav, setIsFav] = useState(FavPodcasts?.find((fav) => fav._id === podcast?._id));
 
   const LikeCickHandler = async () => {
     const User = JSON.parse(localStorage.getItem("user"));
     if (!isFav) {
-      isFav = true;
+      setIsFav(true);
       addToFavoritePodcast({
         podcastId: podcast._id,
         userId: User._id,
@@ -208,7 +166,7 @@ export default function PlayerBottom() {
         }
       });
     } else {
-      isFav = false;
+      setIsFav(false);
       dispatch(
         setFavPodcasts(FavPodcasts.filter((fav) => fav._id !== podcast._id))
       );
@@ -219,6 +177,9 @@ export default function PlayerBottom() {
     }
   };
 
+
+
+
   return (
     <div className="fixed bottom-0 right-0 px-10 py-3  bg-primary-800 border-primary-200 border-t-2 z-40 w-full  flex justify-between text-white h-24 md:h-20">
       <audio
@@ -227,7 +188,7 @@ export default function PlayerBottom() {
           podcast?.fileUrl
         }
       />
-      <PlaylistDialogBox handleCancelButton={setopenDialog} openDialog={openDialog} title='Add to Playlist' ConfirmText='Add'/>
+      <PlaylistDialogBox handleCancelButton={setopenDialog} openDialog={openDialog} title='Add to Playlist' ConfirmText='Add' podcastId={podcast?._id} />
       <div className="flex justify-start mr-10 md:w-1/2">
         <Image
           src={podcast.image}
@@ -268,7 +229,7 @@ export default function PlayerBottom() {
             />
             <PlusCircleIcon
               className="h-8 w-8 cursor-pointer mx-1"
-              color={isFav ? "red" : "white"}
+              color={"white"}
               strokeWidth="1"
               onClick={()=>setopenDialog(true)}
               solid

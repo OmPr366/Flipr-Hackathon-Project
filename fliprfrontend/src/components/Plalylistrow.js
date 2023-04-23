@@ -58,7 +58,7 @@ const Playlistrow = ({ AllPodcasts, title }) => {
 
                     {AllPodcasts?.map((podcast,index) => (
                         <div key={podcast._id}>
-                            <div className="mb-5 mr-5 flex justify-center items-center ">
+                            <div className="mb-2 mr-5 flex justify-center items-center ">
                                 <Playlistitem podcast={podcast} index={index} />
                             </div>
                         </div>

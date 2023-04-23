@@ -96,7 +96,7 @@ const CategorySection = () => {
   return (
     <div className="pb-10    " style={{ width: "100%" }}>
       <div className="mt-5">
-        <div className="text-2xl font-bold text-white mt-5 mb-8">
+        <div className="text-2xl font-bold text-white mt-5 mb-8 ">
           Categories
         </div>
 

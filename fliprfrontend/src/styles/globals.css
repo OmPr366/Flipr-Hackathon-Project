@@ -15,7 +15,9 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-::-moz-selection { /* Code for Firefox */
+
+::-moz-selection {
+  /* Code for Firefox */
   color: red;
   background: yellow;
 }
@@ -28,15 +30,16 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: #011a3c;
-  
+
 }
-#__next{
+
+#__next {
   display: flex;
   justify-content: center;
 }
 
 
-.pageContainer{
+.pageContainer {
   max-width: 1800px;
   width: 100%;
   padding: 0 25px;
@@ -44,8 +47,10 @@ body {
 
 
 .loader {
-  border: 4px solid #f3f3f3; /* Light grey */
-  border-top: 4px solid #3498db; /* Blue */
+  border: 4px solid #f3f3f3;
+  /* Light grey */
+  border-top: 4px solid #3498db;
+  /* Blue */
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -54,11 +59,16 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.ImageBox{
+.ImageBox {
   background-color: #eee;
 }
 
@@ -68,5 +78,6 @@ body {
   font-size: 10px !important;
 }
 
-.slick-track{
+.slick-track {
+  margin-left: 0 !important;
 }

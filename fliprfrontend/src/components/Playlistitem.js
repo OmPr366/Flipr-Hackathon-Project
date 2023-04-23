@@ -48,7 +48,7 @@ const Playlistitem = ({ podcast, isAdmin, index }) => {
     };
 
     return (
-        <div className="flex items-center overflow-hidden py-4 px-0 w-full h-10 cursor-pointer">
+        <div className="flex items-center overflow-hidden px-0 w-full h-16  cursor-pointer border-b-2 border-primary-100  ">
             <div className="mr-4 text-white">{index + 1}.</div>
             <div className="relative mr-5 flex items-center">
                 <Image
@@ -67,7 +67,7 @@ const Playlistitem = ({ podcast, isAdmin, index }) => {
                     ? podcast?.description.slice(0, 42) + "..."
                     : podcast?.description}
             </div>
-            <div className="flex ml-auto">
+            <div className="flex ml-auto items-center">
                 <div className="bg-white w-6 h-6 rounded-full justify-center items-center flex">
                     {podcast?.type === "audio" ? (
                         <MusicalNoteIcon color="black" width={18} />
@@ -77,10 +77,10 @@ const Playlistitem = ({ podcast, isAdmin, index }) => {
                     {/* <MusicalNoteIcon color="black" width={20} /> */}
                     {/* <VideoCameraIcon color="black" width={20} /> */}
                 </div>
-                <button className="bg-green-600 w-6 h-6 ml-4 rounded-full flex justify-center items-center">
+                <button className="bg-green-600 w-10 h-10 ml-4 rounded-full flex justify-center items-center">
                     <PlayIcon
                         color="white"
-                        width={20}
+                        width={28}
                         onClick={podcast?.type === "audio" ? openPodcast : redirectPodcast}
                     />
                 </button>

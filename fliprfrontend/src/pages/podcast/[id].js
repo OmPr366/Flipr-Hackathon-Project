@@ -33,7 +33,7 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const object = {
     paths: [],
-    fallback: 'blocking',
+    fallback: "blocking",
   };
   const data = await fetch(
     `https://fipr-backend.onrender.com/api/podcast/get-allpodcasts`

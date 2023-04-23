@@ -3,8 +3,6 @@ import Playlist from "@/components/Playlist";
 import React from "react";
 
 const playlist = ({ data }) => {
-  console.log(data, " Single Playlist is this");
-  console.log(data, " Single Playlist ID this");
   return (
     <Layout>
       <Playlist data={data} />
@@ -22,7 +20,7 @@ export async function getStaticProps({ params }) {
     props: {
       data: parsedData,
     },
-    revalidate : 1
+    revalidate: 1,
   };
 }
 

@@ -62,7 +62,7 @@ const AllPodcastSection = ({ AllPodcasts }) => {
           </div>
         </div> */}
         <div className="mt-5">
-          <div className="text-2xl font-bold text-white mt-5 mb-8">
+          <div className="text-2xl font-bold text-white mt-5 mb-8 ">
             All Podcasts
           </div>
 

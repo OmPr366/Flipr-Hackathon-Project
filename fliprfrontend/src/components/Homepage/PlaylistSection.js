@@ -54,7 +54,7 @@ const PlaylistSection = ({ AllPlaylist, title }) => {
     <>
       <div className="pb-10" style={{ width: "100%" }}>
         <div className="mt-5">
-          <div className="text-2xl font-bold text-white mt-5 mb-8">{title}</div>
+          <div className="text-2xl font-bold text-white mt-5 mb-8 ">{title}</div>
 
           <Slider {...settings}>
             {AllPlaylist?.map((playlist) => (
