@@ -1,15 +1,21 @@
-[{
+[
+  {
     "_id": "4efc918d-c5b5-47e8-a36b-ee4e05a20dc0",
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/api/podcast/",
-    "url": "http://localhost:3000/api/podcast/",
-    "method": "GET",
+    "url": "http://localhost:3001/api/playlist/add-to-playlist",
+    "method": "PUT",
     "sortNum": 0,
     "created": "2023-04-21T18:16:58.064Z",
-    "modified": "2023-04-21T18:16:58.064Z",
+    "modified": "2023-04-23T14:27:49.551Z",
     "headers": [],
     "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"title\": \"Test Playlist\",\n  \"userId\": \"644301bcd95c6375f8274f73\",\n  \"podcastId\": \"6443b4f80b8c4b1a427c6e8a\",\n  \"playlistId\": \"6445400109f2c0ad25c82c6e\"\n}",
+      "form": []
+    },
     "tests": []
   },
   {

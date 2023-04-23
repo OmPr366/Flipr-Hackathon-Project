@@ -11,6 +11,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/utils/Redux/UserSlice";
 import Link from "next/link";
+import Layout from "@/components/Layout";
 
 export default function Document() {
   const [name, setName] = useState("");
@@ -58,8 +59,8 @@ export default function Document() {
     }
   };
   return (
-    <main className="flex min-h-screen flex-col p-0 items-center">
-      <ComplexNavbar />
+    <Layout>
+      <div className="flex justify-center">
       <Card color="transparent" shadow={false} className="my-10">
         <Typography variant="h4" className="text-blue-500">
           Sign Up
@@ -101,7 +102,7 @@ export default function Document() {
           <Button className="my-3" fullWidth onClick={signup}>
             Sign-up
           </Button>
-          <div className="text-center">OR</div>
+          <div className="text-center text-white">OR</div>
           <Button
             className="my-3"
             variant="outlined"
@@ -110,8 +111,8 @@ export default function Document() {
           >
             Sign-up with Google
           </Button>
-          <Typography color="gray" className="mt-4 text-center font-normal">
-            Already have an account?{" "}
+          <Typography color="white" className="mt-4 text-center font-normal text-white ">
+            Already have an account?
             <Link href="/sign-in">
             <button
               href="/sign-in"
@@ -121,7 +122,7 @@ export default function Document() {
             </button> </Link>
           </Typography>
         </form>
-      </Card>
-    </main>
+      </Card></div>
+      </Layout>
   );
 }
