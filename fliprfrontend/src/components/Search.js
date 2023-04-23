@@ -5,14 +5,16 @@ import AllPodcastSection from "./Homepage/AllPodcastSection";
 import { useRouter } from "next/router";
 
 const Search = () => {
-  const router = useRouter()
-  const { query: { title } } = router
+  const router = useRouter();
+  const {
+    query: { title },
+  } = router;
 
   const [AllPodcasts, setAllPodcasts] = useState([]);
 
   const getPodcasts = async () => {
     const data = await axios.get(
-      `https://fipr-backend.onrender.com/search-podcast/${title}`
+      `http://localhost:3001/search-podcast/${title}`
     );
     console.log(data);
     if (data) {

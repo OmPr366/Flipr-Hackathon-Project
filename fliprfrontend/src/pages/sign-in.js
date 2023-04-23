@@ -21,10 +21,7 @@ export default function Document() {
   const [usernamealert, setusernamealert] = useState(false);
 
   const signIn = () => {
-    window.open(
-      "https://fipr-backend.onrender.com/auth/google/callback",
-      "_self"
-    );
+    window.open("http://localhost:3001/auth/google/callback", "_self");
   };
 
   const login = async () => {
@@ -33,7 +30,7 @@ export default function Document() {
       password: password,
     };
     const { data } = await axios.post(
-      `https://fipr-backend.onrender.com/login-user`,
+      `http://localhost:3001/login-user`,
       user,
       { withCredentials: true }
     );

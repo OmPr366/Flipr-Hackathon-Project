@@ -13,7 +13,7 @@ const index = ({ data }) => {
 
 export async function getStaticProps({ params }) {
   const fetchData = await fetch(
-    `https://fipr-backend.onrender.com/api/podcast/get-allpodcasts`
+    `https://elitmusbackend-6bsu.onrender.com/api/podcast/get-allpodcasts`
   );
   const parsedData = await fetchData.json();
 
@@ -36,7 +36,7 @@ export async function getStaticPaths() {
     fallback: false,
   };
   const data = await fetch(
-    `https://fipr-backend.onrender.com/api/podcast/get-allpodcasts`
+    `https://elitmusbackend-6bsu.onrender.com/api/podcast/get-allpodcasts`
   );
   const parsedData = await data.json();
 

@@ -23,10 +23,7 @@ export default function Document() {
   const dispatch = useDispatch();
 
   const signIn = () => {
-    window.open(
-      "https://fipr-backend.onrender.com/auth/google/callback",
-      "_self"
-    );
+    window.open("http://localhost:3001/auth/google/callback", "_self");
   };
   const validateEmail = (email) => {
     return /\S+@\S+\.\S+/.test(email);
@@ -43,7 +40,7 @@ export default function Document() {
         email: email,
       };
       const { data } = await axios.post(
-        `https://fipr-backend.onrender.com/create-user`,
+        `http://localhost:3001/create-user`,
         user,
         { withCredentials: true }
       );
@@ -61,68 +58,73 @@ export default function Document() {
   return (
     <Layout>
       <div className="flex justify-center">
-      <Card color="transparent" shadow={false} className="my-10">
-        <Typography variant="h4" className="text-blue-500">
-          Sign Up
-        </Typography>
-        <form className="mt-4 mb-2 w-80 max-w-screen-lg sm:w-96">
-          <div className="mb-4 flex flex-col gap-4">
-            <div>
-              {emailalert && (
-                <p className="mb-2 text-red-700">Invalid email*</p>
-              )}
-              <Input
-                value={email}
-                onClick={() => setemailalert(false)}
-                onChange={(e) => setEmail(e.target.value)}
-                size="lg"
-                label="Email"
-              />
-            </div>
-            <div>
-              {usernamealert && (
-                <p className="mb-2 text-red-700">Username already exists*</p>
-              )}
-              <Input
-                value={name}
-                onClick={() => setusernamealert(false)}
-                onChange={(e) => setName(e.target.value)}
-                size="lg"
-                label="Name"
-              />
-            </div>
-            <Input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              size="lg"
-              label="Password"
-            />
-          </div>
-          <Button className="my-3" fullWidth onClick={signup}>
-            Sign-up
-          </Button>
-          <div className="text-center text-white">OR</div>
-          <Button
-            className="my-3"
-            variant="outlined"
-            fullWidth
-            onClick={signIn}
-          >
-            Sign-up with Google
-          </Button>
-          <Typography color="white" className="mt-4 text-center font-normal text-white ">
-            Already have an account?
-            <Link href="/sign-in">
-            <button
-              href="/sign-in"
-              className="font-medium text-blue-500 transition-colors hover:text-blue-700"
-            >
-              Sign In
-            </button> </Link>
+        <Card color="transparent" shadow={false} className="my-10">
+          <Typography variant="h4" className="text-blue-500">
+            Sign Up
           </Typography>
-        </form>
-      </Card></div>
-      </Layout>
+          <form className="mt-4 mb-2 w-80 max-w-screen-lg sm:w-96">
+            <div className="mb-4 flex flex-col gap-4">
+              <div>
+                {emailalert && (
+                  <p className="mb-2 text-red-700">Invalid email*</p>
+                )}
+                <Input
+                  value={email}
+                  onClick={() => setemailalert(false)}
+                  onChange={(e) => setEmail(e.target.value)}
+                  size="lg"
+                  label="Email"
+                />
+              </div>
+              <div>
+                {usernamealert && (
+                  <p className="mb-2 text-red-700">Username already exists*</p>
+                )}
+                <Input
+                  value={name}
+                  onClick={() => setusernamealert(false)}
+                  onChange={(e) => setName(e.target.value)}
+                  size="lg"
+                  label="Name"
+                />
+              </div>
+              <Input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                size="lg"
+                label="Password"
+              />
+            </div>
+            <Button className="my-3" fullWidth onClick={signup}>
+              Sign-up
+            </Button>
+            <div className="text-center text-white">OR</div>
+            <Button
+              className="my-3"
+              variant="outlined"
+              fullWidth
+              onClick={signIn}
+            >
+              Sign-up with Google
+            </Button>
+            <Typography
+              color="white"
+              className="mt-4 text-center font-normal text-white "
+            >
+              Already have an account?
+              <Link href="/sign-in">
+                <button
+                  href="/sign-in"
+                  className="font-medium text-blue-500 transition-colors hover:text-blue-700"
+                >
+                  Sign In
+                </button>{" "}
+              </Link>
+            </Typography>
+          </form>
+        </Card>
+      </div>
+    </Layout>
   );
 }
