@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const DB = process.env.DATABASE || 'mongodb+srv://omprarox:flipr@flipr.pmaoyhw.mongodb.net/?retryWrites=true&w=majority';
+const DB = process.env.DATABASE || 'mongodb+srv://prakash:flipr@flipr.pmaoyhw.mongodb.net/?retryWrites=true&w=majority';
 mongoose.set("strictQuery", false);
 mongoose
   .connect(DB, {
