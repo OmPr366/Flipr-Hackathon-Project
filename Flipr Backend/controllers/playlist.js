@@ -92,13 +92,16 @@ exports.removePodcastFromPlaylist = async (req, res) => {
 
 // Create Playlist
 exports.createPlaylist = async (req, res) => {
-    const { title, userId } = req.body;
+    const { title, userId , authorName } = req.body;
     
     if (!title) {
         return res.status(400).json({ message: "Title is required" });
     }
     if (!userId) {
         return res.status(400).json({ message: "User Id is required" });
+    }
+    if (!authorName) {
+        return res.status(400).json({ message: "Author Name  is required" });
     }
     
     // check whether UserId valid or not
@@ -110,6 +113,7 @@ exports.createPlaylist = async (req, res) => {
     const NewPlaylist = new Playlist({
         title,
         userId,
+        authorName
     });
     
     try {
@@ -119,3 +123,32 @@ exports.createPlaylist = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
     }
+
+
+
+  // Get all playlists
+exports.getAllPlayLists = async (req, res) => {
+
+    try {
+        const playlists = await Playlist.find();
+        res.status(200).json(playlists);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+
+
+// Get Playlist by Id
+
+exports.getPlaylistById = async (req, res) => {
+
+  try {
+      const playlist = await Playlist.findById(req.params.id).populate("podcasts");
+      res.status(200).json(playlist);
+  }
+  catch (error) {
+      res.status(404).json({ message: error.message });
+  }
+}
+

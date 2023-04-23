@@ -1,5 +1,4 @@
-[
-  {
+[{
     "_id": "e8d9dbc9-bf38-4799-9ff8-098dbb803e75",
     "colId": "ccf6a3a3-6b6b-4a8f-9224-21bd977f7845",
     "containerId": "",
@@ -43,13 +42,11 @@
     "created": "2023-04-21T18:38:25.584Z",
     "modified": "2023-04-21T18:45:11.326Z",
     "headers": [],
-    "params": [
-      {
-        "name": "searchQuery",
-        "value": "demo",
-        "isPath": false
-      }
-    ],
+    "params": [{
+      "name": "searchQuery",
+      "value": "demo",
+      "isPath": false
+    }],
     "tests": []
   },
   {
@@ -86,19 +83,15 @@
     "body": {
       "type": "formdata",
       "raw": "",
-      "form": [
-        {
-          "name": "image",
-          "value": "",
-          "isDisabled": true
-        }
-      ],
-      "files": [
-        {
-          "name": "file",
-          "value": "../../../../Pictures/Screenshots/Screenshot from 2023-04-22 00-31-59.png"
-        }
-      ]
+      "form": [{
+        "name": "image",
+        "value": "",
+        "isDisabled": true
+      }],
+      "files": [{
+        "name": "file",
+        "value": "../../../../Pictures/Screenshots/Screenshot from 2023-04-22 00-31-59.png"
+      }]
     },
     "tests": []
   },
@@ -159,7 +152,7 @@
     "colId": "749d78e5-7373-4e22-939c-979035650ef6",
     "containerId": "",
     "name": "Get Playlist",
-    "url": "http://localhost:3001/api/playlist/get-playlists/644301bcd95c6375f8274f73",
+    "url": "https://fipr-backend.onrender.com/api/playlist/get-playlists/644301bcd95c6375f8274f73",
     "method": "GET",
     "sortNum": 10000,
     "created": "2023-04-23T14:22:45.152Z",
@@ -173,16 +166,16 @@
     "colId": "749d78e5-7373-4e22-939c-979035650ef6",
     "containerId": "",
     "name": "Add playlist",
-    "url": "http://localhost:3001/api/playlist/create-playlist/",
+    "url": "https://fipr-backend.onrender.com/api/playlist/create-playlist/",
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-04-23T14:26:44.865Z",
-    "modified": "2023-04-23T14:26:44.865Z",
+    "modified": "2023-04-23T14:55:01.213Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"title\": \"Test Playlist\",\n  \"userId\": \"644301bcd95c6375f8274f73\",\n  \"podcastId\": \"6443b4f80b8c4b1a427c6e8a\"\n}",
+      "raw": "{\n  \"title\": \"Test Playlist\",\n  \"authorName\": \"Om Prakash\",\n  \"userId\": \"644301bcd95c6375f8274f73\",\n  \"podcastId\": \"6443b4f80b8c4b1a427c6e8a\"\n}",
       "form": []
     },
     "tests": []
