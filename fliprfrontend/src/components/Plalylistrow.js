@@ -2,6 +2,7 @@ import React from "react";
 import PodcastCard from "./Cards/PodcastCard";
 import Slider from "react-slick";
 import Playlistitem from "./Playlistitem";
+import index from "@/pages/dashboard/createpodcast";
 
 const Playlistrow = ({ AllPodcasts, title }) => {
     const settings = {
@@ -56,10 +57,10 @@ const Playlistrow = ({ AllPodcasts, title }) => {
                 <div className="mt-5">
                     <div className="text-2xl font-bold text-white mt-5 mb-8">{title}</div>
 
-                    {AllPodcasts?.map((podcast) => (
+                    {AllPodcasts?.map((podcast,index) => (
                         <div key={podcast._id}>
                             <div className="mb-5 mr-5 flex justify-center items-center ">
-                                <Playlistitem podcast={podcast} />
+                                <Playlistitem podcast={podcast} index={index} />
                             </div>
                         </div>
                     ))}

@@ -11,12 +11,13 @@ import { setPodcast } from "@/utils/Redux/PodcastSlice";
 import { useRouter } from "next/navigation";
 import { incrementPodcastViews } from "@/actions/podcast";
 
-const Playlistitem = ({ podcast, isAdmin }) => {
+const Playlistitem = ({ podcast, isAdmin, index }) => {
     const dispatch = useDispatch();
     const { push } = useRouter();
     // console.log(props.podcast);
 
     const openPodcast = () => {
+        console.log('open');
         dispatch(
             setPodcast({
                 ...podcast,
@@ -42,6 +43,7 @@ const Playlistitem = ({ podcast, isAdmin }) => {
     };
 
     const redirectPodcast = () => {
+        console.log('redirect');
         const user = JSON.parse(localStorage.getItem("user"));
         if (user) {
             incrementPodcastViews({
@@ -53,17 +55,9 @@ const Playlistitem = ({ podcast, isAdmin }) => {
     };
 
     return (
-        <div className="flex items-center justify-between shadow-lg rounded-lg overflow-hidden p-4 w-full h-10  cursor-pointer podcastCard bg-primary-800  ">
-            <div className="bg-white w-6 h-6 rounded-full justify-center items-center flex  mt-1 shadow-lg playIcon">
-                {podcast?.type === "audio" ? (
-                    <MusicalNoteIcon color="black" width={20} />
-                ) : (
-                    <VideoCameraIcon color="black" width={20} />
-                )}
-                {/* <MusicalNoteIcon color="black" width={20} /> */}
-                {/* <VideoCameraIcon color="black" width={20} /> */}
-            </div>
-            <div className="relative flex items-center">
+        <div className="flex items-center overflow-hidden py-4 px-0 w-full h-10 cursor-pointer">
+            <div className="mr-4">{index + 1}.</div>
+            <div className="relative mr-5 flex items-center">
                 <Image
                     className="object-cover ImageBox rounded-full h-10 w-10"
                     src={podcast?.image}
@@ -72,23 +66,32 @@ const Playlistitem = ({ podcast, isAdmin }) => {
                     height={40}
                 />
             </div>
-            <div>
-                <div className="text-md font-bold mb-1 mt-2 text-white">
-                    {podcast?.title}
-                </div>
-                <div className=" mb-2 text-white text-xs  ">
-                    {podcast?.description.length > 42
-                        ? podcast?.description.slice(0, 42) + "..."
-                        : podcast?.description}
-                </div>
+            <div className="text-xs md:text-md md:font-bold text-white w-1/6">
+                {podcast?.title}
             </div>
-            <button className="bg-green-600 w-10 h-10 rounded-full flex justify-center items-center">
-                <PlayIcon
-                    color="white"
-                    width={30}
-                    onClick={podcast?.type === "audio" ? openPodcast : redirectPodcast}
-                />
-            </button>
+            <div className="text-white text-xs mr-auto ml-2">
+                {podcast?.description.length > 42
+                    ? podcast?.description.slice(0, 42) + "..."
+                    : podcast?.description}
+            </div>
+            <div className="flex ml-auto">
+                <div className="bg-white w-6 h-6 rounded-full justify-center items-center flex">
+                    {podcast?.type === "audio" ? (
+                        <MusicalNoteIcon color="black" />
+                    ) : (
+                        <VideoCameraIcon color="black" />
+                    )}
+                    {/* <MusicalNoteIcon color="black" width={20} /> */}
+                    {/* <VideoCameraIcon color="black" width={20} /> */}
+                </div>
+                <button className="bg-green-600 w-6 h-6 ml-4 rounded-full flex justify-center items-center">
+                    <PlayIcon
+                        color="white"
+                        width={20}
+                        onClick={podcast?.type === "audio" ? openPodcast : redirectPodcast}
+                    />
+                </button>
+            </div>
         </div>
     );
 };
