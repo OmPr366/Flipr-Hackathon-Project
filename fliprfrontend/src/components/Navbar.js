@@ -115,7 +115,7 @@ function ProfileMenu(props) {
             Dashboard
           </Typography>
         </MenuItem>
-        <MenuItem
+        {/* <MenuItem
           key="Favourites"
           onClick={() => {
             closeMenu();
@@ -135,7 +135,7 @@ function ProfileMenu(props) {
           >
             Favourites
           </Typography>
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem
           key="Sign-Out"
           onClick={() => {

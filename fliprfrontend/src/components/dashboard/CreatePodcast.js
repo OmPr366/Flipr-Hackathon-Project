@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import {
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 
 const CreatePodcastPage = () => {
   const Router = useRouter();
@@ -11,7 +14,7 @@ const CreatePodcastPage = () => {
     description: "",
     image: "",
     category: "",
-    type: "image",
+    type: "audio",
     fileUrl: "",
     authorName: "",
     userId: "",
@@ -181,6 +184,10 @@ const CreatePodcastPage = () => {
     }
   };
 
+  const gotodash = () => {
+    Router.push("/dashboard");
+  }
+
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData) {
@@ -196,7 +203,10 @@ const CreatePodcastPage = () => {
 
   return (
     <div className="container mx-auto my-4">
-      <h1 className="text-3xl font-bold mb-4">Create a Podcast</h1>
+      <div className="flex justify-between">
+        <h1 className="text-3xl font-bold mb-4">Create a Podcast</h1>
+        <XMarkIcon onClick={gotodash} className="h-10 w-10 cursor-pointer" strokeWeight="1" />
+      </div>
       <form
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         onSubmit={createPodcastHandler}
