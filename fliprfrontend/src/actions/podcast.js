@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API2 = "https://fipr-backend.onrender.com/api";
+// https://fipr-backend.onrender.com/api
 // const API2 = "https://elitmusbackend-6bsu.onrender.com";
 
 // export const addGame = async (data) => {

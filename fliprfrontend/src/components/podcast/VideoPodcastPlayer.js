@@ -7,29 +7,18 @@ import {
 } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
+import { setFavPodcasts } from "@/utils/Redux/FavPodcastSlice";
+import { addToFavoritePodcast } from "@/actions/podcast";
 
 const VideoPodcastPlayer = ({ podcast }) => {
-  //   const podcast = {
-  //     _id: "6443cf129dc7f44c5592974f",
-  //     title: "My video",
-  //     description:
-  //       "Join us every week as we explore the world of mindfulness and meditation, and learn practical techniques to bring more peace and clarity into your daily life.",
-  //     image:
-  //       "https://res.cloudinary.com/ompra/image/upload/v1682165502/zhnc5dnzk0q6rmqce575.jpg",
-  //     category: "News",
-  //     type: "video",
-  //     fileUrl:
-  //       "https://res.cloudinary.com/ompra/video/upload/v1682165513/bnikb2npi0nzlu0jgnzc.mp4",
-  //     authorName: "Ashish Mohite",
-  //     userId: "6443cc279dc7f44c55929744",
-  //     createdAt: "2023-04-22T12:12:02.500Z",
-  //     updatedAt: "2023-04-22T12:12:02.500Z",
-  //     __v: 0,
-  //   };
+  const dispatch =  useDispatch()
+  
   const audio = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const FavPodcasts = useSelector((state) => state.FavPodcastSlice);
+
   useEffect(() => {
     audio.current.addEventListener("timeupdate", handleTimeUpdate);
     audio.current.addEventListener("loadedmetadata", handleLoadedMetadata);
@@ -97,10 +86,38 @@ const VideoPodcastPlayer = ({ podcast }) => {
   }
   const progress = duration ? (currentTime / duration) * 100 : 0;
 
+
+  // Favorite podcast
+  let isFav = FavPodcasts?.find((fav) => fav._id === podcast?._id);
+  const LikeCickHandler = async () => {
+    const User = JSON.parse(localStorage.getItem("user"));
+    if (!isFav) {
+      isFav = true;
+      addToFavoritePodcast({
+        podcastId: podcast._id,
+        userId: User._id,
+      }).then((res) => {
+        if (res.status == 200) {
+          console.log(res.data, "All podcasts");
+          dispatch(setFavPodcasts([...FavPodcasts, podcast]));
+        }
+      });
+    } else {
+      isFav = false;
+      dispatch(
+        setFavPodcasts(FavPodcasts.filter((fav) => fav._id !== podcast._id))
+      );
+      RemoveFavoritePodcast({
+        podcastId: podcast._id,
+        userId: User._id,
+      });
+    }
+  };
+
   return (
     <div>
       <div
-        className={`flex justify-center my-2 ${isPlaying ? " " : "md:opacity-20"
+        className={`flex justify-center my-2  ${isPlaying ? " " : "md:opacity-20"
           }`}
       >
         <video ref={audio} src={podcast.fileUrl} className="md:w-3/4 w-full" />
@@ -130,7 +147,13 @@ const VideoPodcastPlayer = ({ podcast }) => {
                 strokeWidth: 1,
               })}
           </div>
-          <HeartIcon className="h-10 w-10 cursor-pointer" strokeWidth="1" />
+          <HeartIcon
+              className="h-10 w-10 cursor-pointer "
+              color={isFav ? "red" : "white"}
+              strokeWidth="1"
+              onClick={LikeCickHandler}
+              
+            />
           <ArrowsPointingOutIcon onClick={toggleFullScreen} strokeWidth="1" className="ml-2 h-10 w-10 cursor-pointer"  />
         </div>
         <div className="md:hidden w-full">
@@ -141,7 +164,7 @@ const VideoPodcastPlayer = ({ podcast }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center absolute top-20">
+      <div className="flex justify-center absolute top-20 text-gray-400">
         {!isPlaying && (
           <div className="hidden md:flex justify-between p-2 px-4">
             <div>
