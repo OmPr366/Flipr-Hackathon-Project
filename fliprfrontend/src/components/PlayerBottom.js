@@ -11,6 +11,7 @@ import {
   PlayCircleIcon,
   PauseCircleIcon,
   XMarkIcon,
+  PlusCircleIcon
 } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
@@ -20,6 +21,8 @@ import { setPodcast } from "@/utils/Redux/PodcastSlice";
 import Image from "next/image";
 import { RemoveFavoritePodcast, addToFavoritePodcast } from "@/actions/podcast";
 import { setFavPodcasts } from "@/utils/Redux/FavPodcastSlice";
+import DialogBox from "./dashboard/DialogBox";
+import PlaylistDialogBox from "./dashboard/PlaylistDialogBox";
 
 export default function PlayerBottom() {
   const podcast = useSelector((state) => state.PodcastSlice);
@@ -28,6 +31,7 @@ export default function PlayerBottom() {
   const [audioisPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [openDialog,setopenDialog] = useState(false)
 
 
   useEffect(() => {
@@ -182,6 +186,11 @@ export default function PlayerBottom() {
     dispatch(setPodcast(null));
   };
 
+  const addPlaylist = () => {
+    // audio.current.pause();
+    // dispatch(setPodcast(null));
+  };
+
   // Check Whether Podcast is in FavPodcasts
   let isFav = FavPodcasts?.find((fav) => fav._id === podcast?._id);
 
@@ -218,6 +227,7 @@ export default function PlayerBottom() {
           podcast?.fileUrl
         }
       />
+      <PlaylistDialogBox handleCancelButton={setopenDialog} openDialog={openDialog} title='Add to Playlist' ConfirmText='Add'/>
       <div className="flex justify-start mr-10 md:w-1/2">
         <Image
           src={podcast.image}
@@ -233,9 +243,12 @@ export default function PlayerBottom() {
       </div>
       <div className="w-full flex md:justify-end md:flex-row flex-col justify-between">
         <div className="md:hidden flex items-center justify-between">
-          <h2 className="text-xl">{podcast.title}</h2>
+        <div className="flex flex-col w-full">
+          <h2 className="md:text-xl text-xs">{podcast.title}</h2>
+          <p className="text-xs text-gray-300">{podcast?.authorName}</p>
+        </div>
           <div className="md:hidden flex justify-center my-2">
-            <div className="cursor-pointer mx-5" onClick={handlePlayPause}>
+            <div className="cursor-pointer mx-2" onClick={handlePlayPause}>
               {audioisPlaying
                 ? React.createElement(PauseCircleIcon, {
                   className: `h-8 w-8`,
@@ -253,8 +266,14 @@ export default function PlayerBottom() {
               onClick={LikeCickHandler}
               solid
             />
+            <PlusCircleIcon
+              className="h-8 w-8 cursor-pointer mx-1"
+              color={isFav ? "red" : "white"}
+              strokeWidth="1"
+              onClick={()=>setopenDialog(true)}
+              solid
+            />
           </div>
-          <p className="text-sm text-gray-300">{podcast?.authorName}</p>
         </div>
         <div className="md:my-2 md:w-full flex justify-center items-center">
           <span>{formatTime(currentTime)}</span>
@@ -268,7 +287,7 @@ export default function PlayerBottom() {
           />
           <span>{formatTime(duration)}</span>
           <div className="hidden md:flex justify-center my-2">
-            <div className="cursor-pointer mx-5" onClick={handlePlayPause}>
+            <div className="cursor-pointer mx-1 ml-5" onClick={handlePlayPause}>
               {audioisPlaying
                 ? React.createElement(PauseCircleIcon, {
                   className: `h-8 w-8`,
@@ -280,10 +299,17 @@ export default function PlayerBottom() {
                 })}
             </div>
             <HeartIcon
-              className="h-8 w-8 cursor-pointer "
+              className="h-8 w-8 cursor-pointer mx-1"
               color={isFav ? "red" : "white"}
               strokeWidth="1"
               onClick={LikeCickHandler}
+              solid
+            />
+            <PlusCircleIcon
+              className="h-8 w-8 cursor-pointer mx-1"
+              color={isFav ? "red" : "white"}
+              strokeWidth="1"
+              onClick={()=>setopenDialog(true)}
               solid
             />
           </div>

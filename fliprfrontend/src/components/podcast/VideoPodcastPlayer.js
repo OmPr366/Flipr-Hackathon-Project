@@ -3,7 +3,8 @@ import {
   PlayCircleIcon,
   PauseCircleIcon,
   XMarkIcon,
-  ArrowsPointingOutIcon
+  ArrowsPointingOutIcon,
+  PlusCircleIcon
 } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,8 +12,8 @@ import { setFavPodcasts } from "@/utils/Redux/FavPodcastSlice";
 import { addToFavoritePodcast } from "@/actions/podcast";
 
 const VideoPodcastPlayer = ({ podcast }) => {
-  const dispatch =  useDispatch()
-  
+  const dispatch = useDispatch()
+
   const audio = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
@@ -116,6 +117,7 @@ const VideoPodcastPlayer = ({ podcast }) => {
 
   return (
     <div>
+      <PlaylistDialogBox handleCancelButton={setopenDialog} openDialog={openDialog} title='Add to Playlist' ConfirmText='Add' />
       <div
         className={`flex justify-center my-2  ${isPlaying ? " " : "md:opacity-20"
           }`}
@@ -148,13 +150,20 @@ const VideoPodcastPlayer = ({ podcast }) => {
               })}
           </div>
           <HeartIcon
-              className="h-10 w-10 cursor-pointer "
-              color={isFav ? "red" : "white"}
-              strokeWidth="1"
-              onClick={LikeCickHandler}
-              
-            />
-          <ArrowsPointingOutIcon onClick={toggleFullScreen} strokeWidth="1" className="ml-2 h-10 w-10 cursor-pointer"  />
+            className="h-10 w-10 cursor-pointer "
+            color={isFav ? "red" : "white"}
+            strokeWidth="1"
+            onClick={LikeCickHandler}
+
+          />
+          <ArrowsPointingOutIcon onClick={toggleFullScreen} strokeWidth="1" className="ml-2 h-10 w-10 cursor-pointer" />
+          <PlusCircleIcon
+            className="h-8 w-8 cursor-pointer mx-1"
+            color={isFav ? "red" : "white"}
+            strokeWidth="1"
+            onClick={() => setopenDialog(true)}
+            solid
+          />
         </div>
         <div className="md:hidden w-full">
           <div>
