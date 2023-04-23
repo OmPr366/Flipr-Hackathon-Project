@@ -83,6 +83,7 @@ const CreatePodcastPage = () => {
           type: "image",
           fileUrl: "null",
         });
+        Router.push("/dashboard");
       }
     });
   };
@@ -246,15 +247,15 @@ const CreatePodcastPage = () => {
             <div className=" w-10 h-10  loader mt-2 mb-2 "></div>
           ) : null}
           <input
-            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              Loading?.imageUploading ? "hidden" : ""
-            } `}
+            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${Loading?.imageUploading ? "hidden" : ""
+              } `}
             id="file"
             name="file"
             type="file"
             placeholder="Upload podcast image"
             required
             onChange={uploadImageHandler}
+            accept="image/*"
           />
         </div>
         <div className="mb-4">
@@ -273,9 +274,13 @@ const CreatePodcastPage = () => {
             onChange={inputChangeHandler}
           >
             <option value="">Select category</option>
+            <option value="Sports">Sports</option>
+            <option value="Technology">Technology</option>
+            <option value="Lifestyle">Lifestyle</option>
+            <option value="Current affairs">Current affairs</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Business">Business</option>
             <option value="Comedy">Comedy</option>
-            <option value="News">News</option>
-            <option value="Education">Education</option>
           </select>
         </div>
         <div className="mb-4">
@@ -294,7 +299,7 @@ const CreatePodcastPage = () => {
               checked={podcastInputData.type === "audio"}
               onChange={inputChangeHandler}
             />
-            <span className="text-sm">Audio</span>
+            <span className="text-sm text-gray-700">Audio</span>
           </div>
 
           <div className="flex items-center">
@@ -306,7 +311,7 @@ const CreatePodcastPage = () => {
               checked={podcastInputData.type === "video"}
               onChange={inputChangeHandler}
             />
-            <span className="text-sm">Video</span>
+            <span className="text-sm text-sm text-gray-700">Video</span>
           </div>
         </div>
         <div className="mb-4">
@@ -320,14 +325,14 @@ const CreatePodcastPage = () => {
             <div className=" w-10 h-10  loader mt-2 mb-2 "></div>
           ) : null}
           <input
-            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              Loading?.fileUploading ? "hidden" : ""
-            }`}
+            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${Loading?.fileUploading ? "hidden" : ""
+              }`}
             id="file"
             name="file"
             type="file"
             placeholder="Upload podcast file"
             required
+            accept={`${podcastInputData.type}/*`}
             onChange={uploadFileHandler}
           />
         </div>
