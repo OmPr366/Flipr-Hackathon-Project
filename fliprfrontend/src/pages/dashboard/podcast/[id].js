@@ -36,6 +36,7 @@ export async function getStaticPaths() {
   const object = {
     paths: [],
     fallback: false,
+    revalidate:1
   };
   const data = await fetch(
     `https://fipr-backend.onrender.com/api/podcast/get-allpodcasts`
