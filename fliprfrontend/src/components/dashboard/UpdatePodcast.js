@@ -1,5 +1,6 @@
 import {
   createPodcastInDatabase,
+  deletePodcastInDatabase,
   updatePodcastInDatabase,
 } from "@/actions/podcast";
 import React, { useEffect, useState } from "react";
@@ -7,6 +8,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { TrashIcon } from "@heroicons/react/24/solid";
 
 const UpdatePodcast = ({ podcastData }) => {
   const Router = useRouter();
@@ -28,6 +30,17 @@ const UpdatePodcast = ({ podcastData }) => {
   const discardChangesHandler = () => {
     setPodcastInputData(podcastData);
   };
+  const deletePodcastHandler = async () => {
+    deletePodcastInDatabase(podcastData._id).then((res) => {
+      if (res.error) {
+        toast.error(res.message);
+      } else {
+        toast.success(res.message);
+        Router.push("/dashboard");
+      }
+    });
+  };
+
   const UpdatePodcastHandler = (e) => {
     e.preventDefault();
 
@@ -89,7 +102,7 @@ const UpdatePodcast = ({ podcastData }) => {
       const formData = new FormData();
       formData.append("file", file);
       const response = await axios.post(
-        "https://fipr-backend.onrender.com/api/upload/upload-image",
+        "https://elitmusbackend-6bsu.onrender.com/api/upload/upload-image",
         formData,
         {
           headers: {
@@ -117,7 +130,7 @@ const UpdatePodcast = ({ podcastData }) => {
       });
     }
 
-    // fetch("https://fipr-backend.onrender.com/api/upload/upload-image", {
+    // fetch("https://elitmusbackend-6bsu.onrender.com/api/upload/upload-image", {
     //   method: "PUT",
     //   body: formData,
     // })
@@ -146,7 +159,7 @@ const UpdatePodcast = ({ podcastData }) => {
       const formData = new FormData();
       formData.append("file", file);
       const response = await axios.post(
-        "https://fipr-backend.onrender.com/api/upload/upload-image",
+        "https://elitmusbackend-6bsu.onrender.com/api/upload/upload-image",
         formData
       );
       console.log(response.data);
@@ -184,7 +197,14 @@ const UpdatePodcast = ({ podcastData }) => {
 
   return (
     <div className="container mx-auto my-4">
-      <h1 className="text-3xl font-bold mb-4">Create a Podcast</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-bold mb-4 text-white">Create a Podcast</h1>
+        <TrashIcon
+          className="h-6 w-6 text-red lg:mr-5"
+          color="red"
+          onClick={deletePodcastHandler}
+        />
+      </div>
       <form
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         onSubmit={UpdatePodcastHandler}
@@ -203,7 +223,7 @@ const UpdatePodcast = ({ podcastData }) => {
             type="text"
             placeholder="Enter podcast title"
             required
-            value={podcastInputData.title}
+            value={podcastInputData?.title}
             onChange={inputChangeHandler}
           />
         </div>
@@ -220,7 +240,7 @@ const UpdatePodcast = ({ podcastData }) => {
             name="description"
             placeholder="Enter podcast description"
             required
-            value={podcastInputData.description}
+            value={podcastInputData?.description}
             onChange={inputChangeHandler}
           />
         </div>

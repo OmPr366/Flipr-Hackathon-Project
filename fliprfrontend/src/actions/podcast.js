@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API2 = "https://fipr-backend.onrender.com/api";
-// https://fipr-backend.onrender.com/api
+const API2 = "https://elitmusbackend-6bsu.onrender.com/api";
+// https://elitmusbackend-6bsu.onrender.com/api
 // const API2 = "https://elitmusbackend-6bsu.onrender.com";
 
 // export const addGame = async (data) => {
@@ -29,6 +29,35 @@ const API2 = "https://fipr-backend.onrender.com/api";
 export const createPodcastInDatabase = async (data) => {
   try {
     const res = await axios.post(`${API2}/podcast/create-podcast`, data);
+    if (res) {
+      return {
+        data: res.data,
+        status: res.status,
+        error: false,
+        message:
+          res.status == 200
+            ? "Podcast Added Successfully"
+            : "Something went wrong",
+      };
+    }
+  } catch (error) {
+    console.log(error, " error hai");
+    return {
+      data: null,
+      status: 500,
+      error: true,
+      message:
+        error?.response?.data?.error ||
+        error?.response?.data?.message ||
+        "Something went wrong",
+    };
+  }
+};
+
+// /delete-podcast/:id
+export const deletePodcastInDatabase = async (id) => {
+  try {
+    const res = await axios.delete(`${API2}/podcast/delete-podcast/${id}`);
     if (res) {
       return {
         data: res.data,

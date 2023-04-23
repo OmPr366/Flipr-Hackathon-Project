@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Image from 'next/image';
+import Image from "next/image";
 import {
   Navbar,
   MobileNav,
@@ -34,19 +34,25 @@ import { setUser } from "@/utils/Redux/UserSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Input } from "@material-tailwind/react";
-import logo from '../assets/logo.svg'
+import logo from "../assets/logo.svg";
 // profile menu component
 
 function LoginOptions() {
   return (
     <div className="relative md:flex items-center">
       <Link href="/sign-up">
-        <Button className="md:mx-4 w-full md:w-auto border-primary-100 text-primary-100 " variant="outlined">
+        <Button
+          className="md:mx-4 w-full md:w-auto border-primary-100 text-primary-100 "
+          variant="outlined"
+        >
           Sign-up
         </Button>
       </Link>
       <Link href="/sign-in">
-        <Button className="mx-0 my-4 md:my-0 w-full bg-primary-100 " variant="filled">
+        <Button
+          className="mx-0 my-4 md:my-0 w-full bg-primary-100 "
+          variant="filled"
+        >
           Sign-in
         </Button>
       </Link>
@@ -60,7 +66,7 @@ function ProfileMenu(props) {
   const closeMenu = () => setIsMenuOpen(false);
   const logoutUser = () => {
     localStorage.removeItem("user");
-    window.open(`https://fipr-backend.onrender.com/auth/logout`, "_self");
+    window.open(`http://localhost:3001/auth/logout`, "_self");
     dispatch(setUser(null));
   };
   const gotodashboard = () => {
@@ -88,8 +94,9 @@ function ProfileMenu(props) {
           />
           <ChevronDownIcon
             strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
-              }`}
+            className={`h-3 w-3 transition-transform ${
+              isMenuOpen ? "rotate-180" : ""
+            }`}
           />
         </Button>
       </MenuHandler>
@@ -184,8 +191,14 @@ export default function ComplexNavbar() {
     <div className=" p-2   rounded-none  bg-primary-900 border-b-2 border-primary-200 pb-5 ">
       <div className="relative mx-auto flex justify-between items-end text-blue-gray-900">
         <Link href="/" className="flex items-center">
-          <Image alt='logo' src={logo} width={40} height={40} className="mr-2"/>
-          <p className="text-white text-xl" >BuzzTalk</p>
+          <Image
+            alt="logo"
+            src={logo}
+            width={40}
+            height={40}
+            className="mr-2"
+          />
+          <p className="text-white text-xl">BuzzTalk</p>
         </Link>
 
         <IconButton
@@ -213,7 +226,10 @@ export default function ComplexNavbar() {
               className: "min-w-0 ",
             }}
           />
-          <Button size="sm" className="!absolute right-1 top-1 rounded bg-primary-100 ">
+          <Button
+            size="sm"
+            className="!absolute right-1 top-1 rounded bg-primary-100 "
+          >
             <Link href={`/search/${searchText}`}>
               <MagnifyingGlassIcon className="h-4 w-5" strokeWeight="1" />
             </Link>
@@ -240,7 +256,10 @@ export default function ComplexNavbar() {
               className: "min-w-0 ",
             }}
           />
-          <Button size="sm" className="!absolute right-1 top-1 rounded bg-primary-100 ">
+          <Button
+            size="sm"
+            className="!absolute right-1 top-1 rounded bg-primary-100 "
+          >
             <Link href={`/search/${searchText}`}>
               <MagnifyingGlassIcon className="h-4 w-5" strokeWeight="1" />
             </Link>

@@ -33,13 +33,6 @@ const Playlistitem = ({ podcast, isAdmin, index }) => {
                 isplaying: true,
             })
         );
-        const user = JSON.parse(localStorage.getItem("user"));
-        if (user) {
-            incrementPodcastViews({
-                podcastId: podcast?._id,
-                userId: user?._id
-            })
-        }
     };
 
     const redirectPodcast = () => {
@@ -56,7 +49,7 @@ const Playlistitem = ({ podcast, isAdmin, index }) => {
 
     return (
         <div className="flex items-center overflow-hidden py-4 px-0 w-full h-10 cursor-pointer">
-            <div className="mr-4">{index + 1}.</div>
+            <div className="mr-4 text-white">{index + 1}.</div>
             <div className="relative mr-5 flex items-center">
                 <Image
                     className="object-cover ImageBox rounded-full h-10 w-10"
@@ -77,9 +70,9 @@ const Playlistitem = ({ podcast, isAdmin, index }) => {
             <div className="flex ml-auto">
                 <div className="bg-white w-6 h-6 rounded-full justify-center items-center flex">
                     {podcast?.type === "audio" ? (
-                        <MusicalNoteIcon color="black" />
+                        <MusicalNoteIcon color="black" width={18} />
                     ) : (
-                        <VideoCameraIcon color="black" />
+                        <VideoCameraIcon color="black" width={18} />
                     )}
                     {/* <MusicalNoteIcon color="black" width={20} /> */}
                     {/* <VideoCameraIcon color="black" width={20} /> */}

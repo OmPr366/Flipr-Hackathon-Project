@@ -3,9 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import {
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 const CreatePodcastPage = () => {
   const Router = useRouter();
@@ -104,7 +102,7 @@ const CreatePodcastPage = () => {
       const formData = new FormData();
       formData.append("file", file);
       const response = await axios.post(
-        "https://fipr-backend.onrender.com/api/upload/upload-image",
+        "https://elitmusbackend-6bsu.onrender.com/api/upload/upload-image",
         formData,
         {
           headers: {
@@ -132,7 +130,7 @@ const CreatePodcastPage = () => {
       });
     }
 
-    // fetch("https://fipr-backend.onrender.com/api/upload/upload-image", {
+    // fetch("https://elitmusbackend-6bsu.onrender.com/api/upload/upload-image", {
     //   method: "PUT",
     //   body: formData,
     // })
@@ -161,7 +159,7 @@ const CreatePodcastPage = () => {
       const formData = new FormData();
       formData.append("file", file);
       const response = await axios.post(
-        "https://fipr-backend.onrender.com/api/upload/upload-image",
+        "https://elitmusbackend-6bsu.onrender.com/api/upload/upload-image",
         formData
       );
       console.log(response.data);
@@ -186,7 +184,7 @@ const CreatePodcastPage = () => {
 
   const gotodash = () => {
     Router.push("/dashboard");
-  }
+  };
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -204,8 +202,13 @@ const CreatePodcastPage = () => {
   return (
     <div className="container mx-auto my-4">
       <div className="flex justify-between">
-        <h1 className="text-3xl font-bold mb-4">Create a Podcast</h1>
-        <XMarkIcon onClick={gotodash} className="h-10 w-10 cursor-pointer" strokeWeight="1" />
+        <h1 className="text-3xl font-bold mb-4 text-white">Create a Podcast</h1>
+        <XMarkIcon
+          onClick={gotodash}
+          className="h-10 w-10 cursor-pointer"
+          strokeWeight="1"
+          color="red"
+        />
       </div>
       <form
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -257,8 +260,9 @@ const CreatePodcastPage = () => {
             <div className=" w-10 h-10  loader mt-2 mb-2 "></div>
           ) : null}
           <input
-            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${Loading?.imageUploading ? "hidden" : ""
-              } `}
+            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+              Loading?.imageUploading ? "hidden" : ""
+            } `}
             id="file"
             name="file"
             type="file"
@@ -335,8 +339,9 @@ const CreatePodcastPage = () => {
             <div className=" w-10 h-10  loader mt-2 mb-2 "></div>
           ) : null}
           <input
-            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${Loading?.fileUploading ? "hidden" : ""
-              }`}
+            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+              Loading?.fileUploading ? "hidden" : ""
+            }`}
             id="file"
             name="file"
             type="file"
