@@ -29,7 +29,7 @@ const Dashboard = () => {
           setAllPodcasts(res.data.podcasts);
         }else 
         {
-          toast.error(res.data.message);
+          toast.error(res.data?.message);
 
         }
         console.log(res.data?.podcasts);

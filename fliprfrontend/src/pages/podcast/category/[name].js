@@ -51,6 +51,7 @@ export async function getStaticProps({ params }) {
       data: parsedData?.podcasts ? parsedData?.podcasts : null,
       category: params.name,
     },
+    revalidate: 60
   };
 }
 
