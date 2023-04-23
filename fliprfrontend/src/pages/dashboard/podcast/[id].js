@@ -5,7 +5,7 @@ import React from "react";
 const id = ({ data }) => {
   console.log(data, " Data is ");
   return (
-    <Layout>
+    <Layout isLogin={1}>
       <div className="w-full">
         {data && <UpdatePodcast podcastData={data} />}
       </div>

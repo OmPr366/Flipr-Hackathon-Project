@@ -62,9 +62,9 @@ const Playlistitem = ({ podcast, isAdmin, index }) => {
             <div className="text-xs md:text-md md:font-bold text-white w-1/6">
                 {podcast?.title}
             </div>
-            <div className="text-white text-xs mr-auto ml-2">
-                {podcast?.description.length > 42
-                    ? podcast?.description.slice(0, 42) + "..."
+            <div className="text-white hidden md:block  text-xs mr-auto ml-2">
+                {podcast?.description.length > 52
+                    ? podcast?.description.slice(0, 52) + "..."
                     : podcast?.description}
             </div>
             <div className="flex ml-auto items-center">

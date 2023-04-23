@@ -6,10 +6,11 @@ import { setFavPodcasts } from "@/utils/Redux/FavPodcastSlice";
 import { setPodcast } from "@/utils/Redux/PodcastSlice";
 import { getPlaylist } from "@/actions/playlist";
 import { setPlaylist } from "@/utils/Redux/PlaylistSlice";
+import { useRouter } from "next/router";
 
-export default function Layout({ children }) {
+export default function Layout({ children , isLogin }) {
   const dispatch = useDispatch();
-
+  const Router = useRouter();
 
 
   const updateCurrentPlaying = () => {
@@ -17,9 +18,8 @@ export default function Layout({ children }) {
     dispatch(setPodcast(currentPlaying));
   };
 
-  const getPlaylistHandler = () => {
-    const userData = JSON.parse(localStorage.getItem("user"));
-    getPlaylist(userData._id).then((res) => {
+  const getPlaylistHandler = (userData) => {
+    getPlaylist(userData?._id).then((res) => {
       if (res.status == 200) {
         console.log(res.data, "All playlists");
         dispatch(setPlaylist(res.data));
@@ -39,9 +39,12 @@ export default function Layout({ children }) {
 
         }
       });
-      getPlaylistHandler();
+      getPlaylistHandler(userData);
     } else {
       dispatch(setFavPodcasts([]));
+      if (isLogin) {
+        Router.push("/login");
+      }
     }
     updateCurrentPlaying();
   }, []);

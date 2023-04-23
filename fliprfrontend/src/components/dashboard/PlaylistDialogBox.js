@@ -37,10 +37,6 @@ export default function PlaylistDialogBox({
   const user = useSelector((state) => state.UserSlice);
 
   const [playlists, setplaylists] = useState([
-    { _id: "6445831685e5ef85117c53bc", title: "Education podcasts" },
-    { _id: "2", title: "Timepass" },
-    { _id: "3", title: "Anime" },
-    { _id: "4", title: "Gaming mood" },
   ]);
 
   const handlePlaylistChange = (e) => {
@@ -55,6 +51,7 @@ export default function PlaylistDialogBox({
   useEffect(() => {
     console.log("Playlist called ");
     const User = JSON.parse(localStorage.getItem("user"));
+    if (!User) return;
     getPlaylist(User?._id).then((res) => {
       console.log("All Playlists ", res);
       // if (res.data)

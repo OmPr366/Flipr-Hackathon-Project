@@ -63,7 +63,7 @@ const PodcastCard = ({ podcast, isAdmin }) => {
         {/* <MusicalNoteIcon color="black" width={20} /> */}
         {/* <VideoCameraIcon color="black" width={20} /> */}
       </div>
-      <div className="relative pb-32  rounded-md overflow-hidden  ">
+      <div className="relative pb-32  rounded-md overflow-hidden " onClick={podcast?.type === "audio" ? openPodcast : redirectPodcast} >
         <Image
           className="absolute inset-0 h-full w-full object-cover ImageBox"
           src={podcast?.image}
