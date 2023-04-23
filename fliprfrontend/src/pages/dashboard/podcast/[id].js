@@ -7,7 +7,8 @@ const id = ({ data }) => {
   return (
     <Layout>
       <div className="w-full">
-        <UpdatePodcast podcastData={data} />
+        {data&&<UpdatePodcast podcastData={data} />}
+        
       </div>
     </Layout>
   );
