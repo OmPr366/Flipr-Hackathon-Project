@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from 'next/image';
 import {
   Navbar,
   MobileNav,
@@ -33,6 +34,7 @@ import { setUser } from "@/utils/Redux/UserSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Input } from "@material-tailwind/react";
+import logo from '../assets/logo.svg'
 // profile menu component
 
 function LoginOptions() {
@@ -86,9 +88,8 @@ function ProfileMenu(props) {
           />
           <ChevronDownIcon
             strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform ${
-              isMenuOpen ? "rotate-180" : ""
-            }`}
+            className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
+              }`}
           />
         </Button>
       </MenuHandler>
@@ -182,10 +183,11 @@ export default function ComplexNavbar() {
   return (
     <div className=" p-2  lg:pl-6 rounded-none  bg-primary-900 border-b-2 border-primary-200 pb-5 ">
       <div className="relative mx-auto flex justify-between items-end text-blue-gray-900">
-        <Link href="/">
-          <p className="text-white text-xl" >Podcaster</p>
-          </Link>
-        
+        <Link href="/" className="flex items-center">
+          <Image alt='logo' src={logo} width={40} height={40} className="mr-2"/>
+          <p className="text-white text-xl" >BuzzTalk</p>
+        </Link>
+
         <IconButton
           size="sm"
           color="blue-gray"
@@ -222,7 +224,7 @@ export default function ComplexNavbar() {
         </div>
       </div>
       <MobileNav open={isNavOpen} className="">
-      <div className="relative flex w-full my-5">
+        <div className="relative flex w-full my-5">
           <Input
             type="text"
             placeholder="Search Podcasts"
