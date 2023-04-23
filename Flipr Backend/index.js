@@ -27,7 +27,7 @@ var corsOptions = {
 };
 
 // linking the router file
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json({ limit: "50mb" }));
 app.use(
     express.urlencoded({
