@@ -268,7 +268,7 @@ export default function PlayerBottom() {
             />
             <PlusCircleIcon
               className="h-8 w-8 cursor-pointer mx-1"
-              color={isFav ? "red" : "white"}
+              color={"white"}
               strokeWidth="1"
               onClick={()=>setopenDialog(true)}
               solid

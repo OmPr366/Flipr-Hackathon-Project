@@ -43,14 +43,15 @@ exports.addPodcastToPlaylist = async (req, res) => {
     return res.status(404).send(`No Podcast with id: ${podcastId}`);
   }
 
-  const NewPlaylist = await Playlist.findByIdAndUpdate(
-    playlistId,
-    { $push: { podcasts: podcastId } },
 
-    {
-      new: true,
-    }
+  // Push Podcast to podcasts in Playlist Model if not already present in it
+
+  const NewPlaylist = await Playlist.findOneAndUpdate(
+    { _id: playlistId, podcasts: { $ne: podcastId } },
+    { $push: { podcasts: podcastId } },
+    { new: true }
   );
+
 
   res.json(NewPlaylist);
 };
