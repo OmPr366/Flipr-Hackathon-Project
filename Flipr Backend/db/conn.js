@@ -4,6 +4,7 @@ mongoose.set("strictQuery", false);
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
+    family: 4,
   })
   .then(() => {
     console.log("Database connected Successful");
