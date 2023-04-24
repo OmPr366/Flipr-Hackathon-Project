@@ -9,8 +9,9 @@ import { setPlaylist } from "@/utils/Redux/PlaylistSlice";
 import { useRouter } from "next/router";
 import { setUser } from "@/utils/Redux/UserSlice";
 import Footer from "./Footer";
+import Head from "next/head";
 
-export default function Layout({ children , isLogin }) {
+export default function Layout({ children , isLogin ,metaTitle ,  metaDesc }) {
   const dispatch = useDispatch();
   const Router = useRouter();
 
@@ -53,6 +54,13 @@ export default function Layout({ children , isLogin }) {
 
   return (
     <div className="pageContainer">
+      <Head>
+        <title>{metaTitle || "BuzzTalk" }</title>
+        <meta name="description" content={metaDesc||"BuzzTalk allows users to listen to both audio and video podcasts. Users can search for their desired podcast, view a list of the most popular podcasts on the main dashboard, and mark podcasts as favorites for easy access later.Create playlists and with curated podcasts, Additionally, users can resume playback of a podcast from where they left off if they need to pause it"} />
+        <link rel="icon" href="https://flipr-hackathon-project.vercel.app/_next/static/media/logo.dccf45df.svg" />
+        
+        
+      </Head>
       <ComplexNavbar />
       <main>{children}</main>
       <Footer/>

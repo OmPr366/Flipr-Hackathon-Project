@@ -6,6 +6,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/utils/Redux/UserSlice";
 import Layout from "@/components/Layout/Layout";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,7 +34,7 @@ export default function Home({ AllPodcasts, popularityPodcasts }) {
   }, []);
 
   return (
-    <Layout>
+    <Layout >
       <div className="">
         <Homepage
           AllPodcasts={AllPodcasts}
