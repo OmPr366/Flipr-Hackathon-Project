@@ -46,7 +46,7 @@ export default function Document() {
     }
     if (data.user) {
       dispatch(setUser(data.user));
-      window.open("http://localhost:3000", "_self");
+      window.open("https://flipr-hackathon-project.vercel.app/", "_self");
     }
   };
   return (
