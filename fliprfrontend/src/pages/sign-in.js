@@ -28,7 +28,7 @@ export default function Document() {
 
   const login = async () => {
     const user = {
-      name: name,
+      email: name,
       password: password,
     };
     const { data } = await axios.post(
@@ -70,7 +70,7 @@ export default function Document() {
                   onClick={() => setusernamealert(false)}
                   onChange={(e) => setName(e.target.value)}
                   size="lg"
-                  label="Name"
+                  label="Email"
                 />
               </div>
               <div>

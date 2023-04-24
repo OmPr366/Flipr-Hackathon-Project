@@ -79,7 +79,7 @@ export default function Document() {
               </div>
               <div>
                 {usernamealert && (
-                  <p className="mb-2 text-red-700">Username already exists*</p>
+                  <p className="mb-2 text-red-700">Email already exists*</p>
                 )}
                 <Input
                   value={name}

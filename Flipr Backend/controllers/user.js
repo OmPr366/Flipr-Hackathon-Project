@@ -2,7 +2,7 @@ const User = require("../model/user");
 
 exports.createUser = async (req, res) => {
     try {
-        const user = await User.findOne({ name: req.body.name });
+        const user = await User.findOne({ email: req.body.email });
         if (user) {
             console.log('exist', user);
             res.status(200).json({ user: null, message: 'user exist' });
@@ -30,7 +30,7 @@ exports.createUser = async (req, res) => {
 
 exports.loginuser = async (req, res) => {
     try {
-        const user = await User.findOne({ name: req.body.name });
+        const user = await User.findOne({ email: req.body.email });
         if (user) {
             if (user.password == req.body.password) {
                 req.logIn(user, function (err) {
