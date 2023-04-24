@@ -9,6 +9,7 @@ import PlayerBottom from "./podcast/PlayerBottom";
 const Playlist = ({ data }) => {
   const router = useRouter();
   const podcast = useSelector((state) => state.PodcastSlice);
+  
 
   useEffect(() => {
     if (!data) {

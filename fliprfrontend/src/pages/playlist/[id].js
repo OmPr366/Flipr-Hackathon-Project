@@ -4,7 +4,7 @@ import React from "react";
 
 const playlist = ({ data }) => {
   return (
-    <Layout>
+    <Layout  >
       <Playlist data={data} />
     </Layout>
   );

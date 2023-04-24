@@ -4,7 +4,7 @@ import React from "react";
 
 const index = ({ data }) => {
   return (
-    <Layout>
+    <Layout metaTitle={data?.title} metaDesc={data?.desc} >
       {data?.fileUrl ? <VideoPodcastPlayer podcast={data} /> : null}
     </Layout>
   );

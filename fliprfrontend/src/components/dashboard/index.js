@@ -5,12 +5,14 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import PlayerBottom from "../podcast/PlayerBottom";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Dashboard = () => {
   
   const userData = useSelector((state) => state.UserSlice);
+  const podcast = useSelector((state) => state.PodcastSlice);
   const [AllPodcasts, setAllPodcasts] = useState([]);
 
   useEffect(() => {
@@ -94,6 +96,7 @@ const Dashboard = () => {
             </Link>
           </div>
         </div>
+        {podcast && <PlayerBottom />}
         </>
   );
 };

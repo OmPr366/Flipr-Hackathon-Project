@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 const Playlistitem = ({ podcast, index ,playlistId }) => {
     const dispatch = useDispatch();
     const { push } = useRouter();
-    // console.log(props.podcast);
+    const [isDeleting, setIsDeleting] = React.useState(false);
 
     const openPodcast = () => {
         dispatch(
@@ -49,15 +49,18 @@ const Playlistitem = ({ podcast, index ,playlistId }) => {
     };
 
     const deletePodcastFromPlaylistHandler = () => {
+        setIsDeleting(true);
         removePodcastFromPlaylist({
             playlistId: playlistId,
             podcastId: podcast?._id
         }).then((res) => {
             if (res.status === 200 || res.status === 201) {
+                setIsDeleting(false);
                 // Reload the page
                 window.location.reload();
 
             }else{
+                setIsDeleting(false);
                 toast.error('Something went wrong');
             }
         }
@@ -88,15 +91,18 @@ const Playlistitem = ({ podcast, index ,playlistId }) => {
                     : podcast?.description}
             </div>
             <div className="flex ml-auto items-center">
-                <TrashIcon className="h-6 w-6 text-white mr-4" onClick={deletePodcastFromPlaylistHandler} />
+                {isDeleting?<div className="loader " style={{
+                    width: "35px",
+                    height: "35px",
+                    marginRight: "0.5rem",
+                }}></div>:<TrashIcon className="h-6 w-6 text-white mr-4" onClick={deletePodcastFromPlaylistHandler} />}
+                
                 <div className="bg-white w-6 h-6 rounded-full justify-center items-center flex">
                     {podcast?.type === "audio" ? (
                         <MusicalNoteIcon color="black" width={18} />
                     ) : (
                         <VideoCameraIcon color="black" width={18} />
                     )}
-                    {/* <MusicalNoteIcon color="black" width={20} /> */}
-                    {/* <VideoCameraIcon color="black" width={20} /> */}
                 </div>
                 <button className="bg-green-600 w-10 h-10 ml-4 rounded-full flex justify-center items-center">
                     <PlayIcon
@@ -106,6 +112,9 @@ const Playlistitem = ({ podcast, index ,playlistId }) => {
                     />
                 </button>
             </div>
+                    
+                    
+
         </div>
     );
 };

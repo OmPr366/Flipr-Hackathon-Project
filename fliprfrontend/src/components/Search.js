@@ -11,15 +11,25 @@ const Search = () => {
   } = router;
 
   const [AllPodcasts, setAllPodcasts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getPodcasts = async () => {
-    const data = await axios.get(
-      `https://fipr-backend.onrender.com/search-podcast/${title}`
-    );
-    if (data) {
-      // console.log(data.data.podcasts);
-      setAllPodcasts(data.data.podcasts);
+    try {
+      const data = await axios.get(
+        `https://fipr-backend.onrender.com/search-podcast/${title}`
+      );
+      if (data) {
+        // console.log(data.data.podcasts);
+        if (data.data.podcasts.length === 0) {
+          setIsLoading(false);
+        }
+        setAllPodcasts(data.data.podcasts);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
     }
+    
   };
 
   useEffect(() => {
@@ -28,8 +38,17 @@ const Search = () => {
 
   return (
     <div>
-      <div className="text-2xl my-10">Showing Results for {title}</div>
-      <AllPodcastSection AllPodcasts={AllPodcasts} />
+      <div className="text-2xl my-10 text-white">
+        Showing Results for {title}
+      </div>
+      {AllPodcasts.length === 0 && !isLoading ? (
+        <div className="text-white text-center pt-12 text-lg ">
+          No Podcasts Found
+        </div>
+      ) :  <AllPodcastSection AllPodcasts={AllPodcasts} />}
+
+      {isLoading?<div className="loader"></div>:null}
+     
     </div>
   );
 };
