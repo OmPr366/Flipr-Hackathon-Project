@@ -1,5 +1,6 @@
 import { getPodcastByUser } from "@/actions/podcast";
 import PodcastCard from "@/components/Cards/PodcastCard";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -74,6 +75,14 @@ const Dashboard = () => {
                 <PodcastCard podcast={podcast} isAdmin={1} />
               </div>
             ))}
+
+            {/* If not AllPodcasts */}
+            {AllPodcasts?.length === 0 && (
+              <div className="text-lg font-bold w-full mt-8 pb-12 text-center text-white ">
+                No Podcasts Added
+
+                </div>
+            )}
           </div>
 
           {/* Add a new podcast  */}

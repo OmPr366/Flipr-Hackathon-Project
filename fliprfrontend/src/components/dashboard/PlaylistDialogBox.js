@@ -29,6 +29,7 @@ export default function PlaylistDialogBox({
   ConfirmText,
   CancelText,
   podcastId,
+  playlists,
 }) {
   const [open, setOpen] = useState(true);
   const [currplayistId, setPLaylistId] = useState("");
@@ -36,8 +37,6 @@ export default function PlaylistDialogBox({
   const [isPlaylistCreating, setIsPlaylistCreating] = useState(false);
   const user = useSelector((state) => state.UserSlice);
 
-  const [playlists, setplaylists] = useState([
-  ]);
 
   const handlePlaylistChange = (e) => {
     setNewPlaylist(e.target.value);
@@ -48,14 +47,7 @@ export default function PlaylistDialogBox({
     setOpen(openDialog);
   }, [openDialog]);
 
-  useEffect(() => {
-    const User = JSON.parse(localStorage.getItem("user"));
-    if (!User) return;
-    getPlaylist(User?._id).then((res) => {
-      // if (res.data)
-      setplaylists(res.data);
-    });
-  }, []);
+  
 
   const handleCancel = () => {
     setOpen(false);
@@ -145,15 +137,18 @@ export default function PlaylistDialogBox({
             <span>{!CancelText ? "Cancel" : CancelText}</span>
           </Button>
           <Button variant="gradient" color="green" onClick={addToPlaylist}>
-            {isPlaylistCreating?
-            <div
-              className="loader w-8 h-8 "
-              style={{
-                height: "22px",
-                width: "22px",
-                margin: "0px 8px",
-              }}
-            ></div>:<span>{!ConfirmText ? "Confirm" : ConfirmText}</span>}
+            {isPlaylistCreating ? (
+              <div
+                className="loader w-8 h-8 "
+                style={{
+                  height: "22px",
+                  width: "22px",
+                  margin: "0px 8px",
+                }}
+              ></div>
+            ) : (
+              <span>{!ConfirmText ? "Confirm" : ConfirmText}</span>
+            )}
           </Button>
         </DialogFooter>
       </Dialog>

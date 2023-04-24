@@ -9,19 +9,22 @@ import {
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { setFavPodcasts } from "@/utils/Redux/FavPodcastSlice";
-import { addToFavoritePodcast } from "@/actions/podcast";
+import { RemoveFavoritePodcast, addToFavoritePodcast } from "@/actions/podcast";
 import PlaylistDialogBox from "../dashboard/PlaylistDialogBox";
 import Link from "next/link";
+import { getPlaylist } from "@/actions/playlist";
 
 const VideoPodcastPlayer = ({ podcast }) => {
   const dispatch = useDispatch()
 
   const audio = useRef(null);
+  const UserData = useSelector((state) => state.UserSlice);
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const FavPodcasts = useSelector((state) => state.FavPodcastSlice);
   const [openDialog, setopenDialog] = useState(false);
+  
 
   useEffect(() => {
     audio.current.addEventListener("timeupdate", handleTimeUpdate);
@@ -35,26 +38,6 @@ const VideoPodcastPlayer = ({ podcast }) => {
       setCurrentTime(0);
     }
   }, []);
-  // useEffect(() => {
-  //   const handleKeyDown = (event) => {
-  //     if (event.code === "Space") {
-  //       event.preventDefault();
-  //       if (audio.current.paused) {
-  //         setIsPlaying(true);
-  //         audio.current.play();
-  //       } else {
-  //         setIsPlaying(false);
-  //         audio.current.pause();
-  //       }
-  //     }
-  //   };
-
-  //   window.addEventListener("keydown", handleKeyDown);
-
-  //   return () => {
-  //     window.removeEventListener("keydown", handleKeyDown);
-  //   };
-  // }, []);
   function handleTimeUpdate() {
     if (audio.current) setCurrentTime(audio.current.currentTime);
   }
@@ -88,7 +71,6 @@ const VideoPodcastPlayer = ({ podcast }) => {
       audio.current.msRequestFullscreen();
     }
   }
-  const progress = duration ? (currentTime / duration) * 100 : 0;
 
 
   // Favorite podcast
@@ -117,9 +99,21 @@ const VideoPodcastPlayer = ({ podcast }) => {
     }
   };
 
+
+
+  const [playlists, setplaylists] = useState([
+  ]);
+
+  useEffect(() => {
+    if (!UserData) return;
+    getPlaylist(UserData?._id).then((res) => {
+      setplaylists(res.data);
+    });
+  }, [UserData]);
+
   return (
     <div>
-      <PlaylistDialogBox handleCancelButton={setopenDialog} openDialog={openDialog} title='Add to Playlist' ConfirmText='Add' />
+      <PlaylistDialogBox handleCancelButton={setopenDialog} openDialog={openDialog} title='Add to Playlist' ConfirmText='Add' podcastId={podcast?._id} />
       <div
         className={`flex justify-center my-2  ${isPlaying ? " " : "md:opacity-20"
           }`}

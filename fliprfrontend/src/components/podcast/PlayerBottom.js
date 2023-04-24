@@ -8,7 +8,6 @@ import {
 import {
   PlayCircleIcon,
   PauseCircleIcon,
-  XMarkIcon,
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 
@@ -23,6 +22,7 @@ import { setFavPodcasts } from "@/utils/Redux/FavPodcastSlice";
 import PlaylistDialogBox from "../dashboard/PlaylistDialogBox";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { getPlaylist } from "@/actions/playlist";
 
 export default function PlayerBottom() {
   const podcast = useSelector((state) => state.PodcastSlice);
@@ -39,6 +39,7 @@ export default function PlayerBottom() {
     audio.current.addEventListener("timeupdate", handleTimeUpdate);
     audio.current.addEventListener("loadedmetadata", handleLoadedMetadata);
   }, [audio.current]);
+
   useEffect(() => {
     const currentPodcast = JSON.parse(localStorage.getItem("currentpodcast"));
 
@@ -63,6 +64,7 @@ export default function PlayerBottom() {
       setCurrentTime(podcast?.currentTime);
     }
   }, [podcast]);
+
   function handleTimeUpdate() {
     const locslStoragePodcast = JSON.parse(
       localStorage.getItem("currentpodcast")
@@ -138,7 +140,6 @@ export default function PlayerBottom() {
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   }
-  const progress = duration ? (podcast?.currentTime / duration) * 100 : 0;
 
   const dispatch = useDispatch();
 
@@ -175,6 +176,16 @@ export default function PlayerBottom() {
     }
   };
 
+  const [playlists, setplaylists] = useState([
+  ]);
+
+  useEffect(() => {
+    if (!UserData) return;
+    getPlaylist(UserData?._id).then((res) => {
+      setplaylists(res.data);
+    });
+  }, [UserData]);
+
   return (
     <div className="fixed bottom-0 right-0 px-2 lg:px-10 py-3  bg-primary-800 border-primary-200 border-t-2 z-40 w-full  flex justify-between  text-white h-24 md:h-20">
       <audio ref={audio} src={podcast?.fileUrl} />
@@ -184,6 +195,7 @@ export default function PlayerBottom() {
         title="Add to Playlist"
         ConfirmText="Add"
         podcastId={podcast?._id}
+        playlists={playlists}
       />
       <div className="flex justify-start  md:w-1/2">
         <Image
@@ -293,6 +305,7 @@ export default function PlayerBottom() {
                 className="h-8 w-8 cursor-pointer mx-1"
                 color={isFav ? "red" : "white"}
                 strokeWidth="1"
+                onClick={LikeCickHandler}
               />
             )}
             {!UserData ? (
