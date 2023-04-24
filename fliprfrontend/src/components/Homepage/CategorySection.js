@@ -88,7 +88,7 @@ const CategorySection = () => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
         },
       },
     ],
@@ -103,7 +103,7 @@ const CategorySection = () => {
         <Slider {...settings} arrows={false} >
           {categories?.map((item, index) => (
             <div key={index}>
-              <div className="mb-5 mr-5 flex justify-center items-center ">
+              <div className="mb-5  flex justify-center items-center ">
                 <CategoryCard item={item} />
               </div>
             </div>

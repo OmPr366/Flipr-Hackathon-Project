@@ -13,18 +13,18 @@ import { useRouter } from "next/navigation";
 const CategoryCard = ({ item }) => {
   return (
     <Link href={`/podcast/category/${item?.name.toLowerCase()}`}>
-    <div className=" shadow-lg rounded-lg overflow-hidden p-3 w-40   cursor-pointer border podcastCard    ">
-      <div className="relative pb-32  rounded-md overflow-hidden  ">
+    <div className=" shadow-lg rounded-lg overflow-hidden p-3 w-32 lg:w-40   cursor-pointer border podcastCard    ">
+      <div className="relative pb-24  rounded-md overflow-hidden  ">
         
         <Image
           className="absolute inset-0 h-full w-full object-cover ImageBox opacity-60   "
           src={item?.image}
           alt={item?.name}
-          width={600}
-          height={600}
+          width={100}
+          height={100}
         />
         <div
-          className="text-xl font-bold flex items-center justify-center  text-white absolute"
+          className="text-md lg:text-xl font-bold flex items-center justify-center  text-white absolute"
           style={{
             Zindex: 999,
             width: "100%",

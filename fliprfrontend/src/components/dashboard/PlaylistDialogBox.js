@@ -111,7 +111,9 @@ export default function PlaylistDialogBox({
       <Dialog
         open={open}
         handler={handleOkayButton}
-        className="bg-primary-800 "
+        className="bg-primary-800 lg:hidden "
+        // Dynamic size
+        size = "default"
       >
         <DialogHeader className="text-white border-none">{title}</DialogHeader>
         <DialogBody>

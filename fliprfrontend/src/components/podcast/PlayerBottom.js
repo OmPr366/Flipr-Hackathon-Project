@@ -21,7 +21,6 @@ import { setPodcast } from "@/utils/Redux/PodcastSlice";
 import Image from "next/image";
 import { RemoveFavoritePodcast, addToFavoritePodcast } from "@/actions/podcast";
 import { setFavPodcasts } from "@/utils/Redux/FavPodcastSlice";
-import DialogBox from "../dashboard/DialogBox";
 import PlaylistDialogBox from "../dashboard/PlaylistDialogBox";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -34,8 +33,8 @@ export default function PlayerBottom() {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [openDialog, setopenDialog] = useState(false);
+  const [isUSer, setIsUser] = useState(JSON.parse(localStorage.getItem("user")));
 
-  const isUSer = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     audio.current.addEventListener("timeupdate", handleTimeUpdate);
@@ -157,7 +156,7 @@ export default function PlayerBottom() {
   const LikeCickHandler = async () => {
     const User = JSON.parse(localStorage.getItem("user"));
     if (!User) {
-      toast.error("Login to this to your favorite list");
+      toast.error("Login to add to your favorite list");
       return;
     }
     if (!isFav) {
@@ -236,8 +235,8 @@ export default function PlayerBottom() {
               color={"white"}
               strokeWidth="1"
               onClick={() => {
-                if (isUSer) {
-                  toast.error("Login to this to your playlist");
+                if (!isUSer) {
+                  toast.error("Login to add to your playlist");
                   return;
                 }
                 setopenDialog(true);
@@ -271,7 +270,7 @@ export default function PlayerBottom() {
                     strokeWidth: 1,
                   })}
             </div>
-            {isUSer ? (
+            {!isUSer ? (
               <Popover
                 animate={{
                   mount: { scale: 1, y: -20 },
@@ -303,7 +302,7 @@ export default function PlayerBottom() {
                 strokeWidth="1"
               />
             )}
-            {isUSer ? (
+            {!isUSer ? (
               <Popover
                 animate={{
                   mount: { scale: 1, y: -20 },
