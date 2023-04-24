@@ -18,6 +18,8 @@ export default function Document() {
   const [password, setPassword] = useState("");
   const [usernamealert, setusernamealert] = useState(false);
   const [emailalert, setemailalert] = useState(false);
+  const [namealert, setnamealert] = useState(false);
+  const [passalert, setpassalert] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -32,10 +34,19 @@ export default function Document() {
   };
 
   const signup = async () => {
-    if (!validateEmail(email)) {
+    if (!name) {
+      setnamealert(true);
+      return;
+    }
+    else if (!password) {
+      setpassalert(true);
+      return;
+    }
+    else if (!validateEmail(email)) {
       setemailalert(true);
       return;
-    } else {
+    }
+    else {
       const user = {
         name: name,
         password: password,
@@ -74,26 +85,30 @@ export default function Document() {
                 )}
                 <Input
                   value={email}
-                  onClick={() => setemailalert(false)}
+                  onClick={() => {setemailalert(false);setusernamealert(false)}}
                   onChange={(e) => setEmail(e.target.value)}
                   size="lg"
                   label="Email"
                 />
               </div>
               <div>
-                {usernamealert && (
-                  <p className="mb-2 text-red-700">Email already exists*</p>
+                {namealert && (
+                  <p className="mb-2 text-red-700">Enter name*</p>
                 )}
                 <Input
                   value={name}
-                  onClick={() => setusernamealert(false)}
+                  onClick={() => setnamealert(false)}
                   onChange={(e) => setName(e.target.value)}
                   size="lg"
                   label="Name"
                 />
               </div>
+              {passalert && (
+                  <p className="mb-2 text-red-700">Enter Password*</p>
+                )}
               <Input
                 value={password}
+                onClick={() => setpassalert(false)}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 size="lg"
