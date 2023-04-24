@@ -125,7 +125,7 @@ export default function PlaylistDialogBox({
             />
           </div>
           <div className="flex flex-col">
-            {playlists.map((item, index) => (
+            {playlists?.map((item, index) => (
               <div className="flex items-center mb-2" key={index}>
                 <input
                   className="mr-2 leading-tight text-white"

@@ -52,7 +52,7 @@ const CategorySection = () => {
     infinite: false,
     speed: 500,
     slidesToShow: 7,
-    slidesToScroll: 2,
+    slidesToScroll: 1,
     width: "100%",
     responsive: [
       {
@@ -100,7 +100,7 @@ const CategorySection = () => {
           Categories
         </div>
 
-        <Slider {...settings}>
+        <Slider {...settings} arrows={false} >
           {categories?.map((item, index) => (
             <div key={index}>
               <div className="mb-5 mr-5 flex justify-center items-center ">

@@ -21,9 +21,10 @@ import { setPodcast } from "@/utils/Redux/PodcastSlice";
 import Image from "next/image";
 import { RemoveFavoritePodcast, addToFavoritePodcast } from "@/actions/podcast";
 import { setFavPodcasts } from "@/utils/Redux/FavPodcastSlice";
-import DialogBox from "./dashboard/DialogBox";
-import PlaylistDialogBox from "./dashboard/PlaylistDialogBox";
+import DialogBox from "../dashboard/DialogBox";
+import PlaylistDialogBox from "../dashboard/PlaylistDialogBox";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function PlayerBottom() {
   const podcast = useSelector((state) => state.PodcastSlice);
@@ -155,6 +156,10 @@ export default function PlayerBottom() {
 
   const LikeCickHandler = async () => {
     const User = JSON.parse(localStorage.getItem("user"));
+    if (!User) {
+      toast.error("Login to this to your favorite list");
+      return;
+    }
     if (!isFav) {
       setIsFav(true);
       addToFavoritePodcast({
@@ -179,7 +184,7 @@ export default function PlayerBottom() {
   };
 
   return (
-    <div className="fixed bottom-0 right-0 px-10 py-3  bg-primary-800 border-primary-200 border-t-2 z-40 w-full  flex justify-between text-white h-24 md:h-20">
+    <div className="fixed bottom-0 right-0 px-2 lg:px-10 py-3  bg-primary-800 border-primary-200 border-t-2 z-40 w-full  flex justify-between  text-white h-24 md:h-20">
       <audio ref={audio} src={podcast?.fileUrl} />
       <PlaylistDialogBox
         handleCancelButton={setopenDialog}
@@ -188,7 +193,7 @@ export default function PlayerBottom() {
         ConfirmText="Add"
         podcastId={podcast?._id}
       />
-      <div className="flex justify-start mr-10 md:w-1/2">
+      <div className="flex justify-start  md:w-1/2">
         <Image
           src={podcast.image}
           width={100}
@@ -201,9 +206,9 @@ export default function PlayerBottom() {
           <p className="text-sm text-gray-300">By :- {podcast?.authorName}.</p>
         </div>
       </div>
-      <div className="w-full flex md:justify-end md:flex-row flex-col justify-between">
-        <div className="md:hidden flex items-center justify-between">
-          <div className="flex flex-col w-full">
+      <div className="w-full flex md:justify-end md:flex-row flex-col  justify-between">
+        <div className="md:hidden flex  justify-between">
+          <div className="flex flex-col w-full ml-2 ">
             <h2 className="md:text-xl text-xs">{podcast.title}</h2>
             <p className="text-xs text-gray-300">{podcast?.authorName}</p>
           </div>
@@ -230,22 +235,30 @@ export default function PlayerBottom() {
               className="h-8 w-8 cursor-pointer mx-1"
               color={"white"}
               strokeWidth="1"
-              onClick={() => setopenDialog(true)}
+              onClick={() => {
+                if (isUSer) {
+                  toast.error("Login to this to your playlist");
+                  return;
+                }
+                setopenDialog(true);
+              }}
               solid
             />
           </div>
         </div>
         <div className="md:my-2 md:w-full flex justify-center items-center">
-          <span>{formatTime(currentTime)}</span>
-          <input
-            className="w-full mx-2 bg-gray-300 rounded-full overflow-hidden"
-            type="range"
-            min={0}
-            max={duration}
-            value={currentTime}
-            onChange={handleSeek}
-          />
-          <span>{formatTime(duration)}</span>
+          <div className="w-full  flex text-sm lg:text-md ">
+            <span>{formatTime(currentTime)}</span>
+            <input
+              className="w-full mx-2 bg-gray-300 rounded-full overflow-hidden"
+              type="range"
+              min={0}
+              max={duration}
+              value={currentTime}
+              onChange={handleSeek}
+            />
+            <span>{formatTime(duration)}</span>
+          </div>
           <div className="hidden md:flex justify-center my-2">
             <div className="cursor-pointer mx-1 ml-5" onClick={handlePlayPause}>
               {audioisPlaying

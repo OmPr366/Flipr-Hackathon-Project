@@ -4,7 +4,7 @@ import axios from "axios";
 import AllPodcastSection from "./Homepage/AllPodcastSection";
 import { useRouter } from "next/router";
 import Playlistrow from "./Plalylistrow";
-import PlayerBottom from "./PlayerBottom";
+import PlayerBottom from "./podcast/PlayerBottom";
 
 const Playlist = ({ data }) => {
   const router = useRouter();

@@ -8,7 +8,7 @@ const AllPodcastSection = ({ AllPodcasts, title }) => {
     infinite: false,
     speed: 500,
     slidesToShow: 7,
-    slidesToScroll: 2,
+    slidesToScroll: 1,
     width: "100%",
     responsive: [
       {
@@ -55,7 +55,7 @@ const AllPodcastSection = ({ AllPodcasts, title }) => {
         <div className="mt-5">
           <div className="text-2xl font-bold text-white mt-5 mb-8 ">{title}</div>
 
-          <Slider {...settings}>
+          <Slider {...settings} arrows={false} >
             {AllPodcasts?.map((podcast) => (
               <div key={podcast._id}>
                 <div className="mb-5 mr-5 flex justify-center items-center ">
