@@ -8,7 +8,6 @@ import {
 import {
   PlayCircleIcon,
   PauseCircleIcon,
-  XMarkIcon,
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 
@@ -293,6 +292,7 @@ export default function PlayerBottom() {
                 className="h-8 w-8 cursor-pointer mx-1"
                 color={isFav ? "red" : "white"}
                 strokeWidth="1"
+                onClick={LikeCickHandler}
               />
             )}
             {!UserData ? (
