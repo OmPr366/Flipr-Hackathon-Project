@@ -113,7 +113,7 @@ const VideoPodcastPlayer = ({ podcast }) => {
 
   return (
     <div>
-      <PlaylistDialogBox handleCancelButton={setopenDialog} openDialog={openDialog} title='Add to Playlist' ConfirmText='Add' podcastId={podcast?._id} />
+      <PlaylistDialogBox handleCancelButton={setopenDialog} openDialog={openDialog} title='Add to Playlist' ConfirmText='Add' podcastId={podcast?._id} playlists={playlists} />
       <div
         className={`flex justify-center my-2  ${isPlaying ? " " : "md:opacity-20"
           }`}
