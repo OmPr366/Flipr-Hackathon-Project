@@ -1,5 +1,4 @@
-import Layout from "@/components/Layout";
-import ComplexNavbar from "@/components/Navbar";
+import Layout from "@/components/Layout/Layout";
 import { setUser } from "@/utils/Redux/UserSlice";
 import {
   Card,
@@ -37,7 +36,6 @@ export default function Document() {
       user,
       { withCredentials: true }
     );
-    console.log(data);
     if (data.message == "password incorrect") {
       setpassalert(true);
       return;

@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setFavPodcasts } from "@/utils/Redux/FavPodcastSlice";
 import { addToFavoritePodcast } from "@/actions/podcast";
 import PlaylistDialogBox from "../dashboard/PlaylistDialogBox";
+import Link from "next/link";
 
 const VideoPodcastPlayer = ({ podcast }) => {
   const dispatch = useDispatch()
@@ -20,7 +21,7 @@ const VideoPodcastPlayer = ({ podcast }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const FavPodcasts = useSelector((state) => state.FavPodcastSlice);
-  const [openDialog, setopenDialog] = useState(true);
+  const [openDialog, setopenDialog] = useState(false);
 
   useEffect(() => {
     audio.current.addEventListener("timeupdate", handleTimeUpdate);
@@ -101,7 +102,6 @@ const VideoPodcastPlayer = ({ podcast }) => {
         userId: User._id,
       }).then((res) => {
         if (res.status == 200) {
-          console.log(res.data, "All podcasts");
           dispatch(setFavPodcasts([...FavPodcasts, podcast]));
         }
       });
@@ -127,7 +127,7 @@ const VideoPodcastPlayer = ({ podcast }) => {
         <video ref={audio} src={podcast.fileUrl} className="md:w-3/4 w-full" />
       </div>
       <div className="relative">
-        <div className="my-2 flex justify-center items-center bottom-10">
+        <div className="my-2 flex justify-center items-center bottom-10 text-white text-md">
           <span>{formatTime(currentTime)}</span>
           <input
             className="w-full mx-2 bg-gray-300 rounded-full overflow-hidden"
@@ -158,20 +158,22 @@ const VideoPodcastPlayer = ({ podcast }) => {
             onClick={LikeCickHandler}
 
           />
-          <ArrowsPointingOutIcon onClick={toggleFullScreen} strokeWidth="1" className="ml-2 h-10 w-10 cursor-pointer" />
           <PlusCircleIcon
-            className="h-8 w-8 cursor-pointer mx-1"
+            className="h-10 w-10 cursor-pointer mx-1"
             color={isFav ? "red" : "white"}
             strokeWidth="1"
             onClick={() => setopenDialog(true)}
-            solid
           />
+          <ArrowsPointingOutIcon onClick={toggleFullScreen} strokeWidth="1" className="ml-2 h-10 w-10 cursor-pointer" color="white"  />
+          
         </div>
         <div className="md:hidden w-full">
           <div>
-            <h2 className="text-2xl">{podcast.title}</h2>
-            <p className="mt-2 text-gray-600">{podcast.authorName}</p>
-            <p className="mt-4">{podcast.description}.</p>
+            <h2 className="text-2xl text-white">{podcast.title}</h2>
+            <Link href={`/podcast/category/${podcast?.category}`}>
+            <p className="text-sm text-primary-100  ">#{podcast?.category}</p></Link>
+            <p className=" text-gray-600">{podcast.authorName}</p>
+            <p className="mt-4 text-white">{podcast.description}.</p>
           </div>
         </div>
       </div>

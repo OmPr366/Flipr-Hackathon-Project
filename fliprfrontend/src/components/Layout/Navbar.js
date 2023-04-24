@@ -34,7 +34,7 @@ import { setUser } from "@/utils/Redux/UserSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Input } from "@material-tailwind/react";
-import logo from "../assets/logo.svg";
+import logo from "../../assets/logo.svg";
 // profile menu component
 
 function LoginOptions() {

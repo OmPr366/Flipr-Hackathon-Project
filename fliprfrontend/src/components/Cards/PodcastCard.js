@@ -6,7 +6,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPodcast } from "@/utils/Redux/PodcastSlice";
 import { useRouter } from "next/navigation";
 import { incrementPodcastViews } from "@/actions/podcast";
@@ -16,6 +16,7 @@ const PodcastCard = ({ podcast, isAdmin }) => {
   const { push } = useRouter();
   // console.log(props.podcast);
 
+  const UserData = useSelector((state) => state.UserSlice);
   const openPodcast = () => {
     dispatch(
       setPodcast({
@@ -32,21 +33,19 @@ const PodcastCard = ({ podcast, isAdmin }) => {
         isplaying: true,
       })
     );
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
+    if (UserData) {
     incrementPodcastViews({
       podcastId: podcast?._id,
-      userId : user?._id
+      userId : UserData?._id
     })
     }
   };
 
   const redirectPodcast = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
+    if (UserData) {
     incrementPodcastViews({
       podcastId: podcast?._id,
-      userId : user?._id
+      userId : UserData?._id
     })
     }
     push(`/podcast/${podcast?._id}`);

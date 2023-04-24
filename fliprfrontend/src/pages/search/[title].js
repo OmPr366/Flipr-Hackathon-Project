@@ -1,13 +1,13 @@
-import Layout from '@/components/Layout'
-import Search from '@/components/Search'
-import React from 'react'
+import Layout from "@/components/Layout/Layout";
+import Search from "@/components/Search";
+import React from "react";
 
 const search = () => {
-    return (
-        <Layout>
-            <Search  />
-        </Layout>
-    )
-}
+  return (
+    <Layout>
+      <Search />
+    </Layout>
+  );
+};
 
-export default search
+export default search;

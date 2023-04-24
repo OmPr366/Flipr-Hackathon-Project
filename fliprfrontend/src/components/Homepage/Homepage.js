@@ -1,5 +1,3 @@
-import PodcastCard from "@/components/Cards/PodcastCard";
-import Player from "@/components/Player";
 import PlayerBottom from "@/components/podcast/PlayerBottom";
 import { useState } from "react";
 import { useSelector } from "react-redux";

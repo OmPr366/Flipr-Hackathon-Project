@@ -1,9 +1,8 @@
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout/Layout";
 import UpdatePodcast from "@/components/dashboard/UpdatePodcast";
 import React from "react";
 
 const id = ({ data }) => {
-  console.log(data, " Data is ");
   return (
     <Layout isLogin={1}>
       <div className="w-full">

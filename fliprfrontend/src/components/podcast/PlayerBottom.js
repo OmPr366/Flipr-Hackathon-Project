@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import ComplexNavbar from "@/components/Navbar";
 import {
   Popover,
   PopoverHandler,
@@ -28,12 +27,12 @@ import { toast } from "react-toastify";
 export default function PlayerBottom() {
   const podcast = useSelector((state) => state.PodcastSlice);
   const FavPodcasts = useSelector((state) => state.FavPodcastSlice);
+  const UserData = useSelector((state) => state.UserSlice);
   const audio = useRef(null);
   const [audioisPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [openDialog, setopenDialog] = useState(false);
-  const [isUSer, setIsUser] = useState(JSON.parse(localStorage.getItem("user")));
 
 
   useEffect(() => {
@@ -58,7 +57,6 @@ export default function PlayerBottom() {
   }, []);
 
   useEffect(() => {
-    // console.log("useEffect ", podcast);
     if (podcast?.isplaying && audio.current) {
       audio.current.play();
       setIsPlaying(true);
@@ -114,10 +112,6 @@ export default function PlayerBottom() {
           currentTime: audio.current.currentTime,
         })
       );
-      console.log(
-        "handlePlayPause ",
-        JSON.parse(localStorage.getItem("currentpodcast"))
-      );
       dispatch(
         setPodcast({
           ...podcast,
@@ -166,7 +160,6 @@ export default function PlayerBottom() {
         userId: User._id,
       }).then((res) => {
         if (res.status == 200) {
-          console.log(res.data, "All podcasts");
           dispatch(setFavPodcasts([...FavPodcasts, podcast]));
         }
       });
@@ -235,7 +228,7 @@ export default function PlayerBottom() {
               color={"white"}
               strokeWidth="1"
               onClick={() => {
-                if (!isUSer) {
+                if (!UserData) {
                   toast.error("Login to add to your playlist");
                   return;
                 }
@@ -270,7 +263,7 @@ export default function PlayerBottom() {
                     strokeWidth: 1,
                   })}
             </div>
-            {!isUSer ? (
+            {!UserData ? (
               <Popover
                 animate={{
                   mount: { scale: 1, y: -20 },
@@ -302,7 +295,7 @@ export default function PlayerBottom() {
                 strokeWidth="1"
               />
             )}
-            {!isUSer ? (
+            {!UserData ? (
               <Popover
                 animate={{
                   mount: { scale: 1, y: -20 },

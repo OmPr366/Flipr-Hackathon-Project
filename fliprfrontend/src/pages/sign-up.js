@@ -1,4 +1,3 @@
-import ComplexNavbar from "@/components/Navbar";
 import {
   Card,
   Input,
@@ -11,7 +10,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/utils/Redux/UserSlice";
 import Link from "next/link";
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout/Layout";
 
 export default function Document() {
   const [name, setName] = useState("");
@@ -47,7 +46,6 @@ export default function Document() {
         user,
         { withCredentials: true }
       );
-      console.log(data);
       if (data.message == "user exist") {
         setusernamealert(true);
         return;

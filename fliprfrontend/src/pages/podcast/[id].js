@@ -1,9 +1,8 @@
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout/Layout";
 import VideoPodcastPlayer from "@/components/podcast/VideoPodcastPlayer";
 import React from "react";
 
 const index = ({ data }) => {
-  console.log(data, " Data is ");
   return (
     <Layout>
       {data?.fileUrl ? <VideoPodcastPlayer podcast={data} /> : null}
