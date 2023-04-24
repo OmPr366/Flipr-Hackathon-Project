@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout/Layout";
 import CreatePodcastPage from "@/components/dashboard/CreatePodcast";
 import React from "react";
 

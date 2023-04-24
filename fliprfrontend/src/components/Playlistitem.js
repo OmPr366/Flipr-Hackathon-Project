@@ -20,7 +20,6 @@ const Playlistitem = ({ podcast, index ,playlistId }) => {
     // console.log(props.podcast);
 
     const openPodcast = () => {
-        console.log('open');
         dispatch(
             setPodcast({
                 ...podcast,
@@ -39,7 +38,6 @@ const Playlistitem = ({ podcast, index ,playlistId }) => {
     };
 
     const redirectPodcast = () => {
-        console.log('redirect');
         const user = JSON.parse(localStorage.getItem("user"));
         if (user) {
             incrementPodcastViews({
@@ -51,7 +49,6 @@ const Playlistitem = ({ podcast, index ,playlistId }) => {
     };
 
     const deletePodcastFromPlaylistHandler = () => {
-        console.log('delete');
         removePodcastFromPlaylist({
             playlistId: playlistId,
             podcastId: podcast?._id

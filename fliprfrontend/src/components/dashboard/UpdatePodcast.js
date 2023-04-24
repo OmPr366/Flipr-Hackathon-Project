@@ -69,7 +69,6 @@ const UpdatePodcast = ({ podcastData }) => {
       podcastCreating: true,
     });
 
-    console.log(podcastInputData);
     updatePodcastInDatabase(podcastInputData, podcastData._id).then((res) => {
       if (res.error) {
         toast.error(res.message);
@@ -97,7 +96,6 @@ const UpdatePodcast = ({ podcastData }) => {
       imageUploading: true,
     });
     try {
-      console.log(e.target.files[0]);
       const file = e.target.files[0];
       const formData = new FormData();
       formData.append("file", file);
@@ -110,7 +108,6 @@ const UpdatePodcast = ({ podcastData }) => {
           },
         }
       );
-      console.log(response.data);
       if (response) {
         setLoading({
           ...Loading,
@@ -152,9 +149,7 @@ const UpdatePodcast = ({ podcastData }) => {
       ...Loading,
       fileUploading: true,
     });
-    console.log(e.target.files[0]);
     try {
-      console.log(e.target.files[0]);
       const file = e.target.files[0];
       const formData = new FormData();
       formData.append("file", file);
@@ -162,7 +157,6 @@ const UpdatePodcast = ({ podcastData }) => {
         "https://fipr-backend.onrender.com/api/upload/upload-image",
         formData
       );
-      console.log(response.data);
       setPodcastInputData({
         ...podcastInputData,
         fileUrl: response.data.url,
@@ -191,7 +185,7 @@ const UpdatePodcast = ({ podcastData }) => {
         userId: userData._id,
       });
     } else {
-      Router.push("/login");
+      Router.push("/sign-in");
     }
   }, []);
 
@@ -285,13 +279,17 @@ const UpdatePodcast = ({ podcastData }) => {
             id="category"
             name="category"
             required
-            value={podcastInputData.category}
+            value={podcastInputData?.category}
             onChange={inputChangeHandler}
           >
             <option value="">Select category</option>
+            <option value="Sports">Sports</option>
+            <option value="Technology">Technology</option>
+            <option value="Lifestyle">Lifestyle</option>
+            <option value="Current affairs">Current affairs</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Business">Business</option>
             <option value="Comedy">Comedy</option>
-            <option value="News">News</option>
-            <option value="Education">Education</option>
           </select>
         </div>
         <div className="mb-4">

@@ -10,26 +10,21 @@ const Playlist = ({ data }) => {
   const router = useRouter();
   const podcast = useSelector((state) => state.PodcastSlice);
 
-  //   const getPodcasts = async () => {
-  //     const data = await axios.get(
-  //       `https://fipr-backend.onrender.com/search-podcast/${title}`
-  //     );
-  //     console.log(data);
-  //     if (data) {
-  //       // console.log(data.data.podcasts);
-  //       setAllPodcasts(data.data.podcasts);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     getPodcasts();
-  //   }, [title]);
+  useEffect(() => {
+    if (!data) {
+      // router.push("/404");
+    }
+  }, []);
 
   return (
     <div>
       <div className="text-2xl mt-5 mb-2 text-white">{data?.title}</div>
       <div className="text-gray-500">{data?.authorName}</div>
-      <Playlistrow AllPodcasts={data?.podcasts} playlistId={data?._id} />
+      {data?.podcasts?.length > 0 ? (
+        <Playlistrow AllPodcasts={data?.podcasts} playlistId={data?._id} />
+      ) : (
+        <div className="text-white text-center pt-12 text-lg ">No Podcasts</div>
+      )}
       {podcast && <PlayerBottom />}
     </div>
   );

@@ -49,11 +49,9 @@ export default function PlaylistDialogBox({
   }, [openDialog]);
 
   useEffect(() => {
-    console.log("Playlist called ");
     const User = JSON.parse(localStorage.getItem("user"));
     if (!User) return;
     getPlaylist(User?._id).then((res) => {
-      console.log("All Playlists ", res);
       // if (res.data)
       setplaylists(res.data);
     });
@@ -72,12 +70,10 @@ export default function PlaylistDialogBox({
     const User = JSON.parse(localStorage.getItem("user"));
     setIsPlaylistCreating(true);
     if (currplayistId) {
-      console.log("Add to playlist ", currplayistId);
       addPodcastToPlaylist({
         playlistId: currplayistId,
         podcastId,
       }).then((res) => {
-        console.log("Playlist created ", res);
         if (res.status == 200) {
           toast.success("Podcast added to playlist");
           setOpen(false);
@@ -85,18 +81,12 @@ export default function PlaylistDialogBox({
         setIsPlaylistCreating(false);
       });
     } else {
-      console.log("Add to playlist ", newPlaylist);
-      //     "title": "Test Playlist",
-      // "authorName": "Om Prakash",
-      // "userId": "644301bcd95c6375f8274f73",
-      // "podcastId": "6443b4f80b8c4b1a427c6e8a"
       createPlaylistInDatabase({
         title: newPlaylist,
         authorName: User?.name,
         userId: User?._id,
         podcastId,
       }).then((res) => {
-        console.log("Playlist created ", res);
         if (res.status == 201) {
           toast.success("Podcast added to playlist");
           setOpen(false);
@@ -111,9 +101,8 @@ export default function PlaylistDialogBox({
       <Dialog
         open={open}
         handler={handleOkayButton}
-        className="bg-primary-800 lg:hidden "
+        className="bg-primary-800 "
         // Dynamic size
-        size = "default"
       >
         <DialogHeader className="text-white border-none">{title}</DialogHeader>
         <DialogBody>

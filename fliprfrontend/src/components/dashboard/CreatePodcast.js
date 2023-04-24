@@ -58,7 +58,6 @@ const CreatePodcastPage = () => {
       podcastCreating: true,
     });
 
-    console.log(podcastInputData);
     createPodcastInDatabase(podcastInputData).then((res) => {
       if (res.error) {
         toast.error(res.message);
@@ -97,7 +96,6 @@ const CreatePodcastPage = () => {
       imageUploading: true,
     });
     try {
-      console.log(e.target.files[0]);
       const file = e.target.files[0];
       const formData = new FormData();
       formData.append("file", file);
@@ -110,7 +108,6 @@ const CreatePodcastPage = () => {
           },
         }
       );
-      console.log(response.data);
       if (response) {
         setLoading({
           ...Loading,
@@ -152,9 +149,7 @@ const CreatePodcastPage = () => {
       ...Loading,
       fileUploading: true,
     });
-    console.log(e.target.files[0]);
     try {
-      console.log(e.target.files[0]);
       const file = e.target.files[0];
       const formData = new FormData();
       formData.append("file", file);
@@ -162,7 +157,6 @@ const CreatePodcastPage = () => {
         "https://fipr-backend.onrender.com/api/upload/upload-image",
         formData
       );
-      console.log(response.data);
       setPodcastInputData({
         ...podcastInputData,
         fileUrl: response.data.url,
@@ -195,7 +189,7 @@ const CreatePodcastPage = () => {
         userId: userData._id,
       });
     } else {
-      Router.push("/login");
+      Router.push("/sign-in");
     }
   }, []);
 

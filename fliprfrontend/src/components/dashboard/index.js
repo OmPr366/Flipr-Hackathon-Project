@@ -8,15 +8,8 @@ import { toast } from "react-toastify";
 // import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Dashboard = () => {
-  const podcasts = [
-    { id: 1, name: "Podcast 1", description: "This is the first podcast" },
-    { id: 2, name: "Podcast 2", description: "This is the second podcast" },
-    { id: 3, name: "Podcast 3", description: "This is the third podcast" },
-    { id: 31, name: "Podcast 3", description: "This is the third podcast" },
-    { id: 32, name: "Podcast 3", description: "This is the third podcast" },
-    { id: 33, name: "Podcast 3", description: "This is the third podcast" },
-    { id: 34, name: "Podcast 3", description: "This is the third podcast" },
-  ];
+  
+  const userData = useSelector((state) => state.UserSlice);
   const [AllPodcasts, setAllPodcasts] = useState([]);
 
   useEffect(() => {
@@ -32,7 +25,6 @@ const Dashboard = () => {
           toast.error(res.data?.message);
 
         }
-        console.log(res.data?.podcasts);
       });
     }
   }, []);
@@ -55,10 +47,10 @@ const Dashboard = () => {
             />
           </div>
           <div className="text-xl font-bold text-white mt-2">
-            User Name - Om Prakash
+            Name - {userData?.name}
           </div>
           <div className="text-lg font-bold text-white mt-2">
-            User Email - om@gmail.com
+            Email - {userData?.email}
           </div>
         </div>
 

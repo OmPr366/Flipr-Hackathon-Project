@@ -1,10 +1,9 @@
 import PodcastCard from "@/components/Cards/PodcastCard";
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout/Layout";
 import VideoPodcastPlayer from "@/components/podcast/VideoPodcastPlayer";
 import React from "react";
 
 const index = ({ data, category }) => {
-  console.log(data, " Data is ");
   return (
     <Layout>
       {/* Title -  Search Results for Category  */}
@@ -40,7 +39,6 @@ const index = ({ data, category }) => {
 };
 
 export async function getStaticProps({ params }) {
-  console.log(params, " Params is ");
   const fetchData = await fetch(
     `https://fipr-backend.onrender.com/api/podcast/get-podcast-bycategory/${params.name}`
   );

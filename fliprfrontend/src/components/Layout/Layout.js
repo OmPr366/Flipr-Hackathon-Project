@@ -7,6 +7,8 @@ import { setPodcast } from "@/utils/Redux/PodcastSlice";
 import { getPlaylist } from "@/actions/playlist";
 import { setPlaylist } from "@/utils/Redux/PlaylistSlice";
 import { useRouter } from "next/router";
+import { setUser } from "@/utils/Redux/UserSlice";
+import Footer from "./Footer";
 
 export default function Layout({ children , isLogin }) {
   const dispatch = useDispatch();
@@ -21,7 +23,6 @@ export default function Layout({ children , isLogin }) {
   const getPlaylistHandler = (userData) => {
     getPlaylist(userData?._id).then((res) => {
       if (res.status == 200) {
-        console.log(res.data, "All playlists");
         dispatch(setPlaylist(res.data));
       }
     });
@@ -31,9 +32,9 @@ export default function Layout({ children , isLogin }) {
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData) {
+      dispatch(setUser(userData))
       getUserFavoritePodcasts(userData._id).then((res) => {
         if (res.status == 200) {
-          console.log(res.data, "All podcasts");
           dispatch(setFavPodcasts(res.data?.podcasts?.favourites));
           // create an array of fav podcasts Id and then set it to local storage
 
@@ -43,8 +44,9 @@ export default function Layout({ children , isLogin }) {
     } else {
       dispatch(setFavPodcasts([]));
       if (isLogin) {
-        Router.push("/login");
+        Router.push("/sign-in");
       }
+      dispatch(setUser(null))
     }
     updateCurrentPlaying();
   }, []);
@@ -53,6 +55,7 @@ export default function Layout({ children , isLogin }) {
     <div className="pageContainer">
       <ComplexNavbar />
       <main>{children}</main>
+      <Footer/>
     </div>
   );
 }

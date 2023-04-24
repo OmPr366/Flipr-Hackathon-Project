@@ -16,7 +16,6 @@ const Search = () => {
     const data = await axios.get(
       `https://fipr-backend.onrender.com/search-podcast/${title}`
     );
-    console.log(data);
     if (data) {
       // console.log(data.data.podcasts);
       setAllPodcasts(data.data.podcasts);
