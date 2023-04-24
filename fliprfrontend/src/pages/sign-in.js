@@ -18,6 +18,12 @@ export default function Document() {
   const [password, setPassword] = useState("");
   const [passalert, setpassalert] = useState(false);
   const [usernamealert, setusernamealert] = useState(false);
+  const [emptyalert, setemptyalert] = useState(false);
+  const [emailalert, setemailalert] = useState(false);
+
+  const validateEmail = (email) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
 
   const signIn = () => {
     window.open(
@@ -27,26 +33,36 @@ export default function Document() {
   };
 
   const login = async () => {
-    const user = {
-      email: name,
-      password: password,
-    };
-    const { data } = await axios.post(
-      `https://fipr-backend.onrender.com/login-user`,
-      user,
-      { withCredentials: true }
-    );
-    if (data.message == "password incorrect") {
-      setpassalert(true);
+    if (!validateEmail(name)) {
+      setemailalert(true);
       return;
     }
-    if (data.message == "sign-up first") {
-      setusernamealert(true);
+    else if (!password) {
+      setemptyalert(true);
       return;
     }
-    if (data.user) {
-      dispatch(setUser(data.user));
-      window.open("https://flipr-hackathon-project.vercel.app/", "_self");
+    else {
+      const user = {
+        email: name,
+        password: password,
+      };
+      const { data } = await axios.post(
+        `https://fipr-backend.onrender.com/login-user`,
+        user,
+        { withCredentials: true }
+      );
+      if (data.message == "password incorrect") {
+        setpassalert(true);
+        return;
+      }
+      if (data.message == "sign-up first") {
+        setusernamealert(true);
+        return;
+      }
+      if (data.user) {
+        dispatch(setUser(data.user));
+        window.open("https://flipr-hackathon-project.vercel.app/", "_self");
+      }
     }
   };
   return (
@@ -65,9 +81,12 @@ export default function Document() {
                 {usernamealert && (
                   <p className="mb-2 text-red-700">Sign-Up First*</p>
                 )}
+                {emailalert && (
+                  <p className="mb-2 text-red-700">Invalid Email*</p>
+                )}
                 <Input
                   value={name}
-                  onClick={() => setusernamealert(false)}
+                  onClick={() => { setusernamealert(false); setemailalert(false) }}
                   onChange={(e) => setName(e.target.value)}
                   size="lg"
                   label="Email"
@@ -77,9 +96,12 @@ export default function Document() {
                 {passalert && (
                   <p className="mb-2 text-red-700">Incorrect Password*</p>
                 )}
+                {emptyalert && (
+                  <p className="mb-2 text-red-700">Enter Password*</p>
+                )}
                 <Input
                   value={password}
-                  onClick={() => setpassalert(false)}
+                  onClick={() => { setpassalert(false); setemptyalert(false) }}
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   size="lg"
