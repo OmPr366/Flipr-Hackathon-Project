@@ -29,10 +29,11 @@ Users have access to Dashboard where they can create or add new podcasts, along 
 
 ---
 ## Technologies Used
-- Front-end: Nextjs, Material-Tailwind, Redux toolkit
+- Front-end: Nextjs, Tailwind, Redux toolkit
 - Back-end: Node.js, Express.js, MongoDB
 - Authentication: Passport.js
 - File Uploads: Cloudinary
+- Hosting: Vercel, Render
 ---
 ## Future Improvements
 
