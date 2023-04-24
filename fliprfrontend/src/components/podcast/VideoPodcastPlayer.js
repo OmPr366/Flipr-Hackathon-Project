@@ -154,7 +154,7 @@ const VideoPodcastPlayer = ({ podcast }) => {
           />
           <PlusCircleIcon
             className="h-10 w-10 cursor-pointer mx-1"
-            color={isFav ? "red" : "white"}
+            color={"white"}
             strokeWidth="1"
             onClick={() => setopenDialog(true)}
           />
