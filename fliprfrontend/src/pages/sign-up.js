@@ -69,6 +69,9 @@ export default function Document() {
                 {emailalert && (
                   <p className="mb-2 text-red-700">Invalid email*</p>
                 )}
+                {usernamealert && (
+                  <p className="mb-2 text-red-700">Email already exists*</p>
+                )}
                 <Input
                   value={email}
                   onClick={() => setemailalert(false)}
